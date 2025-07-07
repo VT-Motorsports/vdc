@@ -38,13 +38,17 @@ Into Command Prompt:
 ```git clone --single-branch --branch c https://github.com/Dav1dde/glad.git```
 ### Installing GLFW
 Into Command Prompt:
-```git clone https://github.com/glfw/glfw.git```
+```
+git clone https://github.com/glfw/glfw.git
+```
 Building (Windows):
-```cd wherever_youve_installed_this\vdc\lib\GLFW```
-```mkdir build```
-```cd build```
-```cmake .. -G "MinGW Makefiles"```
-```mingw32-make```
+```
+cd wherever_youve_installed_this\vdc\lib\GLFW
+mkdir build
+cd build
+cmake .. -G "MinGW Makefiles"
+mingw32-make
+```
 ### Installing ImGui
 ```git clone https://github.com/ocornut/imgui.git```
 ### Installing ImPlot
