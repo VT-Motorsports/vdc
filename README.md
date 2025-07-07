@@ -7,12 +7,16 @@ MinGW: Build windows binaries (.exe) from makefiles
 Download from https://git-scm.com/downloads
 Run executable to install Git
 Check functionality by opening up Command Prompt and running:
-```git --help```
+```
+git --help
+```
 ### Installing CMake
 Download from https://cmake.org/download/
 Run executable to install CMake
 Check functionality by opening up Command Prompt and running:
-```cmake --help```
+```
+cmake --help
+```
 ### Installing MinGW
 Download MinGW (Win32) from winlibs (NOT the out-of-date sourceforge installer)
 Make C:\MinGW folder
@@ -20,7 +24,9 @@ Dump the contents of .zip subfolder mingw32 into C:\MinGW
 Make sure C:\MinGW\bin exists
 Add C:\MinGW\bin to (USER, not SYSTEM) Path environment variable
 Check functionality by opening up (or restarting) Command Prompt and running:
-```mingw32-make --help```
+```
+mingw32-make --help
+```
 
 # Required Libraries (for VDC)
 Required libraries for this project (**install under vdc\lib**) are:
@@ -32,10 +38,14 @@ Required libraries for this project (**install under vdc\lib**) are:
 **json**: Read/write .json files
 ### Installing Armadillo
 Into Command Prompt:
-```git clone https://gitlab.com/conradsnicta/armadillo-code.git``` 
+```
+git clone https://gitlab.com/conradsnicta/armadillo-code.git
+```
 ### Installing glad
 Into Command Prompt:
-```git clone --single-branch --branch c https://github.com/Dav1dde/glad.git```
+```
+git clone --single-branch --branch c https://github.com/Dav1dde/glad.git
+```
 ### Installing GLFW
 Into Command Prompt:
 ```
@@ -50,8 +60,14 @@ cmake .. -G "MinGW Makefiles"
 mingw32-make
 ```
 ### Installing ImGui
-```git clone https://github.com/ocornut/imgui.git```
+```
+git clone https://github.com/ocornut/imgui.git
+```
 ### Installing ImPlot
-```git clone https://github.com/epezent/implot.git```
+```
+git clone https://github.com/epezent/implot.git
+```
 ### Installing json
-```git clone https://github.com/nlohmann/json.git```
+```
+git clone https://github.com/nlohmann/json.git
+```
