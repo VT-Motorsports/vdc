@@ -16,6 +16,9 @@ using namespace arma;
 
 // Includes
 #include "src/gui_backend.hpp"
+#include "src/tire/gui_tire.hpp"
+#include "src/ymd/gui_ymd.hpp"
+#include "src/lts/gui_lts.hpp"
 
 int main(){
 	start_window();
