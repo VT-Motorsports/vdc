@@ -14,12 +14,24 @@ using namespace std;
 #include <implot.h>
 using namespace arma;
 
-// Includes
+// Includes - Common
 #include "src/gui_backend.hpp"
 #include "src/which_gui.hpp"
 #include "src/gui_base.hpp"
+
+// Includes - Objects
+#include "src/obj/vehicle.hpp"
+//#include "src/obj/fx.hpp"
+//#include "src/obj/fy.hpp"
+#include "src/obj/fz.hpp"
+
+// Includes - Tire
 #include "src/tire/gui_tire.hpp"
+
+// Includes - YMD
 #include "src/ymd/gui_ymd.hpp"
+
+// Includes - LTS
 #include "src/lts/gui_lts.hpp"
 		
 int main(){
