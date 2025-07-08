@@ -16,15 +16,30 @@ using namespace arma;
 
 // Includes
 #include "src/gui_backend.hpp"
+#include "src/which_gui.hpp"
+#include "src/gui_base.hpp"
 #include "src/tire/gui_tire.hpp"
 #include "src/ymd/gui_ymd.hpp"
 #include "src/lts/gui_lts.hpp"
-
+		
 int main(){
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {
 		new_frame();
-		// GUI here
+		switch (current_gui) {
+			case base:
+				gui_base();
+				break;
+			case tire:
+				gui_tire();
+				break;
+			case ymd:
+				gui_ymd();
+				break;
+			case lts:
+				gui_lts();
+				break;
+		}
 		render_frame();
 	}
 	end_window();

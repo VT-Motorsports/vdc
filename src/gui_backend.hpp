@@ -5,7 +5,7 @@ inline GLFWwindow* graphics_window;
 inline ImGuiWindowFlags window_flags;
 inline int gui_width = 1280;
 inline int gui_height = 720;
-inline string gui_title = "VTM_YMD - VTMotorsports' Yaw Moment Diagram Tool";
+inline string gui_title = "VTMotorsports' Vehicle Dynamics Collection";
 
 inline void start_window() {
     if (!glfwInit()) {
