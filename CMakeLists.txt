@@ -48,12 +48,6 @@ add_executable(vdc main.cpp
         ${IMGUI_SOURCES}
         ${IMPLOT_SOURCES}
         ${GLAD_SOURCES}
-        src/gui_backend.hpp
-        src/which_gui.hpp
-        src/gui_base.hpp
-		src/tire/gui_tire.hpp
-		src/ymd/gui_ymd.hpp
-		src/lts/gui_lts.hpp
 )
 
 target_link_libraries(vdc ${GLFW_LIBRARY})

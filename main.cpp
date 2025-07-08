@@ -12,12 +12,9 @@ using namespace std;
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <implot.h>
+#include <nlohmann/json.hpp>
 using namespace arma;
-
-// Includes - Common
-#include "src/gui_backend.hpp"
-#include "src/which_gui.hpp"
-#include "src/gui_base.hpp"
+using json = nlohmann::json;
 
 // Includes - Objects
 #include "src/obj/vehicle.hpp"
@@ -29,18 +26,27 @@ using namespace arma;
 #include "src/tire/gui_tire.hpp"
 
 // Includes - YMD
+#include "src/ymd/load_json_file.hpp"
+#include "src/ymd/load_vehicle.hpp"
 #include "src/ymd/gui_ymd.hpp"
+#include "src/gui_base.hpp"
 
 // Includes - LTS
 #include "src/lts/gui_lts.hpp"
-		
+
+// Includes - Common
+#include "src/gui_backend.hpp"
+#include "src/which_gui.hpp"
+#include "src/gui_base.hpp"
+
 int main(){
+	vehicle car;
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {
 		new_frame();
 		switch (current_gui) {
 			case base:
-				gui_base();
+				gui_base(car);
 				break;
 			case tire:
 				gui_tire();

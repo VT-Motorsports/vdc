@@ -1,11 +1,11 @@
 #ifndef FZ_HPP
 #define FZ_HPP
 
-inline class fz {
+class fz {
 public:
 	fz(){
 
 	}
-}
+};
 
 #endif
