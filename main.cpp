@@ -17,12 +17,14 @@ using namespace arma;
 using json = nlohmann::json;
 
 // Includes - Objects
-#include "src/obj/vehicle.hpp"
 //#include "src/obj/fx.hpp"
 //#include "src/obj/fy.hpp"
 #include "src/obj/fz.hpp"
+#include "src/obj/vehicle.hpp"
+#include "src/obj/tire_data.hpp"
 
 // Includes - Tire
+#include "src/tire/load_dat_cornering.hpp"
 #include "src/tire/gui_tire.hpp"
 
 // Includes - YMD
@@ -41,12 +43,13 @@ using json = nlohmann::json;
 
 int main(){
 	vehicle car;
+	tire_data td;
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {
 		new_frame();
 		switch (current_gui) {
 			case base:
-				gui_base(car);
+				gui_base(car, td);
 				break;
 			case tire:
 				gui_tire();
