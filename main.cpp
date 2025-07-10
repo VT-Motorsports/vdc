@@ -24,6 +24,7 @@ using json = nlohmann::json;
 #include "src/obj/tire_data.hpp"
 
 // Includes - Tire
+#include "src/tire/load_dat_drivebrake.hpp"
 #include "src/tire/load_dat_cornering.hpp"
 #include "src/tire/gui_tire.hpp"
 
