@@ -6,6 +6,8 @@ public:
 	// Global
 	vec load; // Load cases [N]
 	vec camber; // Camber [deg]
+	vector<string> load_label;
+	vector<string> camber_label;
 	// c - Cornering
 	field<vec> c_sa; // Slip angle [deg]
 	field<vec> c_ia; // Inclination angle [deg]
@@ -25,7 +27,9 @@ public:
 
 	tire_data(){
 		load = vec({-222, -445, -667, -889, -1112});
+		load_label = {"50lb","100lb","150lb","200lb","250lb"};
 		camber = vec({0, -2, -4});
+		camber_label = {"0°","-2°","-4°"};
 		c_sa.set_size(load.n_elem, camber.n_elem);
 		c_ia.set_size(load.n_elem, camber.n_elem);
 		c_p.set_size(load.n_elem, camber.n_elem);

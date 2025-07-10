@@ -22,6 +22,9 @@ using json = nlohmann::json;
 #include "src/obj/fz.hpp"
 #include "src/obj/vehicle.hpp"
 #include "src/obj/tire_data.hpp"
+#include "src/obj/io_flags.hpp"
+#include "src/obj/gui_io.hpp"
+#include "src/obj/which_gui.hpp"
 
 // Includes - Tire
 #include "src/tire/load_dat_drivebrake.hpp"
@@ -39,21 +42,20 @@ using json = nlohmann::json;
 
 // Includes - Common
 #include "src/gui_backend.hpp"
-#include "src/which_gui.hpp"
 #include "src/gui_base.hpp"
 
 int main(){
-	vehicle car;
-	tire_data td;
+	gui_io io;
+	
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {
 		new_frame();
 		switch (current_gui) {
 			case base:
-				gui_base(car, td);
+				gui_base(io);
 				break;
 			case tire:
-				gui_tire();
+				gui_tire(io);
 				break;
 			case ymd:
 				gui_ymd();

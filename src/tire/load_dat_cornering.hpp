@@ -42,11 +42,11 @@ void load_dat_cornering(tire_data &td, const string file_path, double pres){
 	for (int i = 0; i < td.load.n_elem; ++i){
 		for (int j = 0; j < td.camber.n_elem; ++j){
 			const uvec indices = find(
-				(body_small.col(2) >= pres / pres_range) % 
-				(body_small.col(2) <= pres * pres_range) %
-				(body_small.col(4) <= td.load(i) / load_range) % 
-				(body_small.col(4) >= td.load(i) * load_range) %
-				(body_small.col(1) >= -td.camber(j) - cam_range) % 
+				(body_small.col(2) >= pres / pres_range) && 
+				(body_small.col(2) <= pres * pres_range) &&
+				(body_small.col(4) >= td.load(i) * load_range) &&
+				(body_small.col(4) <= td.load(i) / load_range) && 
+				(body_small.col(1) >= -td.camber(j) - cam_range) && 
 				(body_small.col(1) <= -td.camber(j) + cam_range)
 				);
 			const mat lat_data = body_small.rows(indices);
