@@ -16,7 +16,7 @@ public:
 		sc = 0.6;
 	}
 	
-	vector<double> get_fx(const double &cam, const double &load, const vector<double> &sr){
+	vector<double> get_fx(const double &load, const double &cam, const vec &sr){
 		vector<double> fx(sr.size());
 		const double fzn = load; // Fz in Newtons
 		const double fzkn = fzn / 1000; // Fz in Kilonewtons
@@ -34,13 +34,13 @@ public:
 			const double Hs = H * sb;
 			const double Vs = V * sb;
 			const double Es = E;
-			const double Bx1s = Bs * (sr[i] + Hs);
+			const double Bx1s = Bs * (sr(i) + Hs);
 			fx[i] = Ds * sin(Cs * atan(Bx1s - Es * (Bx1s - atan(Bx1s)))) + Vs;
 		}
 		return fx;
 	}
 	
-	vector<double> get_fy(const double &cam, const double &load, const vector<double> &sr){
+	vector<double> get_fy(const double &load, const double &cam, const vec &sa){
 		vector<double> fy(sa.size());
 		const double fzn = load; // Fz in Newtons
 		const double fzkn = fzn / 1000; // Fz in Kilonewtons
@@ -58,13 +58,13 @@ public:
 			const double Hs = H * sa;
 			const double Vs = V * sa;
 			const double Es = E;
-			const double Bx1s = Bs * (sa[i] + Hs);
+			const double Bx1s = Bs * (sa(i) + Hs);
 			fy[i] = Ds * sin(Cs * atan(Bx1s - Es * (Bx1s - atan(Bx1s)))) + Vs;
 		}
 		return fy;
 	}
 	
-	vector<double> get_fy(const double &cam, const double &load, const vector<double> &sr){
+	vector<double> get_fy(const double &load, const double &cam, const vec &sa){
 		vector<double> fy(sa.size());
 		const double fzn = load; // Fz in Newtons
 		const double fzkn = fzn / 1000; // Fz in Kilonewtons
@@ -82,7 +82,7 @@ public:
 			const double Hs = H * sc;
 			const double Vs = V * sc;
 			const double Es = E;
-			const double Bx1s = Bs * (sa[i] + Hs);
+			const double Bx1s = Bs * (sa(i) + Hs);
 			mz[i] = Ds * sin(Cs * atan(Bx1s - Es * (Bx1s - atan(Bx1s)))) + Vs;
 		}
 		return mz;
