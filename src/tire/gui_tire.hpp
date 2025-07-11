@@ -52,6 +52,34 @@ inline void gui_tire(gui_io &io){
 	}
 	ImPlot::EndSubplots();
 	ImGui::EndChild();
+	
+	
+	const ImVec2 selector_frame = ImVec2(130, ImGui::GetContentRegionAvail().y);
+	ImGui::BeginChild("##", selector_frame, true);
+	{
+		ImGui::RadioButton("fx Fit", &io.flags.tire_plot_type, 0);
+		ImGui::RadioButton("fy Fit", &io.flags.tire_plot_type, 1);
+		ImGui::RadioButton("mz Fit", &io.flags.tire_plot_type, 2);
+	}
+	ImGui::EndChild();
+	ImGui::SameLine();
+	
+	const ImVec2 variables_frame = ImGui::GetContentRegionAvail();
+	ImGui::BeginChild("##", selector_frame, true);
+	{
+		switch (io.flags.tire_plot_type) {
+			case 0: // FX
+				break;
+			case 1: // FY
+				break;
+			case 2: // MZ
+				break;
+			default: 
+				break;
+		}
+	}
+	ImGui::EndChild();
+	ImGui::SameLine();
 }
 
 #endif
