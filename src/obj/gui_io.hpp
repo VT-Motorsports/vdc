@@ -5,7 +5,7 @@ struct gui_io {
 	io_flags flags;
 	vehicle car;
 	tire_data td;
-	// tire_model tm;
+	tire_model tm;
 };
 
 #endif

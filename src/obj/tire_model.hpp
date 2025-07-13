@@ -3,17 +3,17 @@
 
 class tire_model {
 public:
-	// Pacejka Coefficients
+	// Pacejka Coefficients, Scales
 	vec a, b, c;
-	double sa, sb, sc;
+	double as, bs, cs;
 	
 	tire_model(){
 		a = {1.20, 0, 2.0, 400, 1, 0, 1, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		b = {1.5, 0.9, 3.0, 0, -60, -0.300, 0, 0, -2, 0, 0, 0, 0, 0, 0.010, 0.25};
 		c = {2.20, -0.025, 0.025, -220, 20.0, 0.050, -0.60, -2.00, 0.20, 0, 0.20, 0, 0, -12.0, -20.0, 0.007, -0.10, 0};
-		sa = 0.6;
-		sb = 0.7;
-		sc = 0.6;
+		as = 0.6;
+		bs = 0.7;
+		cs = 0.6;
 	}
 	
 	vector<double> get_fx(const double &load, const double &cam, const vec &sr){
@@ -29,10 +29,10 @@ public:
 			const double V = b[11] * fzn + b[12];
 			const double E = (b[6] * fzkn * fzkn + b[7] * fzkn + b[8]) * (1 - (b[15] * cam) - b[13] * sign(sr[i] + H));
 			const double Cs = C;
-			const double Ds = D * sb;
-			const double Bs = B / sb;
-			const double Hs = H * sb;
-			const double Vs = V * sb;
+			const double Ds = D * bs;
+			const double Bs = B / bs;
+			const double Hs = H * bs;
+			const double Vs = V * bs;
 			const double Es = E;
 			const double Bx1s = Bs * (sr(i) + Hs);
 			fx[i] = Ds * sin(Cs * atan(Bx1s - Es * (Bx1s - atan(Bx1s)))) + Vs;
@@ -53,10 +53,10 @@ public:
 			const double V = a[11] * fzn + a[12] + (a[13] * fzkn + a[14]) * cam * fzkn;
 			const double E = (a[6] * fzkn + a[7]) * (1 - (a[16] * cam + a[17]));
 			const double Cs = C;
-			const double Ds = D * sa;
-			const double Bs = B / sa;
-			const double Hs = H * sa;
-			const double Vs = V * sa;
+			const double Ds = D * as;
+			const double Bs = B / as;
+			const double Hs = H * as;
+			const double Vs = V * as;
 			const double Es = E;
 			const double Bx1s = Bs * (sa(i) + Hs);
 			fy[i] = Ds * sin(Cs * atan(Bx1s - Es * (Bx1s - atan(Bx1s)))) + Vs;
@@ -64,8 +64,8 @@ public:
 		return fy;
 	}
 	
-	vector<double> get_fy(const double &load, const double &cam, const vec &sa){
-		vector<double> fy(sa.size());
+	vector<double> get_mz(const double &load, const double &cam, const vec &sa){
+		vector<double> mz(sa.size());
 		const double fzn = load; // Fz in Newtons
 		const double fzkn = fzn / 1000; // Fz in Kilonewtons
 		for (int i = 0; i < sa.size(); i++) {
@@ -77,10 +77,10 @@ public:
 			const double V = c[11] * fzn + c[12] + (c[13] * fzkn + c[14]) * cam * fzkn;
 			const double E = (c[6] * fzkn + c[7]) * (1 - (c[16] * cam + c[17]));
 			const double Cs = C;
-			const double Ds = D * sc;
-			const double Bs = B / sc;
-			const double Hs = H * sc;
-			const double Vs = V * sc;
+			const double Ds = D * cs;
+			const double Bs = B / cs;
+			const double Hs = H * cs;
+			const double Vs = V * cs;
 			const double Es = E;
 			const double Bx1s = Bs * (sa(i) + Hs);
 			mz[i] = Ds * sin(Cs * atan(Bx1s - Es * (Bx1s - atan(Bx1s)))) + Vs;

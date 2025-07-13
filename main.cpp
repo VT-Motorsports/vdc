@@ -22,6 +22,7 @@ using json = nlohmann::json;
 #include "src/obj/fz.hpp"
 #include "src/obj/vehicle.hpp"
 #include "src/obj/tire_data.hpp"
+#include "src/obj/tire_model.hpp"
 #include "src/obj/io_flags.hpp"
 #include "src/obj/gui_io.hpp"
 #include "src/obj/which_gui.hpp"

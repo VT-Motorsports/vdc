@@ -27,9 +27,9 @@ inline void gui_tire(gui_io &io){
 					ImPlot::SetupAxis(ImAxis_Y1, "FX [N]", y_axis_flags);
 					x_data = io.td.db_sr(i, j);
 					y_data = io.td.db_fx(i, j);
-					x_model = linspace(-0.14, 0.14, 100);
+					x_model = linspace(-0.17, 0.14, 100);
 					y_model = io.tm.get_fx(io.td.load(i), io.td.camber(j), x_model);
-					y_model_unscaled = y_model / io.tm.sb;
+					y_model_unscaled = y_model / io.tm.bs;
 					break;
 				case 1: // FY
 					ImPlot::SetupAxis(ImAxis_X1, "SA [°]", x_axis_flags);
@@ -38,7 +38,7 @@ inline void gui_tire(gui_io &io){
 					y_data = io.td.c_fy(i, j);
 					x_model = linspace(-12, 12, 100);
 					y_model = io.tm.get_fy(io.td.load(i), io.td.camber(j), x_model);
-					y_model_unscaled = y_model / io.tm.sa;
+					y_model_unscaled = y_model / io.tm.as;
 					break;
 				case 2: // MZ
 					ImPlot::SetupAxis(ImAxis_X1, "SA [°]", x_axis_flags);
@@ -47,7 +47,7 @@ inline void gui_tire(gui_io &io){
 					y_data = io.td.c_mz(i, j);
 					x_model = linspace(-12, 12, 100);
 					y_model = io.tm.get_mz(io.td.load(i), io.td.camber(j), x_model);
-					y_model_unscaled = y_model / io.tm.sc;
+					y_model_unscaled = y_model / io.tm.cs;
 					break;
 				default: 
 					break;
@@ -79,8 +79,8 @@ inline void gui_tire(gui_io &io){
 	ImGui::EndChild();
 	
 	
-	const ImVec2 selector_frame = ImVec2(130, ImGui::GetContentRegionAvail().y);
-	ImGui::BeginChild("##", selector_frame, true);
+	const ImVec2 selector_frame = ImVec2(110, ImGui::GetContentRegionAvail().y);
+	ImGui::BeginChild("##selectors", selector_frame, true);
 	{
 		ImGui::RadioButton("fx Fit", &io.flags.tire_plot_type, 0);
 		ImGui::RadioButton("fy Fit", &io.flags.tire_plot_type, 1);
@@ -90,10 +90,50 @@ inline void gui_tire(gui_io &io){
 	ImGui::SameLine();
 	
 	const ImVec2 variables_frame = ImGui::GetContentRegionAvail();
-	ImGui::BeginChild("##", selector_frame, true);
+	ImGui::BeginChild("##variables", variables_frame, true);
 	{
+		ImGui::PushItemWidth(130);
 		switch (io.flags.tire_plot_type) {
 			case 0: // FX
+				ImGui::BeginGroup(); 
+				ImGui::InputDouble("b0", &io.tm.b[0], 0.01f, 0.1f, "%.3f");
+				ImGui::SetItemTooltip("b0: Shape factor [-]");
+				ImGui::InputDouble("b1", &io.tm.b[1], 0.01f, 0.1f, "%.3f");
+				ImGui::SetItemTooltip("b1: Load influence on lateral friction coefficient [-/kN]");
+				ImGui::InputDouble("b2", &io.tm.b[2], 0.01f, 0.1f, "%.3f");
+				ImGui::SetItemTooltip("b2: Longitudinal friction coefficient [-]");
+				ImGui::InputDouble("b3", &io.tm.b[3], 10.0f, 100.0f, "%.0f");
+				ImGui::SetItemTooltip("b3: Curvature factor of stiffness/load [N/-/kN+2]");
+				ImGui::EndGroup();
+				ImGui::SameLine();
+				ImGui::BeginGroup(); 
+				ImGui::InputDouble("b4", &io.tm.b[4], 1.0f, 10.0f, "%.1f");
+				ImGui::SetItemTooltip("b4: Change of stiffness with slip [N/-]");
+				ImGui::InputDouble("b5", &io.tm.b[5], 0.001f, 0.01f, "%.3f");
+				ImGui::SetItemTooltip("b5: Change of progressivity of stiffness / load [-/kN]");
+				ImGui::InputDouble("b6", &io.tm.b[6], 0.01f, 0.1f, "%.2f");
+				ImGui::SetItemTooltip("b6: Curvature change with load^2 [-/kN+2]");
+				ImGui::InputDouble("b7", &io.tm.b[7], 0.01f, 0.1f, "%.2f");
+				ImGui::SetItemTooltip("b7: Curvature change with load [-/kN]");
+				ImGui::EndGroup();
+				ImGui::SameLine();
+				ImGui::BeginGroup(); 
+				ImGui::InputDouble("b8", &io.tm.b[8], 0.01f, 0.1f, "%.2f");
+				ImGui::SetItemTooltip("b8: Curvature factor [-]");
+				ImGui::InputDouble("b9", &io.tm.b[9], 0.01f, 0.1f, "%.2f");
+				ImGui::SetItemTooltip("b9: Load influence on horizontal shift [-/kN]");
+				ImGui::InputDouble("b10", &io.tm.b[10], 0.01f, 0.1f, "%.2f");
+				ImGui::SetItemTooltip("b10: Horizontal shift [-]");
+				ImGui::InputDouble("b11", &io.tm.b[11], 1.0f, 10.0f, "%.0f");
+				ImGui::SetItemTooltip("b11: Vertical shift [N]");
+				ImGui::EndGroup();
+				ImGui::SameLine();
+				ImGui::BeginGroup(); 
+				ImGui::InputDouble("b12", &io.tm.b[12], 0.1f, 1.0f, "%.1f");
+				ImGui::SetItemTooltip("b12: Vertical shift at load = 0 [N]");
+				ImGui::InputDouble("b13", &io.tm.b[13], 0.1f, 1.0f, "%.1f");
+				ImGui::SetItemTooltip("b13: Curvature shift");
+				ImGui::EndGroup();
 				break;
 			case 1: // FY
 				break;
@@ -102,9 +142,9 @@ inline void gui_tire(gui_io &io){
 			default: 
 				break;
 		}
+		ImGui::PopItemWidth();
 	}
 	ImGui::EndChild();
-	ImGui::SameLine();
 }
 
 #endif
