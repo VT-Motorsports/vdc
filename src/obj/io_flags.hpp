@@ -10,7 +10,7 @@ public:
 	io_flags(){
 		is_tc_loaded = false;
 		is_tdb_loaded = false;
-		tire_plot_type = 0;
+		tire_plot_type = 3;
 	}
 };
 
