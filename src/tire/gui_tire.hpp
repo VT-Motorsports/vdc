@@ -99,109 +99,214 @@ inline void gui_tire(gui_io &io){
 	ImGui::BeginChild("##variables", variables_frame, true);
 	{
 		static int ind = 10;
+    static int num_consts;
+    static ivec precision;
+    static fvec add_min, add_max;
+    static field<string> num_label;
+    static field<string> input_label;
+    static field<string> tip_label;
 		ImGui::PushItemWidth(130);
 		switch (io.flags.tire_plot_type) {
 			case 0: // FX
-				ImGui::BeginGroup(); 
-				ImGui::InputDouble("b0", &io.tm.b[0], 0.01f, 0.1f, "%.3f");
-				ImGui::SetItemTooltip("b0: Shape factor [-]");
-				ImGui::InputDouble("b1", &io.tm.b[1], 0.01f, 0.1f, "%.3f");
-				ImGui::SetItemTooltip("b1: Load influence on longitudinal friction coefficient [-/kN]");
-				ImGui::InputDouble("b2", &io.tm.b[2], 0.01f, 0.1f, "%.3f");
-				ImGui::SetItemTooltip("b2: Longitudinal friction coefficient [-]");
-				ImGui::InputDouble("b3", &io.tm.b[3], 10.0f, 100.0f, "%.0f");
-				ImGui::SetItemTooltip("b3: Curvature factor of stiffness/load [N/-/kN+2]");
-				ImGui::EndGroup();
-				ImGui::SameLine();
-				ImGui::BeginGroup(); 
-				ImGui::Indent(ind);
-				ImGui::InputDouble("b4", &io.tm.b[4], 1.0f, 10.0f, "%.1f");
-				ImGui::SetItemTooltip("b4: Change of stiffness with slip [N/-]");
-				ImGui::InputDouble("b5", &io.tm.b[5], 0.001f, 0.01f, "%.3f");
-				ImGui::SetItemTooltip("b5: Change of progressivity of stiffness / load [-/kN]");
-				ImGui::InputDouble("b6", &io.tm.b[6], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("b6: Curvature change with load^2 [-/kN+2]");
-				ImGui::InputDouble("b7", &io.tm.b[7], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("b7: Curvature change with load [-/kN]");
-				ImGui::EndGroup();
-				ImGui::SameLine();
-				ImGui::BeginGroup(); 
-				ImGui::Indent(ind);
-				ImGui::InputDouble("b8", &io.tm.b[8], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("b8: Curvature factor [-]");
-				ImGui::InputDouble("b9", &io.tm.b[9], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("b9: Load influence on horizontal shift [-/kN]");
-				ImGui::InputDouble("b10", &io.tm.b[10], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("b10: Horizontal shift [-]");
-				ImGui::InputDouble("b11", &io.tm.b[11], 1.0f, 10.0f, "%.0f");
-				ImGui::SetItemTooltip("b11: Vertical shift [N]");
-				ImGui::EndGroup();
-				ImGui::SameLine();
-				ImGui::BeginGroup();  
-				ImGui::Indent(ind);
-				ImGui::InputDouble("b12", &io.tm.b[12], 0.1f, 1.0f, "%.1f");
-				ImGui::SetItemTooltip("b12: Vertical shift at load = 0 [N]");
-				ImGui::InputDouble("b13", &io.tm.b[13], 0.1f, 1.0f, "%.1f");
-				ImGui::SetItemTooltip("b13: Curvature shift");
-				ImGui::EndGroup();
+        // Test out if vectors are more easily usable for repeated code
+        precision = ivec({
+            +2,
+            +2,
+            +2,
+            -3,
+
+            +0,
+            +2,
+            +1,
+            +1,
+
+            +1,
+            +3,
+            +3,
+            +1,
+
+            +1,
+            +1,
+            +3,
+            +2
+            }); 
+        tip_label = {
+          "b0: Shape factor [-]",
+          "b1: Load influence on longitudinal friction coefficient [-/kN]",
+          "b2: Longitudinal friction coefficient [-]",
+          "b3: Curvature factor of stiffness/load [N/-/kN+2]",
+          "b4: Change of stiffness with slip [N/-]",
+          "b5: Change of progressivity of stiffness / load [-/kN]",
+          "b6: Curvature change with load^2 [-/kN+2]",
+          "b7: Curvature change with load [-/kN]",
+          "b8: Curvature factor [-]",
+          "b9: Load influence on horizontal shift [-/kN]",
+          "b10: Horizontal shift [-]",
+          "b11: Vertical shift [N]",
+          "b12: Vertical shift at load = 0 [N]",
+          "b13: Curvature shift",
+          "(Custom) b14: Camber influence on longitudinal friction coefficient [-/°+2]",
+          "(Custom) b15: Curvature change with camber [-/°]",
+        }; 
+        num_consts = io.tm.b.n_elem; 
+        num_label.set_size(num_consts);
+        add_min = arma::pow(conv_to<fvec>::from(10 * ones(num_consts)), conv_to<fvec>::from(-precision));
+        add_max = 10.0f * add_min;
+        for (int i = 0; i < num_consts; ++i){
+          if (precision(i) >= 0){
+            num_label(i) = "%." + to_string(-precision(i)) + "f";
+          }
+          else {
+            num_label(i) = "%.0f";
+          }
+          if (!(i % 4)){
+            ImGui::BeginGroup();
+            ImGui::Indent(ind);
+          }
+          ImGui::InputDouble(("b" + to_string(i)).c_str(), &io.tm.b[i], add_min(i), add_max(i), num_label(i).c_str());
+          ImGui::SetItemTooltip(tip_label(i).c_str());
+          if (!((i + 1) % 4) || i == num_consts - 1){
+            ImGui::EndGroup();
+            ImGui::SameLine();
+          }
+        }
 				break;
 			case 1: // FY
-				ImGui::BeginGroup(); 
-				ImGui::InputDouble("a0", &io.tm.a[0], 0.01f, 0.1f, "%.3f");
-				ImGui::SetItemTooltip("a0: Shape factor [-]");
-				ImGui::InputDouble("a1", &io.tm.a[1], 0.01f, 0.1f, "%.3f");
-				ImGui::SetItemTooltip("a1: Load influence on lateral friction coefficient [-/kN]");
-				ImGui::InputDouble("a2", &io.tm.a[2], 0.01f, 0.1f, "%.3f");
-				ImGui::SetItemTooltip("a2: Lateral friction coefficient [-]");
-				ImGui::InputDouble("a3", &io.tm.a[3], 10.0f, 100.0f, "%.0f");
-				ImGui::SetItemTooltip("a3: Change of stiffness with slip [N/°]");
-				ImGui::EndGroup();
-				ImGui::SameLine();
-				ImGui::BeginGroup(); 
-				ImGui::Indent(ind);
-				ImGui::InputDouble("a4", &io.tm.a[4], 0.1f, 1.0f, "%.1f");
-				ImGui::SetItemTooltip("a4: Change of progressivity of stiffness / load [-/kN]");
-				ImGui::InputDouble("a5", &io.tm.a[5], 0.001f, 0.01f, "%.3f");
-				ImGui::SetItemTooltip("a5: Camber influence on stiffness [-/°]");
-				ImGui::InputDouble("a6", &io.tm.a[6], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("a6: Curvature change with load [-/N]");
-				ImGui::InputDouble("a7", &io.tm.a[7], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("a7: Curvature factor [-]");
-				ImGui::EndGroup();
-				ImGui::SameLine();
-				ImGui::BeginGroup(); 
-				ImGui::Indent(ind);
-				ImGui::InputDouble("a8", &io.tm.a[8], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("a8: Load influence on horizontal shift [°/kN]");
-				ImGui::InputDouble("a9", &io.tm.a[9], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("a9: Horizontal shift at load = 0 and camber = 0 [°]");
-				ImGui::InputDouble("a10", &io.tm.a[10], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("a10: Camber influence on horizontal shift [°/°]");
-				ImGui::InputDouble("a11", &io.tm.a[11], 1.0f, 10.0f, "%.0f");
-				ImGui::SetItemTooltip("a11: Load influence on vertical shift [N/N]");
-				ImGui::EndGroup();
-				ImGui::SameLine();
-				ImGui::BeginGroup();  
-				ImGui::Indent(ind);
-				ImGui::InputDouble("a12", &io.tm.a[12], 0.1f, 1.0f, "%.1f");
-				ImGui::SetItemTooltip("a12: Vertical shift at load = 0 [N]");
-				ImGui::InputDouble("a13", &io.tm.a[13], 0.1f, 1.0f, "%.1f");
-				ImGui::SetItemTooltip("a13: Camber influence on vertical shift, load-dependent [N/°/kN]");
-				ImGui::InputDouble("a14", &io.tm.a[14], 0.1f, 1.0f, "%.1f");
-				ImGui::SetItemTooltip("a14: Camber influence on vertical shift [N/°]");
-				ImGui::InputDouble("a15", &io.tm.a[15], 0.001f, 0.01f, "%.1f");
-				ImGui::SetItemTooltip("a15: Camber influence on lateral friction coefficient [-/°+2]");
-				ImGui::EndGroup();
-				ImGui::SameLine();
-				ImGui::BeginGroup();  
-				ImGui::Indent(ind);
-				ImGui::InputDouble("a16", &io.tm.a[16], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("a16: Curvature change with camber [-/°]");
-				ImGui::InputDouble("a17", &io.tm.a[17], 0.01f, 0.1f, "%.2f");
-				ImGui::SetItemTooltip("a17: Curvature shift [-]");
-				ImGui::EndGroup();
+        precision = ivec({
+            +2,
+            +2,
+            +2,
+            -1,
+
+            +1,
+            +2,
+            +0,
+            +1,
+
+            +1,
+            +1,
+            +1,
+            +1,
+
+            -2,
+            -2,
+            -2,
+            +3,
+
+            +2,
+            +2
+            }); 
+        tip_label = {
+          "a0: Shape factor [-]",
+          "a1: Load influence on lateral friction coefficient [-/kN]",
+          "a2: Lateral friction coefficient [-]",
+          "a3: Change of stiffness with slip [N/°]",
+          "a4: Change of progressivity of stiffness / load [-/kN]",
+          "a5: Camber influence on stiffness [-/°]",
+          "a6: Curvature change with load [-/N]",
+          "a7: Curvature factor [-]",
+          "a8: Load influence on horizontal shift [°/kN]",
+          "a9: Horizontal shift at load = 0 and camber = 0 [°]",
+          "a10: Camber influence on horizontal shift [°/°]",
+          "a11: Load influence on vertical shift [N/N]",
+          "a12: Vertical shift at load = 0 [N]",
+          "a13: Camber influence on vertical shift, load-dependent [N/°/kN]",
+          "a14: Camber influence on vertical shift [N/°]",
+          "a15: Camber influence on lateral friction coefficient [-/°+2]",
+          "a16: Curvature change with camber [-/°]",
+          "a17: Curvature shift [-]"
+        }; 
+        num_consts = io.tm.a.n_elem; 
+        num_label.set_size(num_consts);
+        add_min = arma::pow(conv_to<fvec>::from(10 * ones(num_consts)), conv_to<fvec>::from(-precision));
+        add_max = 10.0f * add_min;
+        for (int i = 0; i < num_consts; ++i){
+          if (precision(i) >= 0){
+            num_label(i) = "%." + to_string(-precision(i)) + "f";
+          }
+          else {
+            num_label(i) = "%.0f";
+          }
+          if (!(i % 4)){
+            ImGui::BeginGroup();
+            ImGui::Indent(ind);
+          }
+          ImGui::InputDouble(("a" + to_string(i)).c_str(), &io.tm.a[i], add_min(i), add_max(i), num_label(i).c_str());
+          ImGui::SetItemTooltip(tip_label(i).c_str());
+          if (!((i + 1) % 4) || i == num_consts - 1){
+            ImGui::EndGroup();
+            ImGui::SameLine();
+          }
+        }
 				break;
 			case 2: // MZ
+        precision = ivec({
+            +2,
+            +3,
+            +3,
+            -1,
+
+            +0,
+            +2,
+            +1,
+            +1,
+
+            +1,
+            +1,
+            +1,
+            +3,
+
+            +0,
+            +0,
+            +1,
+            +2,
+
+            +1,
+            +1
+            }); 
+        tip_label = {
+          "c0: Shape factor [-]",
+          "c1: Load influence on aligning moment coefficient [-/kN]",
+          "c2: Aligning moment coefficient [-]",
+          "c3: Change of stiffness with slip [N/°]",
+          "c4: Change of progressivity of stiffness / load [-/kN]",
+          "c5: Camber influence on stiffness [-/°]",
+          "c6: Curvature change with load [-/N]",
+          "c7: Curvature factor [-]",
+          "c8: Load influence on horizontal shift [°/kN]",
+          "c9: Horizontal shift at load = 0 and camber = 0 [°]",
+          "c10: Camber influence on horizontal shift [°/°]",
+          "c11: Load influence on vertical shift [N/N]",
+          "c12: Vertical shift at load = 0 [N]",
+          "c13: Camber influence on vertical shift, load-dependent [N/°/kN]",
+          "c14: Camber influence on vertical shift [N/°]",
+          "c15: Camber influence on aligning moment coefficient [-/°+2]",
+          "c16: Curvature change with camber [-/°]",
+          "c17: Curvature shift [-]"
+        }; 
+        num_consts = io.tm.a.n_elem; 
+        num_label.set_size(num_consts);
+        add_min = arma::pow(conv_to<fvec>::from(10 * ones(num_consts)), conv_to<fvec>::from(-precision));
+        add_max = 10.0f * add_min;
+        for (int i = 0; i < num_consts; ++i){
+          if (precision(i) >= 0){
+            num_label(i) = "%." + to_string(-precision(i)) + "f";
+          }
+          else {
+            num_label(i) = "%.0f";
+          }
+          if (!(i % 4)){
+            ImGui::BeginGroup();
+            ImGui::Indent(ind);
+          }
+          ImGui::InputDouble(("c" + to_string(i)).c_str(), &io.tm.c[i], add_min(i), add_max(i), num_label(i).c_str());
+          ImGui::SetItemTooltip(tip_label(i).c_str());
+          if (!((i + 1) % 4) || i == num_consts - 1){
+            ImGui::EndGroup();
+            ImGui::SameLine();
+          }
+        }
+
 				break;
 			default: 
 				break;
