@@ -3,12 +3,16 @@
 
 inline void gui_base(gui_io &io){
 	
-	ImGui::Text("Base GUI");
-	
-	static char car_path[128] = "";
-	ImGui::InputTextWithHint("##vehicle.json", "Put vehicle .json filepath here", car_path, IM_ARRAYSIZE(car_path));
-	if(ImGui::Button("Load from file##car")){load_vehicle(io.car, car_path);}
-	ImGui::Text("%.1f", io.car.fw);
+  float next_item_offset = 0.5f * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("  ___  _____  _____    ___  ___   ________ ").x);
+  ImGui::Dummy(ImVec2(next_item_offset, 200));
+  ImGui::Dummy(ImVec2(next_item_offset, 0));
+  ImGui::SameLine(0);
+	ImGui::Text(
+    "  ___  _____  _____    ___  ___   ________ \n"
+    "  | | / / _ \\/ ___/__ / _ )/ _ | / __/ __/\n"
+    "  | |/ / // / /__ /_// _  / __ |_\\ \\/ _/ \n"
+    "  |___/____/\\___/   /____/_/ |_|___/___/    "
+    );
 	
 	static char tc_path[128] = "";
 	ImGui::InputTextWithHint("##crun.dat", "Put cornering run.dat filepath here", tc_path, IM_ARRAYSIZE(tc_path));
@@ -33,10 +37,18 @@ inline void gui_base(gui_io &io){
 	if (!(io.flags.is_tc_loaded && io.flags.is_tdb_loaded)){ImGui::BeginDisabled();}
 	if(ImGui::Button("Tire GUI")){current_gui = tire;}
 	if (!(io.flags.is_tc_loaded && io.flags.is_tdb_loaded)){ImGui::EndDisabled();}
-	//ImGui::SameLine();
-	//if(ImGui::Button("Yaw Moment GUI")){current_gui = ymd;}
-	//ImGui::SameLine();
-	//if(ImGui::Button("Laptime Sim GUI")){current_gui = lts;}
+
+	static char car_path[128] = "";
+	ImGui::InputTextWithHint("##vehicle.json", "Put vehicle .json filepath here", car_path, IM_ARRAYSIZE(car_path));
+	if(ImGui::Button("Load from file##car")){
+    load_vehicle(io.car, car_path);
+    io.flags.is_veh_loaded = true;
+  }
+	ImGui::Text("%.1f", io.car.fw);
+	if (!(io.flags.is_veh_loaded)){ImGui::BeginDisabled();}
+	if(ImGui::Button("YMD GUI")){current_gui = ymd;}
+	if (!(io.flags.is_veh_loaded)){ImGui::EndDisabled();}
+	
 }
 
 #endif

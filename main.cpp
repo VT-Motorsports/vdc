@@ -59,7 +59,7 @@ int main(){
 				gui_tire(io);
 				break;
 			case ymd:
-				gui_ymd();
+				gui_ymd(io);
 				break;
 			case lts:
 				gui_lts();
