@@ -4,6 +4,7 @@
 class tire_data {
 public:
 	// Global
+  double pressure;
 	vec load; // Load cases [N]
 	vec camber; // Camber [deg]
 	vector<string> load_label;
@@ -26,6 +27,7 @@ public:
 	// td.c_sa(i_load, j_cam) -- stored instead of trimming every frame
 
 	tire_data(){
+    pressure = 82.7; // default pressure
 		load = vec({-222, -445, -667, -889, -1112});
 		load_label = {"50lb","100lb","150lb","200lb","250lb"};
 		camber = vec({0, -2, -4});
