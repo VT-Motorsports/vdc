@@ -154,7 +154,7 @@ inline void gui_tire(gui_io &io){
         add_max = 10.0f * add_min;
         for (int i = 0; i < num_consts; ++i){
           if (precision(i) >= 0){
-            num_label(i) = "%." + to_string(-precision(i)) + "f";
+            num_label(i) = "%." + to_string(+precision(i)) + "f";
           }
           else {
             num_label(i) = "%.0f";
@@ -222,7 +222,7 @@ inline void gui_tire(gui_io &io){
         add_max = 10.0f * add_min;
         for (int i = 0; i < num_consts; ++i){
           if (precision(i) >= 0){
-            num_label(i) = "%." + to_string(-precision(i)) + "f";
+            num_label(i) = "%." + to_string(+precision(i)) + "f";
           }
           else {
             num_label(i) = "%.0f";
@@ -290,7 +290,7 @@ inline void gui_tire(gui_io &io){
         add_max = 10.0f * add_min;
         for (int i = 0; i < num_consts; ++i){
           if (precision(i) >= 0){
-            num_label(i) = "%." + to_string(-precision(i)) + "f";
+            num_label(i) = "%." + to_string(+precision(i)) + "f";
           }
           else {
             num_label(i) = "%.0f";
