@@ -9,9 +9,9 @@ inline void gui_base(gui_io &io){
   float gui_button_offset;
   float spacing = 10;
   float textbox_offset = 0.5f * (ImGui::GetContentRegionAvail().x - input_box_width - button_width - spacing);
-  static char tc_path[128] = "";
-	static char td_path[128] = "";
-	static char car_path[128] = "/home/benjmyn/Active Dev/vdc/examples/vehicle.json";
+  static char tc_path[256] = "";
+	static char td_path[256] = "";
+	static char car_path[256] = "/home/benjmyn/Active Dev/vdc/examples/vehicle.json";
 
   // TITLE CARD
   ImGui::Dummy(ImVec2(0, 200));
@@ -75,6 +75,11 @@ inline void gui_base(gui_io &io){
 	if(ImGui::Button("Tire GUI")){current_gui = tire;}
 	if (!(io.flags.is_tc_loaded && io.flags.is_tdb_loaded)){ImGui::EndDisabled();}
   
+  ImGui::SameLine(0, 10);
+  ImGui::PushItemWidth(120);
+  ImGui::InputDouble("##pressure", &io.td.pressure, 13.8, 0, "%.1f");
+  ImGui::PopItemWidth();
+
   // Display the vehicle loading text box 
   ImGui::Dummy(ImVec2(0, spacing)); 
   ImGui::Dummy(ImVec2(textbox_offset, 0));
