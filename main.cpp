@@ -44,6 +44,7 @@ using json = nlohmann::json;
 // Includes - Common
 #include "src/gui_backend.hpp"
 #include "src/gui_base.hpp"
+#include "src/check_key_press.hpp"
 
 int main(){
 	gui_io io;
@@ -51,6 +52,7 @@ int main(){
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {
 		new_frame();
+    check_key_press(io);
 		switch (current_gui) {
 			case base:
 				gui_base(io);
