@@ -15,6 +15,7 @@ public:
 	double i_zz; // inertia [kg.m²]
 	double h_s; // static center of gravity height [m]
 	double l; // wheelbase [m]
+  double t_f, t_r; // track width [m]
 	double dia; // full tire diameter [m]
 	double rat; // steering ratio [-]
 	double ack; // ackermann rate [°/°²]

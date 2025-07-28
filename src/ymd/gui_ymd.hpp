@@ -6,34 +6,43 @@ inline void gui_ymd_controls(gui_io &io){
   static int tt_ht = 40;
 
   static vector<string> section_label = {
-    "Powertrain", // front torque, switch EV vs IC
+    "Chassis", // m, i, front %, cg height
     "Aerodynamics", // cxa, cza, front aero
-    "Tires",
-    "Vehicle Mass", // m, i, front %, cg height
-    "Suspension (Tuning)", // ack, cam, toe, rh, 
-    "Suspension (Design)" // m, 
+    "Powertrain", // front torque, switch EV vs IC
+    "Tires", // p94_s, dia, kp
+    "Suspension (Design)", // l, t_f, t_r, asq, adi, rat,
+    "Suspension (Tuning)", // ack, cam, toe, rh, fb, ks, ka, kp
   };
   
   static field<vector<string>> tree_label(section_label.size(), 1);
   static field<vector<double*>> tree_vars(section_label.size(), 1);
   static field<vector<double>> tree_precis(section_label.size(), 1);
   static vector<double*> tree_var_next;
-
-  tree_label(0) = {
-
+  
+  tree_label(0, 0) = {
+    "mass [kg]",
+    "inertia [kg.m²]",
+    "front weight [-]",
+    "CG height [m]",
   };
   tree_var_next = { 
-  
+    &io.car.m,
+    &io.car.i_zz,
+    &io.car.fw,
+    &io.car.h_s,
   };
   tree_vars(0, 0) = tree_var_next;
   tree_precis(0, 0) = {
-  
+    +0,
+    +0,
+    +3,
+    +3,
   };
 
-  tree_label(1) = {
+  tree_label(1, 0) = {
     "cxa",
     "cza_f",
-    "cza_r"
+    "cza_r",
   };
   tree_var_next = {
     &io.car.cxa,
@@ -44,47 +53,73 @@ inline void gui_ymd_controls(gui_io &io){
   tree_precis(1, 0) = {
     +2,
     +2,
-    +2
+    +2,
   };
   
-  tree_label(2) = {
-    "scale - fy",
-    "scale - fx",
-    "scale - mz"
+  tree_label(2, 0) = {
+    "front torque [-]",
   };
   tree_var_next = { 
-    &io.car.p94_s(0),
-    &io.car.p94_s(1),
-    &io.car.p94_s(2)
+    &io.car.ft,
   };
   tree_vars(2, 0) = tree_var_next;
   tree_precis(2, 0) = {
     +2,
-    +2,
-    +2
   };
-  
-  tree_label(3) = {
-    "mass [kg]",
-    "inertia [kg.m²]",
-    "front weight [-]",
-    "CG height [m]"
+
+  tree_label(3, 0) = {
+    "tire diameter [m]",
+    "scale - fy",
+    "scale - fx",
+    "scale - mz",
+    "tire stiffness (f) [N/m]",
+    "tire stiffness (r) [N/m]",
   };
   tree_var_next = { 
-    &io.car.m,
-    &io.car.i_zz,
-    &io.car.fw,
-    &io.car.h_s
+    &io.car.dia,
+    &io.car.p94_s(0),
+    &io.car.p94_s(1),
+    &io.car.p94_s(2),
+    &io.car.kp_f,
+    &io.car.kp_r,
   };
   tree_vars(3, 0) = tree_var_next;
   tree_precis(3, 0) = {
-    +0,
-    +0,
     +3,
-    +3
+    +2,
+    +2,
+    +2,
+    -5,
+    -5,
   };
 
-  tree_label(4) = {
+  tree_label(4, 0) = {
+    "wheelbase [m]",
+    "front track [m]",
+    "rear track [m]",
+    "anti-squat [-]",
+    "anti-dive [-]",
+    "steering ratio [-]",
+  };
+  tree_var_next = { 
+    &io.car.l,
+    &io.car.t_f,
+    &io.car.t_r,
+    &io.car.asq,
+    &io.car.adi,
+    &io.car.rat,
+  };
+  tree_vars(4, 0) = tree_var_next;
+  tree_precis(4, 0) = {
+    +3,
+    +3,
+    +3,
+    +3,
+    +3,
+    +3,
+  };
+  
+  tree_label(5, 0) = {
     "ackermann [°/°²]",
     "camber (f) [°]",
     "camber (r) [°]",
@@ -92,12 +127,11 @@ inline void gui_ymd_controls(gui_io &io){
     "toe (r) [°]",
     "ride height (f) [m]",
     "ride height (r) [m]",
+    "front braking [-]",
     "spring stiffness (f) [N/m]",
     "spring stiffness (r) [N/m]",
     "arb stiffness (f) [N/m]",
     "arb stiffness (r) [N/m]",
-    "tire stiffness (f) [N/m]",
-    "tire stiffness (r) [N/m]",
   };
   tree_var_next = { 
     &io.car.ack,
@@ -107,15 +141,14 @@ inline void gui_ymd_controls(gui_io &io){
     &io.car.toe_r,
     &io.car.rh_f,
     &io.car.rh_r,
+    &io.car.fb,
     &io.car.ks_f,
     &io.car.ks_r,
     &io.car.ka_f,
     &io.car.ka_r,
-    &io.car.kp_f,
-    &io.car.kp_r,
   };
-  tree_vars(4, 0) = tree_var_next;
-  tree_precis(4, 0) = {
+  tree_vars(5, 0) = tree_var_next;
+  tree_precis(5, 0) = {
     +3,
     +2,
     +2,
@@ -123,12 +156,11 @@ inline void gui_ymd_controls(gui_io &io){
     +2,
     +3,
     +3,
-    +0,
-    +0,
-    +0,
-    +0,
-    +0,
-    +0,
+    +2,
+    -4,
+    -4,
+    -3,
+    -3,
   };
 
   ImVec2 sz = ImVec2(325, ImGui::GetContentRegionAvail().y - tt_ht);
@@ -148,6 +180,9 @@ inline void gui_ymd_controls(gui_io &io){
   for (int i = 0; i < section_label.size(); ++i){
     
     if (ImGui::CollapsingHeader(section_label[i].c_str(), ImGuiTreeNodeFlags_None)){
+      
+      static float input_width = 150;
+      ImGui::PushItemWidth(input_width);
 
       for (int j = 0; j < tree_label(i, 0).size(); ++j){
 
@@ -166,6 +201,8 @@ inline void gui_ymd_controls(gui_io &io){
             pow(10, 1 - tree_precis(i, 0)[j]), 
             num_format.c_str());
       }
+      
+      ImGui::PopItemWidth();
 
     }
     

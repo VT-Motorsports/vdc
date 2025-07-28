@@ -11,7 +11,7 @@ inline void gui_base(gui_io &io){
   float textbox_offset = 0.5f * (ImGui::GetContentRegionAvail().x - input_box_width - button_width - spacing);
   static char tc_path[256] = "";
 	static char td_path[256] = "";
-	static char car_path[256] = "/home/benjmyn/ActiveDev/vdc/examples/vehicle.json";
+	static char car_path[256] = "C:/Users/benjmyn/ActiveDev/vdc/examples/vehicle.json";
 
   // TITLE CARD
   ImGui::Dummy(ImVec2(0, 200));
