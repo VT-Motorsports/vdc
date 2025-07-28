@@ -5,12 +5,23 @@ inline void gui_ymd_controls(){
   
   static int tt_ht = 40;
   static vector<string> section_label = {
-    "Powertrain###1", // front torque, switch EV vs IC
+    "Powertrain", // front torque, switch EV vs IC
     "Aerodynamics", // cxa, cza, front aero
     "Tires",
     "Vehicle Mass", // m, i, front %, cg height
     "Suspension (Tuning)", // ack, cam, toe, rh, 
     "Suspension (Design)" // m, 
+  };
+  
+  static field<vector<string>> tree_label(section_label.size(), 1);
+  tree_label(0) = {
+    "Horsepower",
+    "Torque"
+  };
+  tree_label(1) = {
+    "CxA",
+    "CzA",
+    "Front % Aero"
   };
 
   ImVec2 sz = ImVec2(325, ImGui::GetContentRegionAvail().y - tt_ht);
@@ -31,7 +42,9 @@ inline void gui_ymd_controls(){
     
     if (ImGui::CollapsingHeader(section_label[i].c_str(), ImGuiTreeNodeFlags_None)){
 
-      //
+      for (int j = 0; j < tree_label(i, 0).size(); ++j){
+        ImGui::Text(tree_label(i, 0)[j].c_str());
+      }
 
     }
     
