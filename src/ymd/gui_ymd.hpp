@@ -99,7 +99,16 @@ inline void gui_ymd_controls(gui_io &io){
     "rear track [m]",
     "anti-squat [-]",
     "anti-dive [-]",
+    "ackermann [°/°²]",
     "steering ratio [-]",
+    "front rc [m]",
+    "rear rc [m]",
+    "front camber gain [°/m]",
+    "rear camber gain [°/m]",
+    "front toe gain [°/m]",
+    "rear toe gain [°/m]",
+    "front motion ratio [-]",
+    "rear motion ratio [-]",
   };
   tree_var_next = { 
     &io.car.l,
@@ -107,7 +116,16 @@ inline void gui_ymd_controls(gui_io &io){
     &io.car.t_r,
     &io.car.asq,
     &io.car.adi,
+    &io.car.ack,
     &io.car.rat,
+    &io.car.rc_f,
+    &io.car.rc_r,
+    &io.car.cag_f,
+    &io.car.cag_r,
+    &io.car.tog_f,
+    &io.car.tog_r,
+    &io.car.mrs_f,
+    &io.car.mrs_r,
   };
   tree_vars(4, 0) = tree_var_next;
   tree_precis(4, 0) = {
@@ -117,10 +135,18 @@ inline void gui_ymd_controls(gui_io &io){
     +3,
     +3,
     +3,
+    +3,
+    +3,
+    +3,
+    -0,
+    -0,
+    +1,
+    +1,
+    +3,
+    +3,
   };
   
   tree_label(5, 0) = {
-    "ackermann [°/°²]",
     "camber (f) [°]",
     "camber (r) [°]",
     "toe (f) [°]",
@@ -134,7 +160,6 @@ inline void gui_ymd_controls(gui_io &io){
     "arb stiffness (r) [N/m]",
   };
   tree_var_next = { 
-    &io.car.ack,
     &io.car.cam_f,
     &io.car.cam_r,
     &io.car.toe_f,
@@ -149,11 +174,10 @@ inline void gui_ymd_controls(gui_io &io){
   };
   tree_vars(5, 0) = tree_var_next;
   tree_precis(5, 0) = {
-    +3,
-    +2,
-    +2,
-    +2,
-    +2,
+    +1,
+    +1,
+    +1,
+    +1,
     +3,
     +3,
     +2,
