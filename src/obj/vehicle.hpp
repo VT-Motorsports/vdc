@@ -47,7 +47,7 @@ public:
 	// Constructor
 	//
 	vehicle(){
-		
+	  p94_s.resize(3);	
 	}
 };
 

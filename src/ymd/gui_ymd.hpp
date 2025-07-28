@@ -1,9 +1,10 @@
 #ifndef GUI_YMD_HPP
 #define GUI_YMD_HPP
 
-inline void gui_ymd_controls(){
+inline void gui_ymd_controls(gui_io &io){
   
   static int tt_ht = 40;
+
   static vector<string> section_label = {
     "Powertrain", // front torque, switch EV vs IC
     "Aerodynamics", // cxa, cza, front aero
@@ -14,15 +15,75 @@ inline void gui_ymd_controls(){
   };
   
   static field<vector<string>> tree_label(section_label.size(), 1);
+  static field<vector<double*>> tree_vars(section_label.size(), 1);
+  static field<vector<double>> tree_precis(section_label.size(), 1);
+  static vector<double*> tree_var_next;
+
   tree_label(0) = {
-    "Horsepower",
-    "Torque"
+
   };
+  tree_var_next = { 
+  
+  };
+  tree_vars(0, 0) = tree_var_next;
+  tree_precis(0, 0) = {
+  
+  };
+
   tree_label(1) = {
-    "CxA",
-    "CzA",
-    "Front % Aero"
+    "cxa",
+    "cza_f",
+    "cza_r"
   };
+  tree_var_next = {
+    &io.car.cxa,
+    &io.car.cza_f,
+    &io.car.cza_r
+  };
+  tree_vars(1, 0) = tree_var_next;
+  tree_precis(1, 0) = {
+    +2,
+    +2,
+    +2
+  };
+  
+  tree_label(2) = {
+    "scale - fy",
+    "scale - fx",
+    "scale - mz"
+  };
+  tree_var_next = { 
+    &io.car.p94_s(0),
+    &io.car.p94_s(1),
+    &io.car.p94_s(2)
+  };
+  tree_vars(2, 0) = tree_var_next;
+  tree_precis(2, 0) = {
+    +2,
+    +2,
+    +2
+  };
+  
+  tree_label(3) = {
+    "mass [kg]",
+    "inertia [kg.m²]",
+    "front weight [-]",
+    "CG height [m]"
+  };
+  tree_var_next = { 
+    &io.car.m,
+    &io.car.i_zz,
+    &io.car.fw,
+    &io.car.h_s
+  };
+  tree_vars(3, 0) = tree_var_next;
+  tree_precis(3, 0) = {
+    +0,
+    +0,
+    +3,
+    +3
+  };
+
 
   ImVec2 sz = ImVec2(325, ImGui::GetContentRegionAvail().y - tt_ht);
 
@@ -43,7 +104,12 @@ inline void gui_ymd_controls(){
     if (ImGui::CollapsingHeader(section_label[i].c_str(), ImGuiTreeNodeFlags_None)){
 
       for (int j = 0; j < tree_label(i, 0).size(); ++j){
-        ImGui::Text(tree_label(i, 0)[j].c_str());
+        ImGui::InputDouble(
+            tree_label(i, 0)[j].c_str(), 
+            tree_vars(i, 0)[j], 
+            pow(10, -tree_precis(i, 0)[j]), 
+            pow(10, 1 - tree_precis(i, 0)[j]), 
+            "%.3f");
       }
 
     }
@@ -95,7 +161,7 @@ inline void gui_ymd_hints(gui_io &io){
 inline void gui_ymd(gui_io &io){
   // ImGui::Text("Hello :)");
   // Left Section: Controls
-  gui_ymd_controls();
+  gui_ymd_controls(io);
   // Right Section: Plots
   gui_ymd_plot();
   // Below Right Section: Keybinds
