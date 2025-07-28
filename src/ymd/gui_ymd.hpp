@@ -84,6 +84,52 @@ inline void gui_ymd_controls(gui_io &io){
     +3
   };
 
+  tree_label(4) = {
+    "ackermann [°/°²]",
+    "camber (f) [°]",
+    "camber (r) [°]",
+    "toe (f) [°]",
+    "toe (r) [°]",
+    "ride height (f) [m]",
+    "ride height (r) [m]",
+    "spring stiffness (f) [N/m]",
+    "spring stiffness (r) [N/m]",
+    "arb stiffness (f) [N/m]",
+    "arb stiffness (r) [N/m]",
+    "tire stiffness (f) [N/m]",
+    "tire stiffness (r) [N/m]",
+  };
+  tree_var_next = { 
+    &io.car.ack,
+    &io.car.cam_f,
+    &io.car.cam_r,
+    &io.car.toe_f,
+    &io.car.toe_r,
+    &io.car.rh_f,
+    &io.car.rh_r,
+    &io.car.ks_f,
+    &io.car.ks_r,
+    &io.car.ka_f,
+    &io.car.ka_r,
+    &io.car.kp_f,
+    &io.car.kp_r,
+  };
+  tree_vars(4, 0) = tree_var_next;
+  tree_precis(4, 0) = {
+    +3,
+    +2,
+    +2,
+    +2,
+    +2,
+    +3,
+    +3,
+    +0,
+    +0,
+    +0,
+    +0,
+    +0,
+    +0,
+  };
 
   ImVec2 sz = ImVec2(325, ImGui::GetContentRegionAvail().y - tt_ht);
 
@@ -104,12 +150,21 @@ inline void gui_ymd_controls(gui_io &io){
     if (ImGui::CollapsingHeader(section_label[i].c_str(), ImGuiTreeNodeFlags_None)){
 
       for (int j = 0; j < tree_label(i, 0).size(); ++j){
+
+        string num_format;
+        if (tree_precis(i, 0)[j] >= 0){
+          num_format = "%." + to_string(static_cast<int>(tree_precis(i, 0)[j])) + "f";
+        }
+        else {
+          num_format = "%.0f";
+        }
+
         ImGui::InputDouble(
             tree_label(i, 0)[j].c_str(), 
             tree_vars(i, 0)[j], 
             pow(10, -tree_precis(i, 0)[j]), 
             pow(10, 1 - tree_precis(i, 0)[j]), 
-            "%.3f");
+            num_format.c_str());
       }
 
     }
