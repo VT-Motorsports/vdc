@@ -496,7 +496,7 @@ void get_ymd_const_v(ymd_v_io &io) {
 
 	// Recalculate all variables
 	recalculate();
-
+  
 	// Populate using instances
 	for (int k = 0; k < io.n_slices; ++k) {
 		for (int j = 0; j < io.n_cols; ++j) {
@@ -506,8 +506,11 @@ void get_ymd_const_v(ymd_v_io &io) {
 		}
 	}
 
+  cout << "Generated YMD of size [" << io.n_rows << ", " << io.n_cols << ", " << io.n_slices << "]."<< endl;
+
 	// Update maxes for colormap
 	io.update_maxes();
+
 }
 };
 

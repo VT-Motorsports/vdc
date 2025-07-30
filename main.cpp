@@ -48,6 +48,8 @@ using json = nlohmann::json;
 
 int main(){
 	gui_io io;
+  io.ymdio.update = true;
+  io.ymdio.ax_plot = 1;
 	
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {
@@ -61,6 +63,8 @@ int main(){
 				gui_tire(io);
 				break;
 			case ymd:
+        if (io.ymdio.update){io.car.get_ymd_const_v(io.ymdio);}
+        // io.car.p94_s.print();
 				gui_ymd(io);
 				break;
 			case lts:

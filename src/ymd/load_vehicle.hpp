@@ -9,7 +9,7 @@ void load_vehicle(vehicle &car, const string file_path) {
 		car.i_zz = car_json["Inertia [kg.m²]"].get<double>();
 		car.h_s = car_json["Center of Gravity Height [mm]"].get<double>();
 		car.fw = car_json["Front Weight [%]"].get<double>();
-    cout << "Loaded chassis!" << endl;
+    // cout << "Loaded chassis!" << endl;
 
     // Aerodynamics
 		car.cxa = car_json["Total CxA [m²]"].get<double>();
@@ -62,6 +62,16 @@ void load_vehicle(vehicle &car, const string file_path) {
 		car.ka_f = car_json["Front ARB Stiffness [N/mm]"].get<double>();
 		car.ka_r = car_json["Rear ARB Stiffness [N/mm]"].get<double>();
     // cout << "Loaded suspension (tuning)!" << endl;
+    
+    // Diagnoses
+    // car.p94_s.print();
+    // cout << endl;
+    // car.p94_a.print();
+    // cout << endl;
+    // car.p94_b.print();
+    // cout << endl;
+    // car.p94_c.print();
+    // cout << endl;
 	}
 }
 

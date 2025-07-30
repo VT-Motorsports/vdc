@@ -6,6 +6,7 @@ struct gui_io {
 	vehicle car;
 	tire_data td;
 	tire_model tm;
+  ymd_v_io ymdio;
 };
 
 #endif

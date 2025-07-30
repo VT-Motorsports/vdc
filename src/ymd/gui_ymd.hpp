@@ -194,6 +194,7 @@ inline void gui_ymd_controls(gui_io &io){
   ImGui::SeparatorText("Plot Controls");
   
   // Generate button
+  if(ImGui::Button("Generate")){io.ymdio.update = true;}
   // Active Plot
   // Plot Count
   // Velocity 
@@ -241,7 +242,18 @@ inline void gui_ymd_controls(gui_io &io){
 inline void gui_ymd_plot(){
   static int tt_ht = 40;
   ImVec2 sz = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y - tt_ht);
-  ImGui::BeginChild("Plot", sz, true);
+  ImGui::BeginChild("Plots", sz, true);
+	
+  static const int cms_w = 130; // Colormap scale width
+	ImPlot::BeginPlot("Yaw Moment Diagram", ImVec2(ImGui::GetContentRegionAvail().x - cms_w - 8, ImGui::GetContentRegionAvail().y));
+  
+  ImPlot::SetupAxis(ImAxis_X1, "AY [m.s-2]", ImPlotAxisFlags_None);
+  ImPlot::SetupAxisLimits(ImAxis_X1, -20.0, 20.0, ImGuiCond_FirstUseEver);
+  ImPlot::SetupAxis(ImAxis_Y1, "AA [rad.s-2]", ImPlotAxisFlags_None);
+  ImPlot::SetupAxisLimits(ImAxis_Y1, -70.0, 70.0, ImGuiCond_FirstUseEver);
+
+  ImPlot::EndPlot();
+
   ImGui::EndChild();
 }
 

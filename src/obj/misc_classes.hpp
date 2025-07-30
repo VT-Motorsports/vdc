@@ -337,7 +337,7 @@ public:
 		speed = 12.0;
 		yaw_rng = 10.0;
 		yaw_dlt = 1;
-		steer_rng = 80.0;
+		steer_rng = 90.0;
 		steer_dlt = 8;
 		ax_ct = 3;
 		ax_lo = -12.0;
