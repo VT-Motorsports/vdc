@@ -487,6 +487,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 	// Handle failure to iterate here
 	io.ay(i, j, k) = nan("");
 	io.aa(i, j, k) = nan("");
+  cout << "Failed to iterate at (" << i << ", " << j << ", " << k << ")." << endl;
 }
 
 // Compute a cube of yaw moment diagram instances into a ymd_v_io object

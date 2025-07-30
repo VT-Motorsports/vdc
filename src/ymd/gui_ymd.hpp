@@ -239,7 +239,7 @@ inline void gui_ymd_controls(gui_io &io){
 
 }
 
-inline void gui_ymd_plot(){
+inline void gui_ymd_plot(ymd_v_io &ymdio){
   static int tt_ht = 40;
   ImVec2 sz = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y - tt_ht);
   ImGui::BeginChild("Plots", sz, true);
@@ -251,6 +251,8 @@ inline void gui_ymd_plot(){
   ImPlot::SetupAxisLimits(ImAxis_X1, -20.0, 20.0, ImGuiCond_FirstUseEver);
   ImPlot::SetupAxis(ImAxis_Y1, "AA [rad.s-2]", ImPlotAxisFlags_None);
   ImPlot::SetupAxisLimits(ImAxis_Y1, -70.0, 70.0, ImGuiCond_FirstUseEver);
+
+  draw_plot(ymdio);
 
   ImPlot::EndPlot();
 
@@ -291,7 +293,7 @@ inline void gui_ymd(gui_io &io){
   // Left Section: Controls
   gui_ymd_controls(io);
   // Right Section: Plots
-  gui_ymd_plot();
+  gui_ymd_plot(io.ymdio);
   // Below Right Section: Keybinds
   gui_ymd_hints(io);
 }

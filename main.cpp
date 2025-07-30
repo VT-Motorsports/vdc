@@ -33,6 +33,7 @@ using json = nlohmann::json;
 #include "src/tire/gui_tire.hpp"
 
 // Includes - YMD
+#include "src/ymd/draw_plot.hpp"
 #include "src/ymd/load_json_file.hpp"
 #include "src/ymd/load_vehicle.hpp"
 #include "src/ymd/gui_ymd.hpp"
@@ -63,7 +64,10 @@ int main(){
 				gui_tire(io);
 				break;
 			case ymd:
-        if (io.ymdio.update){io.car.get_ymd_const_v(io.ymdio);}
+        if (io.ymdio.update){
+          io.car.get_ymd_const_v(io.ymdio);
+          cout << io.ymdio.ay(0, 0, 0);
+        }
         // io.car.p94_s.print();
 				gui_ymd(io);
 				break;
