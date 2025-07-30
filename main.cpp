@@ -48,8 +48,8 @@ using json = nlohmann::json;
 
 int main(){
 	gui_io io;
-  io.ymdio.update = true;
-  io.ymdio.ax_plot = 1;
+  // io.ymdio.update = true;
+  // io.ymdio.ax_plot = 1;
 	
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {

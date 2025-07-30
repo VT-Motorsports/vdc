@@ -1,8 +1,8 @@
 #ifndef LOAD_VEHICLE_HPP
 #define LOAD_VEHICLE_HPP
 
-void load_vehicle(vehicle &car, const string file_path) {
-	json car_json = read_json_file(file_path);
+bool load_vehicle(vehicle &car, const string file_path) {
+  json car_json = read_json_file(file_path);
 	if (!car_json.empty()){
 		// Chassis
     car.m = car_json["Mass [kg]"].get<double>();
@@ -72,7 +72,11 @@ void load_vehicle(vehicle &car, const string file_path) {
     // cout << endl;
     // car.p94_c.print();
     // cout << endl;
+    return true;
 	}
+  else {
+    return false;
+  }
 }
 
 #endif

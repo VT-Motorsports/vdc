@@ -92,8 +92,9 @@ inline void gui_base(gui_io &io){
   ImGui::SameLine(0, spacing);
   ImGui::PushItemWidth(button_width);
 	if(ImGui::Button("Load from file##car")){
-    load_vehicle(io.car, car_path);
-    io.flags.is_veh_loaded = true;
+    if(load_vehicle(io.car, car_path)){
+      io.flags.is_veh_loaded = true;
+    }
   }
   ImGui::PopItemWidth();
   
