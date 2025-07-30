@@ -19,7 +19,7 @@ using json = nlohmann::json;
 // Includes - Objects
 //#include "src/obj/fx.hpp"
 //#include "src/obj/fy.hpp"
-#include "src/obj/fz.hpp"
+#include "src/obj/misc_classes.hpp"
 #include "src/obj/vehicle.hpp"
 #include "src/obj/tire_data.hpp"
 #include "src/obj/tire_model.hpp"

@@ -41,19 +41,19 @@ inline void gui_ymd_controls(gui_io &io){
 
   tree_label(1, 0) = {
     "cxa",
-    "cza_f",
-    "cza_r",
+    "cza",
+    "front aero [%]",
   };
   tree_var_next = {
     &io.car.cxa,
-    &io.car.cza_f,
-    &io.car.cza_r
+    &io.car.cza,
+    &io.car.fa
   };
   tree_vars(1, 0) = tree_var_next;
   tree_precis(1, 0) = {
     +2,
     +2,
-    +2,
+    +3,
   };
   
   tree_label(2, 0) = {
