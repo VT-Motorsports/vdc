@@ -22,8 +22,8 @@ inline void gui_ymd_controls(gui_io &io){
   tree_label(0, 0) = {
     "mass [kg]",
     "inertia [kg.m²]",
-    "front weight [-]",
-    "CG height [m]",
+    "front weight [%]",
+    "CG height [mm]",
   };
   tree_var_next = { 
     &io.car.m,
@@ -33,10 +33,10 @@ inline void gui_ymd_controls(gui_io &io){
   };
   tree_vars(0, 0) = tree_var_next;
   tree_precis(0, 0) = {
-    +0,
-    +0,
-    +3,
-    +3,
+    +1,
+    +1,
+    +1,
+    -0,
   };
 
   tree_label(1, 0) = {
@@ -51,62 +51,62 @@ inline void gui_ymd_controls(gui_io &io){
   };
   tree_vars(1, 0) = tree_var_next;
   tree_precis(1, 0) = {
-    +2,
-    +2,
     +3,
+    +3,
+    +1,
   };
   
   tree_label(2, 0) = {
-    "front torque [-]",
+    "front torque [%]",
   };
   tree_var_next = { 
     &io.car.ft,
   };
   tree_vars(2, 0) = tree_var_next;
   tree_precis(2, 0) = {
-    +2,
+    +1,
   };
 
   tree_label(3, 0) = {
-    "tire diameter [m]",
-    "scale - fy",
-    "scale - fx",
-    "scale - mz",
-    "tire stiffness (f) [N/m]",
-    "tire stiffness (r) [N/m]",
+    "tire diameter [mm]",
+    "fx scale [%]",
+    "fy scale [%]",
+    "mz scale [%]",
+    "tire stiffness (f) [N/mm]",
+    "tire stiffness (r) [N/mm]",
   };
   tree_var_next = { 
     &io.car.dia,
-    &io.car.p94_s(0),
     &io.car.p94_s(1),
+    &io.car.p94_s(0),
     &io.car.p94_s(2),
     &io.car.kp_f,
     &io.car.kp_r,
   };
   tree_vars(3, 0) = tree_var_next;
   tree_precis(3, 0) = {
-    +3,
-    +2,
-    +2,
-    +2,
-    -5,
-    -5,
+    -0,
+    +1,
+    +1,
+    +1,
+    +1,
+    +1,
   };
 
   tree_label(4, 0) = {
-    "wheelbase [m]",
-    "front track [m]",
-    "rear track [m]",
-    "anti-squat [-]",
-    "anti-dive [-]",
+    "wheelbase [mm]",
+    "front track [mm]",
+    "rear track [mm]",
+    "anti-squat [%]",
+    "anti-dive [%]",
     "ackermann [°/°²]",
     "steering ratio [-]",
-    "front rc [m]",
-    "rear rc [m]",
-    "front camber gain [°/m]",
-    "rear camber gain [°/m]",
-    "front toe gain [°/m]",
-    "rear toe gain [°/m]",
+    "front rc [mm]",
+    "rear rc [mm]",
+    "front camber gain [°/mm]",
+    "rear camber gain [°/mm]",
+    "front toe gain [°/mm]",
+    "rear toe gain [°/mm]",
     "front motion ratio [-]",
     "rear motion ratio [-]",
   };
@@ -129,19 +129,19 @@ inline void gui_ymd_controls(gui_io &io){
   };
   tree_vars(4, 0) = tree_var_next;
   tree_precis(4, 0) = {
-    +3,
-    +3,
-    +3,
-    +3,
-    +3,
-    +3,
-    +3,
-    +3,
-    +3,
+    -0,
     -0,
     -0,
     +1,
     +1,
+    +3,
+    +3,
+    +1,
+    +1,
+    +3,
+    +3,
+    +5,
+    +5,
     +3,
     +3,
   };
@@ -151,13 +151,13 @@ inline void gui_ymd_controls(gui_io &io){
     "camber (r) [°]",
     "toe (f) [°]",
     "toe (r) [°]",
-    "ride height (f) [m]",
-    "ride height (r) [m]",
-    "front braking [-]",
-    "spring stiffness (f) [N/m]",
-    "spring stiffness (r) [N/m]",
-    "arb stiffness (f) [N/m]",
-    "arb stiffness (r) [N/m]",
+    "ride height (f) [mm]",
+    "ride height (r) [mm]",
+    "front braking [%]",
+    "spring stiffness (f) [N/mm]",
+    "spring stiffness (r) [N/mm]",
+    "arb stiffness (f) [N/mm]",
+    "arb stiffness (r) [N/mm]",
   };
   tree_var_next = { 
     &io.car.cam_f,
@@ -178,13 +178,13 @@ inline void gui_ymd_controls(gui_io &io){
     +1,
     +1,
     +1,
-    +3,
-    +3,
-    +2,
-    -4,
-    -4,
-    -3,
-    -3,
+    -0,
+    -0,
+    -0,
+    +1,
+    +1,
+    +1,
+    +1,
   };
 
   ImVec2 sz = ImVec2(325, ImGui::GetContentRegionAvail().y - tt_ht);
