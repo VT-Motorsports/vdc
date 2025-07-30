@@ -61,7 +61,7 @@ public:
   void recalculate() {
     
     // Footprint
-    a = (100 - fw) * l / 100;
+    a = (1 - fw/100) * l;
     b = l - a;
 
     // Wheel rates [N/mm]
@@ -243,8 +243,8 @@ vec get_bump_dynamic(const vec &z_d) const {
 
 // Get jacking wheel bump COMPONENTS from longitudinal & lateral jacking effects
 vec get_bump_jacking(const vec &x, const vec &y, const double &h) const {
-	const double bmp_adi = (x(0) + x(1)) * (-adi * h / a) / (2 * kw_f);
-	const double bmp_asq = (x(2) + x(3)) * (+asq * h / b) / (2 * kw_r);
+	const double bmp_adi = (x(0) + x(1)) * (-adi/100 * h / a) / (2 * kw_f);
+	const double bmp_asq = (x(2) + x(3)) * (+asq/100 * h / b) / (2 * kw_r);
 	const double bmp_arf = (y(0) - y(1)) * rc_f / (t_f / 2) / (2 * kw_f);
 	const double bmp_arr = (y(2) - y(3)) * rc_r / (t_r / 2) / (2 * kw_r);
 	vec bmp_j = {bmp_adi + bmp_arf, bmp_adi + bmp_arf, bmp_asq + bmp_arr, bmp_asq + bmp_arr};
@@ -296,7 +296,7 @@ vec get_steer_dynamic(const vec &bmp_d) const {
 double get_cg_static(const vec &bmp_s) const {
 	const double dh_f = -(bmp_s(0) + bmp_s(1)) / 2;
 	const double dh_r = -(bmp_s(2) + bmp_s(3)) / 2;
-	double h_st = h_s + dh_f * (1 - fw) + dh_r * fw;
+	double h_st = h_s + dh_f * (1 - fw/100) + dh_r * fw/100;
 	return h_st;
 }
 
@@ -304,7 +304,7 @@ double get_cg_static(const vec &bmp_s) const {
 double get_cg_dynamic(const vec &bmp_d) const {
 	const double dh_f = -(bmp_d(0) + bmp_d(1)) / 2;
 	const double dh_r = -(bmp_d(2) + bmp_d(3)) / 2;
-	double h_d = dh_f * (1 - fw) + dh_r * fw;
+	double h_d = dh_f * (1 - fw/100) + dh_r * fw/100;
 	return h_d;
 }
 
@@ -312,7 +312,7 @@ double get_cg_dynamic(const vec &bmp_d) const {
 double get_cg_jacking(const vec &bmp_j) const {
 	const double dh_f = -(bmp_j(0) + bmp_j(1)) / 2;
 	const double dh_r = -(bmp_j(2) + bmp_j(3)) / 2;
-	double h_j = dh_f * (1 - fw) + dh_r * fw;
+	double h_j = dh_f * (1 - fw/100) + dh_r * fw/100;
 	return h_j;
 }
 
@@ -320,14 +320,14 @@ double get_cg_jacking(const vec &bmp_j) const {
 double get_hve(const bmp_whl &bmp) const {
 	const double hve_f = -(bmp()(0) + bmp()(1)) / 2;
 	const double hve_r = -(bmp()(2) + bmp()(3)) / 2;
-	return hve_f * (1 - fw) + hve_r * fw;
+	return hve_f * (1 - fw/100) + hve_r * fw/100;
 }
 
 // Get TOTAL roll from TOTAL bump
 double get_rll(const bmp_whl &bmp) const {
 	const double rll_f = (bmp()(1) - bmp()(0)) / t_f * 57.3;
 	const double rll_r = (bmp()(3) - bmp()(2)) / t_r * 57.3;
-	return rll_f * (1 - fw) + rll_r * fw;
+	return rll_f * (1 - fw/100) + rll_r * fw/100;
 }
 
 // Get TOTAL pitch from TOTAL bump
@@ -359,9 +359,9 @@ double get_ay_resultant(const fx_whl &x, const fy_whl &y, const str_whl &str, co
 double get_aa_resultant(const fx_whl &x, const fy_whl &y, const str_whl &str) const {
 	const vec fx_w = x.reframe(y.t, str());
 	const vec fy_w = y.reframe(x.t, str());
-	const double aa_x = (fx_w(1) - fx_w(0)) * t_f + (fx_w(3) - fx_w(2)) * t_r;
-	const double aa_y = (fy_w(0) + fy_w(1)) * a - (fy_w(2) + fy_w(3)) * b;
-	return (aa_x + aa_y) / i_zz;
+	const double aa_x = (fx_w(1) - fx_w(0)) * t_f/1000 + (fx_w(3) - fx_w(2)) * t_r/1000;
+	const double aa_y = (fy_w(0) + fy_w(1)) * a/1000 - (fy_w(2) + fy_w(3)) * b/1000;
+	return (aa_x + aa_y) / i_zz * 57.3;
 }
 
 // Get cornering radius in SIDESLIP frame 
@@ -487,7 +487,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 	// Handle failure to iterate here
 	io.ay(i, j, k) = nan("");
 	io.aa(i, j, k) = nan("");
-  cout << "Failed to iterate at (" << i << ", " << j << ", " << k << ")." << endl;
+  // cout << "Failed to iterate at (" << i << ", " << j << ", " << k << ")." << endl;
 }
 
 // Compute a cube of yaw moment diagram instances into a ymd_v_io object

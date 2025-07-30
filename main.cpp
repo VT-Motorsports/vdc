@@ -1,5 +1,7 @@
 // C++ Standard Libraries
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 #include <string>
 using namespace std;
 
@@ -33,6 +35,7 @@ using json = nlohmann::json;
 #include "src/tire/gui_tire.hpp"
 
 // Includes - YMD
+#include "src/ymd/tooltip.hpp"
 #include "src/ymd/draw_plot.hpp"
 #include "src/ymd/load_json_file.hpp"
 #include "src/ymd/load_vehicle.hpp"
@@ -50,7 +53,7 @@ using json = nlohmann::json;
 int main(){
 	gui_io io;
   // io.ymdio.update = true;
-  // io.ymdio.ax_plot = 1;
+  io.ymdio.ax_plot = 1;
 	
 	start_window();
 	while (!glfwWindowShouldClose(graphics_window)) {
@@ -64,11 +67,7 @@ int main(){
 				gui_tire(io);
 				break;
 			case ymd:
-        if (io.ymdio.update){
-          io.car.get_ymd_const_v(io.ymdio);
-          cout << io.ymdio.ay(0, 0, 0);
-        }
-        // io.car.p94_s.print();
+        if (io.ymdio.update){io.car.get_ymd_const_v(io.ymdio);}
 				gui_ymd(io);
 				break;
 			case lts:
