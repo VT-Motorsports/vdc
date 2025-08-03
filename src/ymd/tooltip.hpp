@@ -43,15 +43,17 @@ void tooltip(gui_io &io) {
   vector<string> names;
   vector<string> numbers;
   vector<string> units;
+  int row_width, single_offset;
   int i = io.ymdio.i_tt;
   int j = io.ymdio.j_tt;
   int k = io.ymdio.ax_plot;
 
   // Define tooltips  
   switch (io.flags.key_held) {
+    // None 
     case 0:
-      int row_width = 6;
-      int single_offset = 0;
+      row_width = 6;
+      single_offset = 0;
       names = {
         "accel x",
         "accel y",
@@ -74,7 +76,35 @@ void tooltip(gui_io &io) {
         "°/s²/°",
         "°/s²/°",
       };
-    break;
+      break;
+    
+    // Ctrl
+    case 1:
+      break;
+
+    // Shift
+    case 2:
+      row_width = 6;
+      single_offset = 0;
+      names = {
+        "fx",
+        "fy",
+        "fz",
+        "mz",
+      };
+      numbers = {
+        num_to_str_4(io.ymdio.x(i, j, k).t, row_width, 0),
+        num_to_str_4(io.ymdio.y(i, j, k).t, row_width, 0),
+        num_to_str_4(io.ymdio.z(i, j, k)(), row_width, 0),
+        num_to_str_4(io.ymdio.mz(i, j, k).t, row_width, 0),
+      };
+      units = {
+        "N",
+        "N",
+        "N",
+        "N.m",
+      };
+      break;
   }
    
   ImGui::BeginTooltip();
