@@ -2,8 +2,62 @@
 #define GUI_YMD_HPP
 
 inline void gui_ymd_controls(gui_io &io){
-  
+
+  // ImGui::BeginGroup(); // Begin group of controls, vehicle
   static int tt_ht = 40;
+ 
+  ImVec2 sz = ImVec2(450, ImGui::GetContentRegionAvail().y - tt_ht);
+  // ImVec2 sz = ImVec2(450, 300);
+  ImGui::BeginChild("Controls", sz, true);
+  ImGui::SeparatorText("Plot Controls");
+  
+  // Generate button
+  if(ImGui::Button("Generate")){io.ymdio.update = true;}
+
+  ImGui::PushItemWidth(150);
+  // Active Plot
+  int ax_plot = io.ymdio.ax_plot + 1;
+  ImGui::InputInt("Active Plot", &ax_plot);
+  if (ax_plot > io.ymdio.n_slices){ax_plot = io.ymdio.n_slices;} // Check if bigger than current #
+  if (ax_plot > io.ymdio.ax_ct){ax_plot = io.ymdio.ax_ct;} // Check if bigger than next planned #
+  if (ax_plot <= 1 || io.ymdio.n_slices <= 0){ax_plot = 1;}
+  io.ymdio.ax_plot = ax_plot - 1;
+
+  // Plot Count
+  ImGui::InputInt("Plot Count", &io.ymdio.ax_ct, 2);
+
+  // Velocity 
+  ImGui::InputDouble("Velocity [m/s]", &io.ymdio.speed, 1.0f, 10.0f, "%.1f");
+
+  // Yaw 
+  ImGui::InputDouble("Yaw Range [.]", &io.ymdio.yaw_rng, 0.1f, 1.0f, "%.1f");
+  ImGui::InputDouble("Yaw Interval [.]", &io.ymdio.yaw_dlt, 0.01f, 0.1f, "%.2f");
+
+  // Steer 
+  ImGui::InputDouble("Steer Range [.]", &io.ymdio.steer_rng, 1.0f, 10.0f, "%.0f");
+  ImGui::InputDouble("Steer Interval [.]", &io.ymdio.steer_dlt, 0.1f, 1.0f, "%.1f");
+
+  // Steer 
+  ImGui::InputDouble("Min Accel (-) [m/s²]", &io.ymdio.ax_lo, 0.1f, 1.0f, "%.1f");
+  ImGui::InputDouble("Max Accel (+) [m/s²]", &io.ymdio.ax_hi, 0.1f, 1.0f, "%.1f");
+
+  ImGui::PopItemWidth();
+
+  // Min, Max Accel, Yaw, Steer
+
+  // ImGui::EndChild();
+
+}
+
+void gui_ymd_vehicle(gui_io &io){
+
+  static int tt_ht = 40;
+  
+  ImVec2 sz = ImVec2(450, ImGui::GetContentRegionAvail().y - tt_ht);
+
+  // ImGui::BeginChild("Vehicle Tuning", sz, true);
+
+  ImGui::SeparatorText("Vehicle Parameters");
 
   static vector<string> section_label = {
     "Chassis", // m, i, front %, cg height
@@ -187,20 +241,6 @@ inline void gui_ymd_controls(gui_io &io){
     +1,
   };
 
-  ImVec2 sz = ImVec2(325, ImGui::GetContentRegionAvail().y - tt_ht);
-
-  ImGui::BeginChild("Controls", sz, true);
-
-  ImGui::SeparatorText("Plot Controls");
-  
-  // Generate button
-  if(ImGui::Button("Generate")){io.ymdio.update = true;}
-  // Active Plot
-  // Plot Count
-  // Velocity 
-  // Min, Max Accel, Yaw, Steer
-
-  ImGui::SeparatorText("Vehicle Parameters");
   
   for (int i = 0; i < section_label.size(); ++i){
     
@@ -235,8 +275,9 @@ inline void gui_ymd_controls(gui_io &io){
 
   ImGui::EndChild();
 
-  ImGui::SameLine();
-
+  // ImGui::EndGroup(); // End the group of controls & vehicle
+  
+  ImGui::SameLine(); // Put the ymd plot on the same line as the group
 }
 
 inline void gui_ymd_plot(gui_io &io){
@@ -293,6 +334,7 @@ inline void gui_ymd(gui_io &io){
   // ImGui::Text("Hello :)");
   // Left Section: Controls
   gui_ymd_controls(io);
+  gui_ymd_vehicle(io);
   // Right Section: Plots
   gui_ymd_plot(io);
   // Below Right Section: Keybinds
