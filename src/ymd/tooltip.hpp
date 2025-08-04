@@ -55,6 +55,8 @@ void tooltip(gui_io &io) {
       row_width = 6;
       single_offset = 0;
       names = {
+        "sideslip",
+        "steer",
         "accel x",
         "accel y",
         "ang acc",
@@ -62,14 +64,18 @@ void tooltip(gui_io &io) {
         "stability",
       };
       numbers = {
+        num_to_str_1(io.ymdio.yaw(i, j, k), row_width, 1, single_offset),
+        num_to_str_1(io.ymdio.steer(i, j, k), row_width, 0, single_offset),
         num_to_str_1(io.ymdio.ax(i, j, k) / 9.81, row_width, 3, single_offset),
         num_to_str_1(io.ymdio.ay(i, j, k) / 9.81, row_width, 3, single_offset),
-        num_to_str_1(io.ymdio.aa(i, j, k), row_width, 3, single_offset),
-        num_to_str_1(io.ymdio.cnt(i, j, k), row_width, 3, single_offset),
-        num_to_str_1(io.ymdio.stb(i, j, k), row_width, 3, single_offset),
+        num_to_str_1(io.ymdio.aa(i, j, k), row_width, 0, single_offset),
+        num_to_str_1(io.ymdio.cnt(i, j, k), row_width, 1, single_offset),
+        num_to_str_1(io.ymdio.stb(i, j, k), row_width, 1, single_offset),
         // num_to_str_1(io.ymdio.usgr(i, j, k), row_width, 3, single_offset),
       };
       units = {
+        "°",
+        "°",
         "G",
         "G",
         "°/s²",

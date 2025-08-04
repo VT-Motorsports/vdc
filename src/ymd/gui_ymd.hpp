@@ -293,6 +293,15 @@ inline void gui_ymd_plot(gui_io &io){
   ImPlot::SetupAxis(ImAxis_Y1, "AA [deg.s-2]", ImPlotAxisFlags_None);
   ImPlot::SetupAxisLimits(ImAxis_Y1, -4000.0, 4000.0, ImGuiCond_FirstUseEver);
 
+  ImGui::SameLine();
+  if (io.ymdio.plot_type == 1 && io.ymdio.n_slices > 0) {
+    ImPlot::ColormapScale("Stability", io.ymdio.stb_min(io.ymdio.ax_plot), io.ymdio.stb_max(io.ymdio.ax_plot), ImVec2(cms_w, ImGui::GetContentRegionAvail().y), "%+7.2f", ImPlotColormapScaleFlags_Opposite, ImPlotColormap_Jet);
+  }
+  if (io.ymdio.plot_type == 2 && io.ymdio.n_slices > 0) {
+    ImPlot::ColormapScale("Control", io.ymdio.cnt_min(io.ymdio.ax_plot), io.ymdio.cnt_max(io.ymdio.ax_plot), ImVec2(cms_w, ImGui::GetContentRegionAvail().y), "%+7.2f", ImPlotColormapScaleFlags_Opposite, ImPlotColormap_Jet);
+  }
+  else {}
+
   draw_plot(io.ymdio);
   if (is_hovering(io.ymdio)){tooltip(io);}
 

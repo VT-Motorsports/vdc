@@ -77,7 +77,7 @@ inline void gui_base(gui_io &io){
   
   ImGui::SameLine(0, 10);
   ImGui::PushItemWidth(120);
-  ImGui::InputDouble("##pressure", &io.td.pressure, 13.8, 0, "%.1f");
+  ImGui::InputDouble("Pressure [kPa]", &io.td.pressure, 13.8, 0, "%.1f");
   ImGui::PopItemWidth();
 
   // Display the vehicle loading text box 
