@@ -120,7 +120,8 @@ vec get_dz_longitudinal(const vec &x, const double &h) const {
 }
 
 // Get corner torques from a combination of factors (torque vectoring-capable)
-vec get_torque_drive(const double &t_req, const double &sip, const double &str_in, const double &v) const {
+vec get_torque_drive(const double &t_req, const double &r, const double &sip, const double &str_in, const double &v) const {
+  const double dx_yr = 0 * sign(r);
 	const double dx_sip_f = 0 * sip;
 	const double dx_str_f = 0 * str_in;
 	const double dx_v_f = 0 * v;
@@ -128,7 +129,7 @@ vec get_torque_drive(const double &t_req, const double &sip, const double &str_i
 	const double dx_str_r = 0 * str_in;
 	const double dx_v_r = 0 * v;
 	const double dx_f = dx_sip_f + dx_str_f + dx_v_f;
-	const double dx_r = dx_sip_r + dx_str_r + dx_v_r;
+	const double dx_r = dx_yr + dx_sip_r + dx_str_r + dx_v_r;
 	const double x_req = t_req / (0.49 * dia);
 	const vec x = {ft/100 * x_req / 2 - dx_f, ft/100 * x_req / 2 + dx_f, (1 - ft/100) * x_req / 2 - dx_r, (1 - ft/100) * x_req / 2 + dx_r};
 	vec trq = x * (0.49 * dia);
@@ -167,9 +168,9 @@ vec get_fx_tire(const vec &trq, const vec &z, const vec &inc) const {
 	const vec D = p94_s(0)/100 * fzn % (p94_b(1) * fzkn + p94_b(2)) % (1 - p94_b(14) * pow(inc, 2));
 	vec x_t(4);
 	for (int i = 0; i < 4; ++i) {
-		if (abs(trq(i) / (0.98 * dia / 2)) > abs(D(i))) {
+		if (abs(trq(i) / (0.49 * dia)) > abs(D(i))) {
 			// If torque applied to wheel exceeds longitudinal grip limits
-			x_t(i) = 0.7 * D(i) * -sign(trq(i));
+			x_t(i) = 1.0 * D(i) * -sign(trq(i));
 		}
 		else {
 			// If torque applied to wheel does not exceed longitudinal grip limits
@@ -198,7 +199,7 @@ vec get_fy_tire(const vec &trq, const vec &x_p, const vec &slp, const vec &z, co
 	const vec Bx1 = B % (slp + H);
 	const vec y_e = D % sin(C * atan(Bx1 - E % (Bx1 - atan(Bx1)))) + V;
 	const vec y_0 = D % sin(C * atan(B%H - E % (B%H - atan(B%H)))) + V;
-	vec y_t = y_e % sqrt(1 - pow((trq / (0.98 * dia / 2)) / x_p, 2)) + y_0;
+	vec y_t = y_e % real(sqrt(1 - pow((trq / (0.49 * dia)) / x_p, 2))); // + y_0;
   for (int i = 0; i < 4; ++i){
     if (z(i) >= 0){
       y_t(i) = 0;
@@ -221,7 +222,7 @@ vec get_mz_tire(const vec &trq, const vec &x_p, const vec &slp, const vec &z, co
 	const vec Bx1 = B % (slp + H);
 	const vec mz_e = D % sin(C * atan(Bx1 - E % (Bx1 - atan(Bx1)))) + V;
 	const vec mz_0 = D % sin(C * atan(B%H - E % (B%H - atan(B%H)))) + V;
-	vec mz_t = mz_e % sqrt(1 - pow((trq / (0.98 * dia / 2)) / x_p, 2)) + mz_0;
+	vec mz_t = mz_e % sqrt(1 - pow((trq / (0.49 * dia)) / x_p, 2)) + mz_0;
   for (int i = 0; i < 4; ++i){
     if (z(i) >= 0){
       mz_t(i) = 0;
@@ -245,7 +246,7 @@ vec get_fy_potential(const vec &slp, const vec &z, const vec &inc) const {
 	const vec fzkn = fzn / 1000;
 	const vec D = p94_s(1)/100 * fzn % (p94_a(1) * fzkn + p94_a(2)) % (1 - p94_a(15) * pow(inc, 2));
 	const vec V = (p94_a(11) * fzn + p94_a(12) + (p94_a(13) * fzkn + p94_a(14)) % fzkn % inc);
-	vec y_p = D + V % -sign(slp);
+	vec y_p = D + V % sign(slp);
 	return y_p;
 }
 
@@ -421,8 +422,10 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 	double r_res = 100;
 
 	// SETTLING THE PLOT
-	static const int max_iterations = 40;
-	const double P = 0.7;
+	static const int max_iterations = 80;
+	const double P_ax = 1.0;
+	const double P_ay = 0.7;
+	const double P_aa = 0.7;
 	for (int i_ = 0; i_ < max_iterations; ++i_) {
 		ax_old = ax_res;
 		ay_old = ay_res;
@@ -445,7 +448,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 		h.d = get_cg_dynamic(bmp.d);
 		h.j = get_cg_jacking(bmp.j);
 		if (trq_req > 0)
-			trq = get_torque_drive(trq_req, io.yaw(i, j, k), io.steer(i, j, k), io.v(i, j, k));
+			trq = get_torque_drive(trq_req, r_old, io.yaw(i, j, k), io.steer(i, j, k), io.v(i, j, k));
 		else
 			trq = get_torque_brake(trq_req);
 		slp = get_slip_angles(io.yaw(i, j, k), str(), r_res);
@@ -458,18 +461,19 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 		y.p = get_fy_potential(slp, z(), inc());
 		mz.t = get_mz_tire(trq, x.p, slp, z(), inc());
 		mz.p = get_mz_potential(z(), inc());
-		ax_res = get_ax_resultant(x, y, str, io.yaw(i, j, k), io.v(i, j, k));
+		ax_res = (1 - P_ax) * ax_old + P_ax * get_ax_resultant(x, y, str, io.yaw(i, j, k), io.v(i, j, k));
 		trq_req = trq_req + get_trq_required(io.ax(i, j, k), ax_res, io.yaw(i, j, k));
-		ay_res = get_ay_resultant(x, y, str, io.yaw(i, j, k));
-		aa_res = get_aa_resultant(x, y, mz, str);
+		ay_res = (1 - P_ay) * ay_old + P_ay * get_ay_resultant(x, y, str, io.yaw(i, j, k));
+		aa_res = (1 - P_aa) * aa_old + P_aa * get_aa_resultant(x, y, mz, str);
 		r_res = get_radius(ay_res, io.v(i, j, k));
 
-		if (pow(ay_res - ay_old, 2) < 0.0001 && pow(ax_res - ax_old, 2) < 0.0001 && pow(aa_res - aa_old, 2) < 0.0001) {
+		// if (pow(ay_res - ay_old, 2) < 0.0001 && pow(ax_res - ax_old, 2) < 0.0001 && pow(aa_res - aa_old, 2) < 0.0001) {
+		if (pow((ax_res - ax_old), 2) < 0.008 && pow((ay_res - ay_old), 2) < 0.008 && pow((aa_res - aa_old), 2) < 1.0) {
 			static int count = 0;
 			if (count) {
 				// Cube outputs
-				io.ay(i, j, k) = P * ay_res + (1 - P) * ay_old;
-				io.aa(i, j, k) = P * aa_res + (1 - P) * aa_old;
+				io.ay(i, j, k) = ay_res;
+				io.aa(i, j, k) = aa_res;
 				if (i > 0) {
 					const double d_aa = io.aa(i, j, k) - io.aa(i - 1, j, k);
 					io.stb(i, j, k) = d_aa / io.yaw_dlt;
@@ -487,7 +491,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 				io.hve(i, j, k) = get_hve(bmp);
 				io.rll(i, j, k) = get_rll(bmp);
 				io.pch(i, j, k) = get_pch(bmp);
-				io.r(i, j, k) = P * r_res + (1 - P) * r_old;
+				io.r(i, j, k) = r_res;
 
 				// Object outputs
 				io.x(i, j, k) = x;
@@ -500,9 +504,12 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 				io.h(i, j, k) = h;
 				io.trq(i, j, k) = trq;
 				io.slp(i, j, k) = slp;
+        io.grp_x(i, j, k) = x.t / x.p;
+        io.grp_y(i, j, k) = y.t / y.p;
+        io.grp(i, j, k) = sqrt(pow(x.t / x.p, 2) + pow(y.t / y.p, 2));
 
 				// AX convergence error
-				if (pow(io.ax(i, j, k) - ax_res, 2) > 0.0001) {
+				if (pow(io.ax(i, j, k) - ax_res, 2) > 0.001) {
 					io.v(i, j, k) = -1;
 					io.ay(i, j, k) = nan("");
 					io.aa(i, j, k) = nan("");
@@ -515,7 +522,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 	// Handle failure to iterate here
 	io.ay(i, j, k) = nan("");
 	io.aa(i, j, k) = nan("");
-  // cout << "Failed to iterate at (" << i << ", " << j << ", " << k << ")." << endl;
+  cout << "Failed to iterate at (" << i << ", " << j << ", " << k << ")." << endl;
 }
 
 // Compute a cube of yaw moment diagram instances into a ymd_v_io object

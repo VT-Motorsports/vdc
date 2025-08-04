@@ -319,6 +319,7 @@ public:
 	field<bmp_whl> bmp;
 	field<cg> h;
 	field<vec> trq, slp;
+  field<vec> grp_x, grp_y, grp;
 
 	// Initialization
 	ymd_v_io() {
@@ -415,6 +416,9 @@ public:
 		h.set_size(i, j, k);
 		trq.set_size(i, j, k);
 		slp.set_size(i, j, k);
+		grp_x.set_size(i, j, k);
+		grp_y.set_size(i, j, k);
+		grp.set_size(i, j, k);
 	}
 	void update_maxes() {
 		stb_min.set_size(n_slices);

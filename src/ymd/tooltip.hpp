@@ -86,6 +86,26 @@ void tooltip(gui_io &io) {
     
     // Ctrl
     case 1:
+      row_width = 6;
+      single_offset = 0;
+      names = {
+        "grip_x",
+        "grip_y",
+        "grip",
+        "slip ang",
+      };
+      numbers = {
+        num_to_str_4(io.ymdio.grp_x(i, j, k)*100, row_width, 1),
+        num_to_str_4(io.ymdio.grp_y(i, j, k)*100, row_width, 1),
+        num_to_str_4(io.ymdio.grp(i, j, k)*100, row_width, 1),
+        num_to_str_4(io.ymdio.slp(i, j, k), row_width, 1),
+      };
+      units = {
+        "%",
+        "%",
+        "%",
+        "°",
+      };
       break;
 
     // Shift
@@ -109,6 +129,27 @@ void tooltip(gui_io &io) {
         "N",
         "N",
         "N.m",
+      };
+      break;
+
+    // Alt 
+    case 3:
+      row_width = 6;
+      single_offset = 0;
+      names = {
+        "inc",
+        "str",
+        "bmp",
+      };
+      numbers = {
+        num_to_str_4(io.ymdio.inc(i, j, k)(), row_width, 1),
+        num_to_str_4(io.ymdio.str(i, j, k)(), row_width, 1),
+        num_to_str_4(io.ymdio.bmp(i, j, k)(), row_width, 1),
+      };
+      units = {
+        "°",
+        "°",
+        "mm",
       };
       break;
   }
