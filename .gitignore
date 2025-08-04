@@ -1,3 +1,4 @@
 lib/*
 build/*
 examples/*.dat
+tires/*

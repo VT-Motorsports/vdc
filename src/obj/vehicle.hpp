@@ -176,6 +176,11 @@ vec get_fx_tire(const vec &trq, const vec &z, const vec &inc) const {
 			x_t(i) = trq(i) / (dia / 2);
 		}
 	}
+  for (int i = 0; i < 4; ++i){
+    if (z(i) >= 0){
+      x_t(i) = 0;
+    }
+  }
 	return x_t;
 }
 
@@ -194,12 +199,34 @@ vec get_fy_tire(const vec &trq, const vec &x_p, const vec &slp, const vec &z, co
 	const vec y_e = D % sin(C * atan(Bx1 - E % (Bx1 - atan(Bx1)))) + V;
 	const vec y_0 = D % sin(C * atan(B%H - E % (B%H - atan(B%H)))) + V;
 	vec y_t = y_e % sqrt(1 - pow((trq / (0.98 * dia / 2)) / x_p, 2)) + y_0;
+  for (int i = 0; i < 4; ++i){
+    if (z(i) >= 0){
+      y_t(i) = 0;
+    }
+  }
 	return y_t;
 }
 
 // WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP  
 vec get_mz_tire(const vec &trq, const vec &x_p, const vec &slp, const vec &z, const vec &inc) const {
-	vec mz_t = {0, 0, 0, 0};
+	const vec fzn = z;
+	const vec fzkn = fzn / 1000;
+	const double C = p94_a(0);
+	const vec D = p94_s(2)/100 * fzn % (p94_c(1) * fzkn + p94_c(2)) % (1 - p94_c(15) * pow(inc, 2));
+	const vec BCD = p94_c(3) * sin(atan(fzkn / p94_c(4))) % (1 - p94_c(5) * abs(inc));
+	const vec B = BCD / (C * D);
+	const vec H = (p94_c(8) * fzkn + p94_c(9) + p94_c(10) * inc);
+	const vec V = (p94_c(11) * fzn + p94_c(12) + (p94_c(13) * fzkn + p94_c(14)) % fzkn % inc);
+	const vec E = (p94_c(6) * fzkn + p94_c(7)) % (1 - (p94_c(16) * inc + p94_c(17)));
+	const vec Bx1 = B % (slp + H);
+	const vec mz_e = D % sin(C * atan(Bx1 - E % (Bx1 - atan(Bx1)))) + V;
+	const vec mz_0 = D % sin(C * atan(B%H - E % (B%H - atan(B%H)))) + V;
+	vec mz_t = mz_e % sqrt(1 - pow((trq / (0.98 * dia / 2)) / x_p, 2)) + mz_0;
+  for (int i = 0; i < 4; ++i){
+    if (z(i) >= 0){
+      mz_t(i) = 0;
+    }
+  }
 	return mz_t;
 }
 
@@ -356,12 +383,13 @@ double get_ay_resultant(const fx_whl &x, const fy_whl &y, const str_whl &str, co
 }
 
 // Get TOTAL angular acceleration (aa)
-double get_aa_resultant(const fx_whl &x, const fy_whl &y, const str_whl &str) const {
+double get_aa_resultant(const fx_whl &x, const fy_whl &y, const mz_whl &mz, const str_whl &str) const {
 	const vec fx_w = x.reframe(y.t, str());
 	const vec fy_w = y.reframe(x.t, str());
-	const double aa_x = (fx_w(1) - fx_w(0)) * t_f/1000 + (fx_w(3) - fx_w(2)) * t_r/1000;
-	const double aa_y = (fy_w(0) + fy_w(1)) * a/1000 - (fy_w(2) + fy_w(3)) * b/1000;
-	return (aa_x + aa_y) / i_zz * 57.3;
+	const double mz_x = (fx_w(1) - fx_w(0)) * t_f/1000 + (fx_w(3) - fx_w(2)) * t_r/1000;
+	const double mz_y = (fy_w(0) + fy_w(1)) * a/1000 - (fy_w(2) + fy_w(3)) * b/1000;
+  const double mz_z = sum(mz.t);
+	return (mz_x + mz_y + mz_z) / i_zz * 57.3;
 }
 
 // Get cornering radius in SIDESLIP frame 
@@ -433,7 +461,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 		ax_res = get_ax_resultant(x, y, str, io.yaw(i, j, k), io.v(i, j, k));
 		trq_req = trq_req + get_trq_required(io.ax(i, j, k), ax_res, io.yaw(i, j, k));
 		ay_res = get_ay_resultant(x, y, str, io.yaw(i, j, k));
-		aa_res = get_aa_resultant(x, y, str);
+		aa_res = get_aa_resultant(x, y, mz, str);
 		r_res = get_radius(ay_res, io.v(i, j, k));
 
 		if (pow(ay_res - ay_old, 2) < 0.0001 && pow(ax_res - ax_old, 2) < 0.0001 && pow(aa_res - aa_old, 2) < 0.0001) {

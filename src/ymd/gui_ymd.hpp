@@ -131,8 +131,8 @@ void gui_ymd_vehicle(gui_io &io){
   };
   tree_var_next = { 
     &io.car.dia,
-    &io.car.p94_s(1),
     &io.car.p94_s(0),
+    &io.car.p94_s(1),
     &io.car.p94_s(2),
     &io.car.kp_f,
     &io.car.kp_r,
