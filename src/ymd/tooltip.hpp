@@ -62,6 +62,7 @@ void tooltip(gui_io &io) {
         "ang acc",
         "control",
         "stability",
+        "us gradient",
       };
       numbers = {
         num_to_str_1(io.ymdio.yaw(i, j, k), row_width, 1, single_offset),
@@ -71,7 +72,7 @@ void tooltip(gui_io &io) {
         num_to_str_1(io.ymdio.aa(i, j, k), row_width, 0, single_offset),
         num_to_str_1(io.ymdio.cnt(i, j, k), row_width, 1, single_offset),
         num_to_str_1(io.ymdio.stb(i, j, k), row_width, 1, single_offset),
-        // num_to_str_1(io.ymdio.usgr(i, j, k), row_width, 3, single_offset),
+        num_to_str_1(io.ymdio.usg(i, j, k) * 9.81, row_width, 1, single_offset),
       };
       units = {
         "°",
@@ -81,6 +82,7 @@ void tooltip(gui_io &io) {
         "°/s²",
         "°/s²/°",
         "°/s²/°",
+        "°/G",
       };
       break;
     

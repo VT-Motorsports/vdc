@@ -303,11 +303,11 @@ public:
 	int n_rows, n_cols, n_slices;
 
 	// Cube Outputs
-	cube ay, aa, stb, cnt, hve, rll, pch, r;
+	cube ay, aa, stb, cnt, usg, hve, rll, pch, r;
 
 	// Colormap Outputs
-	vec stb_min, stb_max, cnt_min, cnt_max;
-	cube stb_norm, cnt_norm;
+	vec stb_min, stb_max, cnt_min, cnt_max, usg_min, usg_max;
+	cube stb_norm, cnt_norm, usg_norm;
 
 	// Field Outputs
 	field<fx_whl> x; // io.x(i, j, k).t
@@ -353,12 +353,14 @@ public:
 		vec yaw_vals;
 		yaw_vals = join_cols(regspace(-yaw_rng, yaw_dlt, 0),
 							regspace(yaw_dlt, yaw_dlt, yaw_rng));
-		int i = yaw_vals.n_elem;
+		yaw_vals = reverse(yaw_vals); // flip to range:0:-range
+    int i = yaw_vals.n_elem;
 
 		// Setup steer_vals as range from -range:0:range
 		vec steer_vals;
 		steer_vals = join_cols(regspace(-steer_rng, steer_dlt, 0),
 							regspace(steer_dlt, steer_dlt, steer_rng));
+    // steer_vals = reverse(steer_vals); // flip to range:0:-range
 		int j = steer_vals.n_elem;
 
 		// Setup ax_vals as range from min:0:max
@@ -400,6 +402,7 @@ public:
 		aa.zeros(i, j, k);
 		stb.zeros(i, j, k);
 		cnt.zeros(i, j, k);
+    usg.zeros(i, j, k);
 		hve.zeros(i, j, k);
 		rll.zeros(i, j, k);
 		pch.zeros(i, j, k);
@@ -425,15 +428,26 @@ public:
 		stb_max.set_size(n_slices);
 		cnt_min.set_size(n_slices);
 		cnt_max.set_size(n_slices);
+		usg_min.set_size(n_slices);
+		usg_max.set_size(n_slices);
+
 		stb_norm = zeros(n_rows, n_cols, n_slices);
 		cnt_norm = zeros(n_rows, n_cols, n_slices);
+		usg_norm = zeros(n_rows, n_cols, n_slices);
+
 		for (int k = 0; k < n_slices; ++k) {
+
 			stb_min(k) = stb.slice(k).min();
 			stb_max(k) = stb.slice(k).max();
 			cnt_min(k) = cnt.slice(k).min();
 			cnt_max(k) = cnt.slice(k).max();
+			usg_min(k) = usg.slice(k).min();
+			usg_max(k) = usg.slice(k).max();
+
 			stb_norm.slice(k) = (stb.slice(k) - stb_min(k)) / (stb_max(k) - stb_min(k));
 			cnt_norm.slice(k) = (cnt.slice(k) - cnt_min(k)) / (cnt_max(k) - cnt_min(k));
+			usg_norm.slice(k) = (usg.slice(k) - usg_min(k)) / (usg_max(k) - usg_min(k));
+
 		}
 	}
 };

@@ -44,6 +44,9 @@ void draw_plot(ymd_v_io &io) {
 					else if (io.plot_type == 2 && !isnan(io.cnt_norm(i, j, k))) { // Color by control
 						fill_color = ImPlot::SampleColormap(io.cnt_norm(i, j, k), ImPlotColormap_Jet);
 					}
+					else if (io.plot_type == 3 && !isnan(io.usg_norm(i, j, k))) { // Color by control
+						fill_color = ImPlot::SampleColormap(io.usg_norm(i, j, k), ImPlotColormap_Jet);
+					}
 					else {
 						fill_color = ImPlot::SampleColormap(1.0f, ImPlotColormap_Greys);
 					}

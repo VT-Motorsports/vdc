@@ -476,16 +476,19 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 				io.aa(i, j, k) = aa_res;
 				if (i > 0) {
 					const double d_aa = io.aa(i, j, k) - io.aa(i - 1, j, k);
-					io.stb(i, j, k) = d_aa / io.yaw_dlt;
+					io.stb(i, j, k) = d_aa / -io.yaw_dlt;
 				}
 				if (i == 1) {
 					io.stb(0, j, k) = io.stb(1, j, k);
 				}
 				if (j > 0) {
+          const double d_ay = io.ay(i, j, k) - io.ay(i, j - 1, k);
+          io.usg(i, j, k) = io.steer_dlt / d_ay;
 					const double d_aa = io.aa(i, j, k) - io.aa(i, j - 1, k);
 					io.cnt(i, j, k) = d_aa / io.steer_dlt;
 				}
 				if (j == 1) {
+          io.usg(i, 0, k) = io.usg(i, 1, k);
 					io.cnt(i, 0, k) = io.cnt(i, 1, k);
 				}
 				io.hve(i, j, k) = get_hve(bmp);

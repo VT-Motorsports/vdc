@@ -26,6 +26,11 @@ inline void gui_ymd_controls(gui_io &io){
   // Plot Count
   ImGui::InputInt("Plot Count", &io.ymdio.ax_ct, 2);
 
+  // Plot Style 
+  ImGui::RadioButton("Stability", &io.ymdio.plot_type, 1);
+  ImGui::RadioButton("Control", &io.ymdio.plot_type, 2);
+  ImGui::RadioButton("US Gradient", &io.ymdio.plot_type, 3);
+
   // Velocity 
   ImGui::InputDouble("Velocity [m/s]", &io.ymdio.speed, 1.0f, 10.0f, "%.1f");
 
@@ -299,6 +304,9 @@ inline void gui_ymd_plot(gui_io &io){
   }
   if (io.ymdio.plot_type == 2 && io.ymdio.n_slices > 0) {
     ImPlot::ColormapScale("Control", io.ymdio.cnt_min(io.ymdio.ax_plot), io.ymdio.cnt_max(io.ymdio.ax_plot), ImVec2(cms_w, ImGui::GetContentRegionAvail().y), "%+7.2f", ImPlotColormapScaleFlags_Opposite, ImPlotColormap_Jet);
+  }
+  if (io.ymdio.plot_type == 3 && io.ymdio.n_slices > 0) {
+    ImPlot::ColormapScale("US Gradient", io.ymdio.usg_min(io.ymdio.ax_plot)*9.81, io.ymdio.usg_max(io.ymdio.ax_plot)*9.81, ImVec2(cms_w, ImGui::GetContentRegionAvail().y), "%+7.2f", ImPlotColormapScaleFlags_Opposite, ImPlotColormap_Jet);
   }
   else {}
 
