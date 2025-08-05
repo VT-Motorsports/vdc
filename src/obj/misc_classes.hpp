@@ -336,11 +336,11 @@ public:
 		n_slices = 0;
 		// Set default inputs
 		speed = 12.0;
-		yaw_rng = 10.0;
+		yaw_rng = 15.0;
 		yaw_dlt = 1;
-		steer_rng = 90.0;
-		steer_dlt = 8;
-		ax_ct = 3;
+		steer_rng = 110.0;
+		steer_dlt = 10;
+		ax_ct = 1;
 		ax_lo = -12.0;
 		ax_hi = 9.0;
 	}

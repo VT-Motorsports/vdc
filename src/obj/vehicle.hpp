@@ -199,10 +199,16 @@ vec get_fy_tire(const vec &trq, const vec &x_p, const vec &slp, const vec &z, co
 	const vec Bx1 = B % (slp + H);
 	const vec y_e = D % sin(C * atan(Bx1 - E % (Bx1 - atan(Bx1)))) + V;
 	const vec y_0 = D % sin(C * atan(B%H - E % (B%H - atan(B%H)))) + V;
-	vec y_t = y_e % real(sqrt(1 - pow((trq / (0.49 * dia)) / x_p, 2))); // + y_0;
+	vec y_t = y_e % sqrt(1 - pow((trq / (0.49 * dia)) / x_p, 2)); // + y_0;
   for (int i = 0; i < 4; ++i){
     if (z(i) >= 0){
       y_t(i) = 0;
+    }
+    if (isnan(y_t(i))){
+      y_t(i) = 0;
+      // cout << "y_t(" << i << ") NaN" << endl;
+      // cout << "x = " << trq(i) / (0.49 * dia) << endl;
+      // cout << "x_p = " << x_p(i) << endl;
     }
   }
 	return y_t;
@@ -224,7 +230,7 @@ vec get_mz_tire(const vec &trq, const vec &x_p, const vec &slp, const vec &z, co
 	const vec mz_0 = D % sin(C * atan(B%H - E % (B%H - atan(B%H)))) + V;
 	vec mz_t = mz_e % sqrt(1 - pow((trq / (0.49 * dia)) / x_p, 2)) + mz_0;
   for (int i = 0; i < 4; ++i){
-    if (z(i) >= 0){
+    if (z(i) >= 0 || isnan(mz_t(i))){
       mz_t(i) = 0;
     }
   }
@@ -422,45 +428,107 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 	double r_res = 100;
 
 	// SETTLING THE PLOT
-	static const int max_iterations = 80;
+	static const int max_iterations = 40;
 	const double P_ax = 1.0;
-	const double P_ay = 0.7;
-	const double P_aa = 0.7;
+	const double P_ay = 1.0;
+	const double P_aa = 1.0;
+  vec ax_log(max_iterations), ay_log(max_iterations), aa_log(max_iterations), r_log(max_iterations);
+
 	for (int i_ = 0; i_ < max_iterations; ++i_) {
+
 		ax_old = ax_res;
 		ay_old = ay_res;
 		aa_old = aa_res;
 		r_old = r_res;
-		z.s = get_fz_static();
+
+    // temporary for debugging purposes
+    ax_log(i_) = ax_old;
+    ay_log(i_) = ay_old;
+    aa_log(i_) = aa_old;
+    r_log(i_) = r_old;
+
+    if (isnan(ax_old) || isnan(ay_old) || isnan(aa_old) || isnan(r_old)){
+      cout << "ax/ay/aa/r NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      cout << ax_log.rows(0, i_);
+      cout << ay_log.rows(0, i_);
+      cout << aa_log.rows(0, i_);
+      cout << r_log.rows(0, i_);
+      break;
+    }
+		
+    z.s = get_fz_static();
 		z.a = get_fz_aero(io.v(i, j, k));
 		z.l = get_dz_lateral(y.reframe(x.t, str()), h());
 		z.n = get_dz_longitudinal(x.reframe(y.t, str()), h());
+    if (isnan(sum(z()))) {
+      cout << "z() NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
 		bmp.s = get_bump_static();
 		bmp.d = get_bump_dynamic(z() - z.s);
 		bmp.j = get_bump_jacking(x.reframe(y.t, str()), y.reframe(x.t, str()), h());
+    if (isnan(sum(bmp()))) {
+      cout << "bmp() NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
+
 		inc.s = get_inclination_static();
 		inc.e = get_inclination_steered(str());
 		inc.d = get_inclination_dynamic(bmp);
+    if (isnan(sum(inc()))) {
+      cout << "inc() NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
 		str.s = get_steer_static();
 		str.e = get_steer_steered(io.steer(i, j, k));
 		str.d = get_steer_dynamic(bmp.d);
+    if (isnan(sum(str()))) {
+      cout << "str() NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
 		h.s = get_cg_static(bmp.s);
 		h.d = get_cg_dynamic(bmp.d);
 		h.j = get_cg_jacking(bmp.j);
+    if (isnan(sum(h()))) {
+      cout << "h() NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
 		if (trq_req > 0)
 			trq = get_torque_drive(trq_req, r_old, io.yaw(i, j, k), io.steer(i, j, k), io.v(i, j, k));
 		else
 			trq = get_torque_brake(trq_req);
+
 		slp = get_slip_angles(io.yaw(i, j, k), str(), r_res);
 		if (pow(io.yaw(i, j, k), 2) < 0.001 && pow(io.steer(i, j, k), 2) < 0.25) { // Handles small values
 			slp = vec({0, 0, 0, 0});
 		}
+
 		x.t = get_fx_tire(trq, z(), inc());
 		x.p = get_fx_potential(z(), inc());
+    if (isnan(sum(x.t))) {
+      cout << "x.t NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
 		y.t = get_fy_tire(trq, x.p, slp, z(), inc());
 		y.p = get_fy_potential(slp, z(), inc());
+    if (isnan(sum(y.t))) {
+      cout << "y.t NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
 		mz.t = get_mz_tire(trq, x.p, slp, z(), inc());
 		mz.p = get_mz_potential(z(), inc());
+    if (isnan(sum(mz.t))) {
+      cout << "mz.t NaN at (" << i << ", " << j << ", " << k << ").[iter=" << i_ << "]" << endl;
+      break;
+    }
+
 		ax_res = (1 - P_ax) * ax_old + P_ax * get_ax_resultant(x, y, str, io.yaw(i, j, k), io.v(i, j, k));
 		trq_req = trq_req + get_trq_required(io.ax(i, j, k), ax_res, io.yaw(i, j, k));
 		ay_res = (1 - P_ay) * ay_old + P_ay * get_ay_resultant(x, y, str, io.yaw(i, j, k));
@@ -468,7 +536,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 		r_res = get_radius(ay_res, io.v(i, j, k));
 
 		// if (pow(ay_res - ay_old, 2) < 0.0001 && pow(ax_res - ax_old, 2) < 0.0001 && pow(aa_res - aa_old, 2) < 0.0001) {
-		if (pow((ax_res - ax_old), 2) < 0.008 && pow((ay_res - ay_old), 2) < 0.008 && pow((aa_res - aa_old), 2) < 1.0) {
+		if (pow((ax_res - ax_old), 2) < 0.0001 && pow((ay_res - ay_old), 2) < 0.0001 && pow((aa_res - aa_old), 2) < 1.0) {
 			static int count = 0;
 			if (count) {
 				// Cube outputs
@@ -514,6 +582,8 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 				// AX convergence error
 				if (pow(io.ax(i, j, k) - ax_res, 2) > 0.001) {
 					io.v(i, j, k) = -1;
+          // io.ay(i, j, k) = ay_res;
+          // io.aa(i, j, k) = aa_res;
 					io.ay(i, j, k) = nan("");
 					io.aa(i, j, k) = nan("");
 				}
@@ -522,10 +592,19 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 			count++;
 		}
 	}
-	// Handle failure to iterate here
-	io.ay(i, j, k) = nan("");
-	io.aa(i, j, k) = nan("");
-  cout << "Failed to iterate at (" << i << ", " << j << ", " << k << ")." << endl;
+	if (isnan(ay_res) || isnan(aa_res)){
+    cout << "Natural NaN at (" << i << ", " << j << ", " << k << ")." << endl;
+    io.ay(i, j, k) = nan("");
+    io.aa(i, j, k) = nan("");
+  }
+  else {
+    // Handle failure to iterate here
+    cout << "Failed to iterate at (" << i << ", " << j << ", " << k << ")." << endl;
+    // io.ay(i, j, k) = ay_res;
+    // io.aa(i, j, k) = aa_res;
+    io.ay(i, j, k) = nan("");
+    io.aa(i, j, k) = nan("");
+  }
 }
 
 // Compute a cube of yaw moment diagram instances into a ymd_v_io object

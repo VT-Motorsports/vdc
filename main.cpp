@@ -67,7 +67,10 @@ int main(){
 				gui_tire(io);
 				break;
 			case ymd:
-        if (io.ymdio.update){io.car.get_ymd_const_v(io.ymdio);}
+        if (io.ymdio.update){
+          io.car.get_ymd_const_v(io.ymdio);
+          // io.ymdio.ay.slice(1).save("C:/Users/benjmyn/ActiveDev/vdc/tires/ay.csv", csv_ascii);
+        }
 				gui_ymd(io);
 				break;
 			case lts:
