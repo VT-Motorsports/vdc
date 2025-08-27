@@ -16,6 +16,7 @@ public:
              
   // Powertrain
 	double ft; // front torque [-]
+  double dc_r; // diff constant for preload [N]
 
   // Tires
 	double dia; // full tire diameter [m]
@@ -55,6 +56,7 @@ public:
 
   // Constructor
 	vehicle(){
+    dc_r = 0;
 	}
 
   // Recalculate parameters before running ymd
@@ -121,7 +123,7 @@ vec get_dz_longitudinal(const vec &x, const double &h) const {
 
 // Get corner torques from a combination of factors (torque vectoring-capable)
 vec get_torque_drive(const double &t_req, const double &r, const double &sip, const double &str_in, const double &v) const {
-  const double dx_yr = 0 * sign(r);
+  const double dx_yr = dc_r * sign(r);
 	const double dx_sip_f = 0 * sip;
 	const double dx_str_f = 0 * str_in;
 	const double dx_v_f = 0 * v;
@@ -587,6 +589,37 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
 					io.ay(i, j, k) = nan("");
 					io.aa(i, j, k) = nan("");
 				}
+
+        // Wheel lost contact error 
+        if (z()(0) > 0 || z()(1) > 0 || z()(2) > 0 || z()(3) > 0){
+          io.v(i, j, k) = -1;
+					io.ay(i, j, k) = nan("");
+					io.aa(i, j, k) = nan("");
+        }
+        
+        // Stability/control blank for diff behavior
+        if(dc_r){
+          if (j > 0 && (sign(io.ay(i, j, k)) != sign(io.ay(i, j - 1, k)))){
+            io.stb(i, j, k) = nan("");
+            io.cnt(i, j, k) = nan("");
+            if (j == 1){
+              io.stb(i, 0, k) = nan("");
+              io.cnt(i, 0, k) = nan("");
+            }
+          }
+          if (i > 0 && (sign(io.ay(i, j, k)) != sign(io.ay(i - 1, j, k)))){
+            io.stb(i, j, k) = nan("");
+            io.cnt(i, j, k) = nan("");
+            if (i == 1){
+              io.stb(0, j, k) = nan("");
+              io.cnt(0, j, k) = nan("");
+            }
+          }
+        }
+
+
+        // Slip in X error
+
 				return;
 			}
 			count++;
