@@ -405,7 +405,7 @@ double get_aa_resultant(const fx_whl &x, const fy_whl &y, const mz_whl &mz, cons
 double get_radius(const double &ay_res, const double &v) const {
 	double r = pow(v, 2) / ay_res;
 	if (abs(r) > 10000.0) { // Avoid failure to settle at origin
-		r = 9999.99;
+		r = 9999.99 * sign(r);
 	}
 	return r;
 }
@@ -615,6 +615,10 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
               io.cnt(0, j, k) = nan("");
             }
           }
+          if (abs(io.ay(i, j, k)) < 0.01){
+              io.stb(i, j, k) = nan("");
+              io.cnt(i, j, k) = nan("");
+            }
         }
 
 

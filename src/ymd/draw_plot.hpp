@@ -50,7 +50,12 @@ void draw_plot(ymd_v_io &io) {
 					else {
 						fill_color = ImPlot::SampleColormap(1.0f, ImPlotColormap_Greys);
 					}
+          fill_color.w = 0.7; // slight transparency
+          if(isnan(io.cnt(i, j, k))){
+            fill_color = ImVec4(0.1, 0.1, 0.1, 0.5);
+          }
 					ImPlot::PushStyleColor(ImPlotCol_MarkerFill, fill_color);
+          ImPlot::PushStyleColor(ImPlotCol_MarkerOutline, fill_color);
 					ImPlot::PlotScatter("##scatter", &io.ay(i, j, k), &io.aa(i, j, k), 1);
 					ImPlot::PopStyleColor();
 				}
