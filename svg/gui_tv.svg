@@ -28,15 +28,15 @@
      inkscape:document-units="px"
      showgrid="false"
      shape-rendering="crispEdges"
-     inkscape:zoom="2.3079837"
-     inkscape:cx="298.52897"
-     inkscape:cy="293.11299"
+     inkscape:zoom="1"
+     inkscape:cx="653"
+     inkscape:cy="382.5"
      inkscape:window-width="1920"
      inkscape:window-height="1124"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g3607-0-9-5-1"
      showguides="false" />
   <defs
      id="defs2" />
@@ -1250,138 +1250,1198 @@
          y="-712.92371"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Yaw Moment Diagram</tspan></text>
     <rect
-       style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
-       id="rect949-36"
-       width="349"
-       height="404.423"
-       x="465.5"
-       y="8.25" />
-    <rect
-       style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
-       id="rect949-36-5"
-       width="445.91043"
-       height="347"
-       x="10.565821"
-       y="8.25" />
-    <rect
-       style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999991;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.99999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
        id="rect949-36-7"
        width="349"
-       height="290.077"
+       height="29.000011"
        x="465.5"
-       y="421.673" />
-    <rect
-       style="fill:#262626;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
-       id="rect949-6-7-2"
-       width="435.89313"
-       height="260.08893"
-       x="15.574472"
-       y="13.07653" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-       x="233.52104"
-       y="33.652016"
-       id="text8955-9-3-9"><tspan
-         sodipodi:role="line"
-         id="tspan8953-3-6-1"
+       y="683.54169" />
+    <g
+       id="g3607">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5"
+         width="445.91043"
+         height="347"
+         x="10.565821"
+         y="8.25" />
+      <rect
+         style="fill:#262626;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-6-7-2"
+         width="435.89313"
+         height="292.93835"
+         x="15.574472"
+         y="13.07653" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
          x="233.52104"
          y="33.652016"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Tire Grip Plot</tspan></text>
+         id="text8955-9-3-9"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1"
+           x="233.52104"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Tire Grip Plot</tspan></text>
+      <g
+         id="g514"
+         transform="translate(0,12)">
+        <g
+           id="g2461-6-9-2-9-6-8-7"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#14b821;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6"
+             width="44.93716"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#e5c31a;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6"
+             width="22.46858"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3"
+         transform="translate(-4.8757568e-5,25.460466)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-7"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#cc0000;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6"
+             width="41.090092"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3-1"
+         transform="translate(-4.8757568e-5,38.920924)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6-2"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447" />
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3"
+             width="51.242287"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0-7"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28096)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9-9"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3-2"
+             width="51.251469"
+             height="21"
+             x="571.06287"
+             y="-320.08698"
+             transform="scale(1,-1)" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3607-0"
+       transform="translate(453.91044)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5-6"
+         width="350.02374"
+         height="59.304047"
+         x="10.565821"
+         y="8.25" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="186.54572"
+         y="33.652016"
+         id="text8955-9-3-9-5"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-5"
+           x="186.54572"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Battery Usage</tspan></text>
+      <g
+         id="g514-4"
+         transform="matrix(0.78237087,0,0,1,2.8776011,-248.73895)"
+         style="stroke-width:1.13056">
+        <g
+           id="g2461-6-9-2-9-6-8-7-7"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:1.07228">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3.21683;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-65"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#14b821;fill-opacity:1;stroke:none;stroke-width:3.21683;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-69"
+             width="44.93716"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-37"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:1.07228">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3.21683;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-4"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#cc0000;fill-opacity:1;stroke:none;stroke-width:3.21683;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-5"
+             width="22.46858"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3607-0-9"
+       transform="translate(453.91044,67.304047)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999995;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5-6-2"
+         width="350.02374"
+         height="143.39191"
+         x="10.565821"
+         y="8.249999" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="186.54572"
+         y="33.652016"
+         id="text8955-9-3-9-5-6"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-5-8"
+           x="186.54572"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Inputs</tspan></text>
+      <g
+         id="g134104-5-4"
+         transform="translate(-13.478645,-95.245049)">
+        <g
+           id="g2461-6-9-2-61-9"
+           inkscape:label="TextInput_1"
+           transform="translate(-527.35392,-154.67942)">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3.00001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-1-0"
+             width="310.69479"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="577.74994"
+             y="313.83698"
+             id="text8955-8-6-0-3-5-9"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-2-2-1-9-1"
+               x="577.74994"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3">Steer</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-2-3-5"
+           inkscape:label="Button_1"
+           transform="matrix(0.57754475,0,0,0.87694663,-293.70444,-116.5837)"
+           style="stroke-width:1.40515">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:4.21543;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-2-0-9"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+        </g>
+      </g>
+      <g
+         id="g134104-5-4-3"
+         transform="translate(-13.478651,-62.461602)">
+        <g
+           id="g2461-6-9-2-61-9-9"
+           inkscape:label="TextInput_1"
+           transform="translate(-527.35392,-154.67942)">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3.00001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-1-0-4"
+             width="310.69479"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="577.74994"
+             y="313.83698"
+             id="text8955-8-6-0-3-5-9-8"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-2-2-1-9-1-1"
+               x="577.74994"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3">Sideslip</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-2-3-5-2"
+           inkscape:label="Button_1"
+           transform="matrix(0.57754475,0,0,0.87694663,-293.70444,-116.5837)"
+           style="stroke-width:1.40515">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:4.21543;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-2-0-9-9"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+        </g>
+      </g>
+      <g
+         id="g134104-5-4-3-3"
+         transform="translate(-13.478651,-29.678155)">
+        <g
+           id="g2461-6-9-2-61-9-9-9"
+           inkscape:label="TextInput_1"
+           transform="translate(-527.35392,-154.67942)">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3.00001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-1-0-4-0"
+             width="149.6826"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="577.74994"
+             y="313.83698"
+             id="text8955-8-6-0-3-5-9-8-8"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-2-2-1-9-1-1-8"
+               x="577.74994"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3">Brake</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-2-3-5-2-5"
+           inkscape:label="Button_1"
+           transform="matrix(0.57754475,0,0,0.87694663,-373.70444,-116.5837)"
+           style="stroke-width:1.40515">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:4.21543;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-2-0-9-9-0"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+        </g>
+      </g>
+      <g
+         id="g134104-5-4-3-3-6"
+         transform="translate(141.4525,-29.678156)">
+        <g
+           id="g2461-6-9-2-61-9-9-9-3"
+           inkscape:label="TextInput_1"
+           transform="translate(-527.35392,-154.67942)">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3.00001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-1-0-4-0-8"
+             width="155.3474"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="577.74994"
+             y="313.83698"
+             id="text8955-8-6-0-3-5-9-8-8-5"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-2-2-1-9-1-1-8-6"
+               x="577.74994"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3">Throttle</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-2-3-5-2-5-1"
+           inkscape:label="Button_1"
+           transform="matrix(0.57754475,0,0,0.87694663,-465.70444,-116.5837)"
+           style="stroke-width:1.40515">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:4.21543;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-2-0-9-9-0-1"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3607-0-9-5"
+       transform="translate(453.91044,219.69595)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5-6-2-9"
+         width="350.02374"
+         height="234.28964"
+         x="10.565821"
+         y="8.249999" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="186.54572"
+         y="33.652016"
+         id="text8955-9-3-9-5-6-8"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-5-8-4"
+           x="186.54572"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Dynamic Outputs</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;line-height:1;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="185.16144"
+         y="63.253197"
+         id="text8955-9-3-9-5-6-8-2"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-5-8-4-5"
+           x="185.16144"
+           y="63.253197"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           dy="0">Line 1 0.123456789 0.123456789</tspan><tspan
+           sodipodi:role="line"
+           x="185.16144"
+           y="85.919899"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           id="tspan16596">Line 2 0.123456789 0.123456789</tspan><tspan
+           sodipodi:role="line"
+           x="185.16144"
+           y="108.58659"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           id="tspan16598">Line 3 0.123456789 0.123456789</tspan><tspan
+           sodipodi:role="line"
+           x="185.16144"
+           y="131.2533"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           id="tspan16600">Line 4 0.123456789 0.123456789</tspan><tspan
+           sodipodi:role="line"
+           x="185.16144"
+           y="153.92"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           id="tspan16602">Line 5 0.123456789 0.123456789</tspan><tspan
+           sodipodi:role="line"
+           x="185.16144"
+           y="176.5867"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           id="tspan16606">Line 6 0.123456789 0.123456789</tspan><tspan
+           sodipodi:role="line"
+           x="185.16144"
+           y="199.2534"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           id="tspan16610">Line 7 0.123456789 0.123456789</tspan><tspan
+           sodipodi:role="line"
+           x="185.16144"
+           y="221.9201"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3"
+           id="tspan16612">Line 8 0.123456789 0.123456789</tspan></text>
+    </g>
+    <g
+       id="g3607-9"
+       transform="translate(1.7076211,357.56292)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5-2"
+         width="445.91043"
+         height="347"
+         x="10.565821"
+         y="8.25" />
+      <rect
+         style="fill:#262626;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-6-7-2-2"
+         width="435.89313"
+         height="292.93835"
+         x="15.574472"
+         y="13.07653" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="233.52104"
+         y="33.652016"
+         id="text8955-9-3-9-8"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-9"
+           x="233.52104"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Tire Grip Plot</tspan></text>
+      <g
+         id="g514-7"
+         transform="translate(0,12)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-3"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-61"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#14b821;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-2"
+             width="44.93716"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-9"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-3"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#e5c31a;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-1"
+             width="22.46858"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3-9"
+         transform="translate(-4.8757568e-5,25.460466)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6-4"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-7-7"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-8"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-4"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#cc0000;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-5"
+             width="41.090092"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3-1-0"
+         transform="translate(-4.8757568e-5,38.920924)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6-2-3"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447" />
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0-6"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9-1"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3-0"
+             width="51.242287"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0-7-6"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28096)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9-9-3"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3-2-2"
+             width="51.251469"
+             height="21"
+             x="571.06287"
+             y="-320.08698"
+             transform="scale(1,-1)" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3607-3"
+       transform="translate(812.53463)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5-3"
+         width="445.91043"
+         height="347"
+         x="10.565821"
+         y="8.25" />
+      <rect
+         style="fill:#262626;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-6-7-2-3"
+         width="435.89313"
+         height="292.93835"
+         x="15.574472"
+         y="13.07653" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="233.52104"
+         y="33.652016"
+         id="text8955-9-3-9-86"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-0"
+           x="233.52104"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Tire Grip Plot</tspan></text>
+      <g
+         id="g514-48"
+         transform="translate(0,12)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-8"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-8"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#14b821;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-9"
+             width="44.93716"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-7"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-7"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#e5c31a;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-64"
+             width="22.46858"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3-3"
+         transform="translate(-4.8757568e-5,25.460466)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6-0"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-7-3"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-09"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-2"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#cc0000;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-54"
+             width="41.090092"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3-1-05"
+         transform="translate(-4.8757568e-5,38.920924)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6-2-9"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447" />
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0-4"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9-6"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3-9"
+             width="51.242287"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0-7-2"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28096)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9-9-2"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3-2-4"
+             width="51.251469"
+             height="21"
+             x="571.06287"
+             y="-320.08698"
+             transform="scale(1,-1)" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3607-9-7"
+       transform="translate(814.24225,357.56292)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5-2-7"
+         width="445.91043"
+         height="347"
+         x="10.565821"
+         y="8.25" />
+      <rect
+         style="fill:#262626;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-6-7-2-2-5"
+         width="435.89313"
+         height="292.93835"
+         x="15.574472"
+         y="13.07653" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="233.52104"
+         y="33.652016"
+         id="text8955-9-3-9-8-4"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-9-8"
+           x="233.52104"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Tire Grip Plot</tspan></text>
+      <g
+         id="g514-7-1"
+         transform="translate(0,12)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-3-2"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-61-8"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#14b821;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-2-9"
+             width="44.93716"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-9-3"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-3-6"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#e5c31a;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-1-8"
+             width="22.46858"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3-9-0"
+         transform="translate(-4.8757568e-5,25.460466)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6-4-2"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-7-7-1"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-8-0"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-4-5"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#cc0000;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-5-1"
+             width="41.090092"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+      </g>
+      <g
+         id="g514-3-1-0-1"
+         transform="translate(-4.8757568e-5,38.920924)">
+        <g
+           id="g2461-6-9-2-9-6-8-7-6-2-3-0"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28095)"
+           style="stroke-width:0.948447" />
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0-6-8"
+           inkscape:label="TextInput_1"
+           transform="matrix(-2.425013,0,0,-0.45841832,1618.3559,447.12164)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9-1-5"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3-0-0"
+             width="51.242287"
+             height="21"
+             x="571.06287"
+             y="299.08698" />
+        </g>
+        <g
+           id="g2461-6-9-2-9-6-8-7-0-3-0-7-6-6"
+           inkscape:label="TextInput_1"
+           transform="matrix(2.425013,0,0,0.45841832,-1151.3138,163.28096)"
+           style="stroke-width:0.948447">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-62-5-9-9-3-4"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <rect
+             style="fill:#b814b2;fill-opacity:1;stroke:none;stroke-width:2.84534;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-0-6-6-6-3-2-2-6"
+             width="51.251469"
+             height="21"
+             x="571.06287"
+             y="-320.08698"
+             transform="scale(1,-1)" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3607-0-9-5-1"
+       transform="translate(453.91044,462.98559)">
+      <g
+         id="g134104-8-7-6-3"
+         transform="translate(-16.416436,-70.426602)">
+        <g
+           id="g2461-6-9-2-9-6-8-2"
+           inkscape:label="TextInput_1"
+           transform="translate(-531.35392,-152.67942)">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-7-5-9-1"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="577.74994"
+             y="313.83698"
+             id="text8955-8-6-0-3-3-6-2-5"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-2-2-1-6-9-6-9"
+               x="577.74994"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3">1</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-1-3-6-9"
+           inkscape:label="Button_1"
+           transform="translate(-722.27935,-152.67942)">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-29-7-4-1"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="902.88428"
+             y="313.83698"
+             id="text8955-8-9-8-5-3-4-9-4"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-6-7-9-1-5-5-9"
+               x="902.88428"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3">+</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-2-9-2-0-1"
+           inkscape:label="Button_1"
+           transform="translate(-755.13264,-152.67942)">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-2-4-5-4-0"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="902.88428"
+             y="313.83698"
+             id="text8955-8-9-8-5-8-7-4-8-7"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-6-7-9-9-8-7-7-5"
+               x="902.88428"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3">-</tspan></text>
+        </g>
+        <g
+           id="g2461-6-9-2-6-4-4-1-8"
+           inkscape:label="TextInput_1"
+           transform="translate(-361.28788,-152.67942)">
+          <rect
+             style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-0-2-9-2-5-4-7-7"
+             width="89.874321"
+             height="25"
+             x="571.06287"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="577.74994"
+             y="313.83698"
+             id="text8955-8-6-0-3-6-0-3-2-0"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-2-2-1-1-3-0-7-4"
+               x="577.74994"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:0.33;stroke:none;stroke-width:3">1</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-8-6-7-2-8"
+           inkscape:label="Button_1"
+           transform="translate(-552.21331,-152.67942)">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-7-1-8-2-0"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="902.88428"
+             y="313.83698"
+             id="text8955-8-9-8-5-9-0-6-6-4"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-6-7-9-2-6-8-1-2"
+               x="902.88428"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3">+</tspan></text>
+        </g>
+        <g
+           id="g2466-6-3-2-0-3-8-0-9"
+           inkscape:label="Button_1"
+           transform="translate(-585.0666,-152.67942)">
+          <rect
+             style="fill:#1d64af;fill-opacity:0.66;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             id="rect13550-3-1-7-2-2-2-4-6-6"
+             width="27.216681"
+             height="25"
+             x="889.27594"
+             y="297.08698" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+             x="902.88428"
+             y="313.83698"
+             id="text8955-8-9-8-5-8-3-0-3-1-1"><tspan
+               sodipodi:role="line"
+               id="tspan8953-5-6-7-9-9-7-6-1-5-0"
+               x="902.88428"
+               y="313.83698"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:0.979557;stroke:none;stroke-width:3">-</tspan></text>
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+           x="121.10484"
+           y="136.79375"
+           id="text8955-9-5-1-4-9-4"><tspan
+             sodipodi:role="line"
+             id="tspan8953-3-9-5-9-4-2"
+             x="121.10484"
+             y="136.79375"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">c1</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+           x="287.62891"
+           y="136.7059"
+           id="text8955-9-5-2-5-2-9-2"><tspan
+             sodipodi:role="line"
+             id="tspan8953-3-9-2-4-0-0-2"
+             x="287.62891"
+             y="136.7059"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">c2</tspan></text>
+      </g>
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#404040;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1;stroke-dasharray:none;stroke-opacity:1"
+         id="rect949-36-5-6-2-9-1"
+         width="350.02374"
+         height="205.3213"
+         x="10.565821"
+         y="8.249999" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+         x="186.54572"
+         y="33.652016"
+         id="text8955-9-3-9-5-6-8-0"><tspan
+           sodipodi:role="line"
+           id="tspan8953-3-6-1-5-8-4-3"
+           x="186.54572"
+           y="33.652016"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Tuning Parameters</tspan></text>
+    </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-       x="124.54781"
-       y="292.70129"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffdf00;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+       x="505.64243"
+       y="701.58337"
        id="text8955-9-3-9-2"><tspan
          sodipodi:role="line"
          id="tspan8953-3-6-1-3"
-         x="124.54781"
-         y="292.70129"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Regen/Braking</tspan></text>
+         x="505.64243"
+         y="701.58337"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffdf00;fill-opacity:1;stroke:none;stroke-width:3">Regen</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-       x="349.26053"
-       y="292.70129"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#00ff17;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+       x="575.97601"
+       y="702.29169"
+       id="text8955-9-3-9-2-6"><tspan
+         sodipodi:role="line"
+         id="tspan8953-3-6-1-3-2"
+         x="575.97601"
+         y="702.29169"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#00ff17;fill-opacity:1;stroke:none;stroke-width:3">Accel</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+       x="677.59503"
+       y="702.29169"
+       id="text8955-9-3-9-2-2"><tspan
+         sodipodi:role="line"
+         id="tspan8953-3-6-1-3-9"
+         x="677.59503"
+         y="702.29169"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:3">Brake+Regen</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ff26f5;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
+       x="778.21753"
+       y="702.29169"
        id="text8955-9-3-9-2-7"><tspan
          sodipodi:role="line"
          id="tspan8953-3-6-1-3-5"
-         x="349.26053"
-         y="292.70129"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3">Acceleration</tspan></text>
-    <g
-       id="g2461-6-9-2-9-6-8-7"
-       inkscape:label="TextInput_1"
-       transform="matrix(2.425013,0,0,1,-1151.3138,-0.385681)"
-       style="stroke-width:0.642161">
-      <rect
-         style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:1.92648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-         id="rect13550-0-2-9-7-5-9-0"
-         width="89.874321"
-         height="25"
-         x="571.06287"
-         y="297.08698" />
-      <rect
-         style="fill:#dcdd2f;fill-opacity:0.7;stroke:none;stroke-width:1.92648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-         id="rect13550-0-2-9-7-5-9-0-6"
-         width="44.93716"
-         height="21"
-         x="571.06287"
-         y="299.08698" />
-    </g>
-    <g
-       id="g2461-6-9-2-9-6-8-7-0"
-       inkscape:label="TextInput_1"
-       transform="matrix(-2.425013,0,0,-1,1618.3559,618.78827)"
-       style="stroke-width:0.642161">
-      <rect
-         style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:1.92648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-         id="rect13550-0-2-9-7-5-9-0-62"
-         width="89.874321"
-         height="25"
-         x="571.06287"
-         y="297.08698" />
-      <rect
-         style="fill:#cf2fdd;fill-opacity:0.7;stroke:none;stroke-width:1.92648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-         id="rect13550-0-2-9-7-5-9-0-6-6"
-         width="22.46858"
-         height="21"
-         x="571.06287"
-         y="299.08698" />
-    </g>
-    <g
-       id="g2461-6-9-2-9-6-8-7-1"
-       inkscape:label="TextInput_1"
-       transform="matrix(2.425013,0,0,1,-1151.3138,28.892057)"
-       style="stroke-width:0.642161">
-      <rect
-         style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:1.92648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-         id="rect13550-0-2-9-7-5-9-0-8"
-         width="89.874321"
-         height="25"
-         x="571.06287"
-         y="297.08698" />
-    </g>
-    <g
-       id="g2461-6-9-2-9-6-8-7-0-9"
-       inkscape:label="TextInput_1"
-       transform="matrix(-2.425013,0,0,-1,1618.3559,648.066)"
-       style="stroke-width:0.642161">
-      <rect
-         style="fill:#0e3156;fill-opacity:0.658217;stroke:none;stroke-width:1.92648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-         id="rect13550-0-2-9-7-5-9-0-62-2"
-         width="89.874321"
-         height="25"
-         x="571.06287"
-         y="297.08698" />
-      <rect
-         style="fill:#dd2f2f;fill-opacity:0.69999999;stroke:none;stroke-width:1.92648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.1"
-         id="rect13550-0-2-9-7-5-9-0-6-6-0"
-         width="44.93716"
-         height="21"
-         x="571.06287"
-         y="299.08698" />
-    </g>
+         x="778.21753"
+         y="702.29169"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.6667px;font-family:ProggyCleanTT;-inkscape-font-specification:'ProggyCleanTT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff26f5;fill-opacity:1;stroke:none;stroke-width:3">Limit</tspan></text>
   </g>
 </svg>
