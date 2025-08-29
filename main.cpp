@@ -42,6 +42,9 @@ using json = nlohmann::json;
 #include "src/ymd/gui_ymd.hpp"
 #include "src/gui_base.hpp"
 
+// Includes - Tire
+#include "src/tv/gui_tv.hpp"
+
 // Includes - LTS
 #include "src/lts/gui_lts.hpp"
 
@@ -72,6 +75,9 @@ int main(){
           // io.ymdio.ay.slice(1).save("C:/Users/benjmyn/ActiveDev/vdc/tires/ay.csv", csv_ascii);
         }
 				gui_ymd(io);
+				break;
+			case tv:
+				gui_tv();
 				break;
 			case lts:
 				gui_lts();

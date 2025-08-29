@@ -5,6 +5,7 @@ enum which_gui {
 	base,
 	tire,
 	ymd,
+  tv,
 	lts
 };
 

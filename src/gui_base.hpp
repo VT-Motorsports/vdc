@@ -112,6 +112,13 @@ inline void gui_base(gui_io &io){
   ImGui::SameLine(0, 0);
 	if(ImGui::Button("YMD GUI")){current_gui = ymd;}
 	if (!(io.flags.is_veh_loaded)){ImGui::EndDisabled();}
+
+  // Show the TV destination button
+	gui_button_offset = 0.5f * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("TV GUI").x);
+  ImGui::Dummy(ImVec2(0, spacing)); 
+  ImGui::Dummy(ImVec2(gui_button_offset, 0)); 
+  ImGui::SameLine(0, 0);
+	if(ImGui::Button("TV GUI")){current_gui = tv;}
 	
 }
 
