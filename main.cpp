@@ -42,7 +42,9 @@ using json = nlohmann::json;
 #include "src/ymd/gui_ymd.hpp"
 #include "src/gui_base.hpp"
 
-// Includes - Tire
+// Includes - TV 
+#include "src/tv/tv_io.hpp"
+#include "src/tv/plot_tv.hpp"
 #include "src/tv/gui_tv.hpp"
 
 // Includes - LTS
