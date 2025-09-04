@@ -32,20 +32,13 @@ void plot_tv(tv_io &io, int i){
 
   float wid_pb = ImGui::GetContentRegionAvail().x * 0.5 - 4;
   float hei_pb = 10;
-  ImVec4 col_bg = ImGui::GetStyleColorVec4(ImGuiCol_FrameBg);
-  col_bg.x *= 0.45;
-  col_bg.y *= 0.45;
-  col_bg.z *= 0.45;
-  col_bg.w = 1.0f;
   float placeholder = 0.5f;
 
   // Regen bar 
   char buf_regen[32];
-  ImVec4 col_regen = ImVec4(0.9f, 0.8f, 0.0f, 1.0f);
-  // sprintf(buf_regen, "%.1f N.m", 69.4);
   sprintf(buf_regen, "");
-  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, col_bg);
-  ImGui::PushStyleColor(ImGuiCol_FrameBg, col_regen);
+  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_bg);
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_regen);
   ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_regen);
   ImGui::PopStyleColor(2);
 
@@ -53,19 +46,17 @@ void plot_tv(tv_io &io, int i){
 
   // Motor bar 
   char buf_motor[32];
-  ImVec4 col_motor = ImVec4(0.3f, 0.8f, 0.4f, 1.0f);
   sprintf(buf_motor, "");
-  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, col_motor);
-  ImGui::PushStyleColor(ImGuiCol_FrameBg, col_bg);
+  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_motor);
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_bg);
   ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_motor);
   ImGui::PopStyleColor(2);
 
   // Brake bar 
   char buf_brake[32];
-  ImVec4 col_brake = ImVec4(0.8f, 0.2f, 0.2f, 1.0f);
   sprintf(buf_brake, "");
-  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, col_bg);
-  ImGui::PushStyleColor(ImGuiCol_FrameBg, col_brake);
+  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_bg);
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_brake);
   ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_brake);
   ImGui::PopStyleColor(2);
 
@@ -73,26 +64,24 @@ void plot_tv(tv_io &io, int i){
 
   // No bar 
   char buf_none[32];
-  ImVec4 col_none = ImVec4(0.8f, 0.3f, 0.4f, 1.0f);
   sprintf(buf_none, "");
-  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, col_none);
-  ImGui::PushStyleColor(ImGuiCol_FrameBg, col_bg);
+  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_none);
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_bg);
   ImGui::ProgressBar(0.0f, ImVec2(wid_pb, hei_pb), buf_none);
   ImGui::PopStyleColor(2);
 
   // Cornering bars 
   char buf_corn[32];
-  ImVec4 col_corn = ImVec4(0.7f, 0.1f, 0.7f, 1.0f);
   sprintf(buf_corn, "");
-  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, col_bg);
-  ImGui::PushStyleColor(ImGuiCol_FrameBg, col_corn);
+  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_bg);
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_corn);
   ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_corn);
   ImGui::PopStyleColor(2);
   
   ImGui::SameLine();
   
-  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, col_corn);
-  ImGui::PushStyleColor(ImGuiCol_FrameBg, col_bg);
+  ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_corn);
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_bg);
   ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_corn);
   ImGui::PopStyleColor(2);
 

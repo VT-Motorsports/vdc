@@ -1,11 +1,21 @@
 #ifndef GUI_TV_HPP
 #define GUI_TV_HPP
 
+void CenteredText(const char* fmt){
+
+}
+
 void gui_tv(tv_io &io){
  
   int window_w = ImGui::GetContentRegionAvail().x;
   int window_h = ImGui::GetContentRegionAvail().y;
   int pad = ImGui::GetStyle().ItemSpacing.x;
+
+  io.col_bg = ImGui::GetStyleColorVec4(ImGuiCol_FrameBg);
+  io.col_bg.x *= 0.50;
+  io.col_bg.y *= 0.50;
+  io.col_bg.z *= 0.45;
+  io.col_bg.w = 1.0f;
 
   int median_w = 380;
   int median_h[] = {65, 145, 250 + window_h - 720 - pad, 200, 35};
@@ -40,8 +50,12 @@ void gui_tv(tv_io &io){
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##inputs", ImVec2(median_w, median_h[1]), true);
   ImGui::Text("inputs");
-  ImGui::SliderAngle("Steer", &io.steer, -110, 110);
-  ImGui::SliderAngle("Sideslip", &io.sideslip, -15, 15);
+  ImGui::Text("Steer / Sideslip");
+  ImGui::SliderAngle("##Steer", &io.steer, -110, 110);
+  ImGui::SliderAngle("##Sideslip", &io.sideslip, -15, 15);
+  ImGui::SliderFloat("##Brake", &io.brake, 0, 100, "%.0f%%"); ImGui::SameLine();
+  ImGui::SliderFloat("##Throttle", &io.throttle, 0, 100, "%.0f%%");
+  ImGui::Text("Brake / Throttle");
   ImGui::EndChild();
 
   // Dynamic outputs (stretchy section)
@@ -59,7 +73,11 @@ void gui_tv(tv_io &io){
   // Modes (colored text)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##modes", ImVec2(median_w, median_h[4]), true);
-  ImGui::Text("modes");
+  static float pad_tc = 20.0f;
+  ImGui::TextColored(io.col_regen, "Regen"); ImGui::SameLine(0.0f, pad_tc);
+  ImGui::TextColored(io.col_motor, "Motor"); ImGui::SameLine(0.0f, pad_tc);
+  ImGui::TextColored(io.col_brake, "Brake+Regen"); ImGui::SameLine(0.0f, pad_tc);
+  ImGui::TextColored(io.col_corn, "Grip Limit");
   ImGui::EndChild();
 }
 
