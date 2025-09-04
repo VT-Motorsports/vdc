@@ -1,7 +1,7 @@
 #ifndef GUI_TV_HPP
 #define GUI_TV_HPP
 
-void gui_tv(){
+void gui_tv(tv_io &io){
  
   int window_w = ImGui::GetContentRegionAvail().x;
   int window_h = ImGui::GetContentRegionAvail().y;
@@ -17,8 +17,6 @@ void gui_tv(){
 
   // int median_w = (window_w - 2*wheel_child_w[0] - 2*pad);
 
-  static tv_io io;
-
   for (int i = 0; i < 4; ++i){
     ImGui::SetCursorPos(ImVec2(wheel_child_x[i], wheel_child_y[i]));
     ImGui::BeginChild(("##wheel" + to_string(i)).c_str(), ImVec2(wheel_child_w, wheel_child_h[i]), true);
@@ -27,6 +25,7 @@ void gui_tv(){
     ImGui::EndChild();
   }
 
+  // Battery Usage
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, wheel_child_y[0]));
   ImGui::BeginChild("##battery usage", ImVec2(median_w, median_h[0]), true);
   ImGui::Text("battery usage");
@@ -37,21 +36,27 @@ void gui_tv(){
   ImGui::PopStyleColor();
   ImGui::EndChild();
 
+  // Inputs section
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##inputs", ImVec2(median_w, median_h[1]), true);
   ImGui::Text("inputs");
+  ImGui::SliderAngle("Steer", &io.steer, -110, 110);
+  ImGui::SliderAngle("Sideslip", &io.sideslip, -15, 15);
   ImGui::EndChild();
 
+  // Dynamic outputs (stretchy section)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##dynout", ImVec2(median_w, median_h[2]), true);
   ImGui::Text("dynamic outputs");
   ImGui::EndChild();
 
+  // Tuning parameters (constants)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##tooning", ImVec2(median_w, median_h[3]), true);
   ImGui::Text("tuning parameters");
   ImGui::EndChild();
 
+  // Modes (colored text)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##modes", ImVec2(median_w, median_h[4]), true);
   ImGui::Text("modes");

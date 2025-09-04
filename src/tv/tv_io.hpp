@@ -19,6 +19,11 @@ public:
   // fx in corner frame
   // fy in corner frame 
   // mz in corner frame
+  tv_io(){
+    steer = 0;
+    sideslip = 0;
+    velocity = 0;
+  }
 };
 
 #endif

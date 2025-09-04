@@ -57,6 +57,7 @@ using json = nlohmann::json;
 
 int main(){
 	gui_io io;
+  tv_io ioo;
   // io.ymdio.update = true;
   io.ymdio.ax_plot = 1;
 	
@@ -79,7 +80,7 @@ int main(){
 				gui_ymd(io);
 				break;
 			case tv:
-				gui_tv();
+				gui_tv(ioo);
 				break;
 			case lts:
 				gui_lts();
