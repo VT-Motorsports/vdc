@@ -38,7 +38,9 @@ void gui_tv(tv_io &io){
   // Battery Usage
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, wheel_child_y[0]));
   ImGui::BeginChild("##battery usage", ImVec2(median_w, median_h[0]), true);
-  ImGui::Text("battery usage");
+  ImGui::Dummy(ImVec2(0.5 * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Battery Usage").x), 0));
+  ImGui::SameLine();
+  ImGui::Text("Battery Usage");
   char pb_bat[32];
   sprintf(pb_bat, "%.1f N.m", 69.4);
   ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.3f, 0.8f, 0.4f, 1.0f));
@@ -49,25 +51,44 @@ void gui_tv(tv_io &io){
   // Inputs section
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##inputs", ImVec2(median_w, median_h[1]), true);
-  ImGui::Text("inputs");
+  // ImGui::Text("inputs");
+  
+  
+  float wd_input = 0.5 * ImGui::GetContentRegionAvail().x - 4;
+
+  ImGui::Dummy(ImVec2(0.5 * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Steer / Sideslip").x), 0));
+  ImGui::SameLine();
   ImGui::Text("Steer / Sideslip");
-  ImGui::SliderAngle("##Steer", &io.steer, -110, 110);
+  ImGui::PushItemWidth(wd_input);
+  ImGui::SliderAngle("##Steer", &io.steer, -110, 110); ImGui::SameLine();
   ImGui::SliderAngle("##Sideslip", &io.sideslip, -15, 15);
+  ImGui::PopItemWidth();
+  
+  ImGui::Dummy(ImVec2(0, 10));
+
+  ImGui::Dummy(ImVec2(0.5 * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Brake / Throttle").x), 0));
+  ImGui::SameLine();
+  ImGui::Text("Brake / Throttle");
+  ImGui::PushItemWidth(wd_input);
   ImGui::SliderFloat("##Brake", &io.brake, 0, 100, "%.0f%%"); ImGui::SameLine();
   ImGui::SliderFloat("##Throttle", &io.throttle, 0, 100, "%.0f%%");
-  ImGui::Text("Brake / Throttle");
+  ImGui::PopItemWidth();
   ImGui::EndChild();
 
   // Dynamic outputs (stretchy section)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##dynout", ImVec2(median_w, median_h[2]), true);
-  ImGui::Text("dynamic outputs");
+  ImGui::Dummy(ImVec2(0.5 * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Dynamic Outputs").x), 0));
+  ImGui::SameLine();
+  ImGui::Text("Dynamic Outputs");
   ImGui::EndChild();
 
   // Tuning parameters (constants)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##tooning", ImVec2(median_w, median_h[3]), true);
-  ImGui::Text("tuning parameters");
+  ImGui::Dummy(ImVec2(0.5 * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Tuning Parameters").x), 0));
+  ImGui::SameLine();
+  ImGui::Text("Tuning Parameters");
   ImGui::EndChild();
 
   // Modes (colored text)

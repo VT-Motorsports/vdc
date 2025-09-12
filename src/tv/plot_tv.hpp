@@ -7,6 +7,11 @@ void plot_tv(tv_io &io, int i){
   // Progress bar scalar for torque as function of max possible
   // can use framebg or histogram for either direction
   
+  // Generate torque response
+  io.calculate_torques();
+
+
+
   // Plots 
   static ImPlotFlags fl_plot = ImPlotFlags_Equal;
   static ImPlotAxisFlags fl_xaxis = ImPlotAxisFlags_NoMenus | ImPlotAxisFlags_NoTickLabels;
@@ -39,7 +44,7 @@ void plot_tv(tv_io &io, int i){
   sprintf(buf_regen, "");
   ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_bg);
   ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_regen);
-  ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_regen);
+  ImGui::ProgressBar(io.tpb_reg[i], ImVec2(wid_pb, hei_pb), buf_regen);
   ImGui::PopStyleColor(2);
 
   ImGui::SameLine();
@@ -49,7 +54,7 @@ void plot_tv(tv_io &io, int i){
   sprintf(buf_motor, "");
   ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_motor);
   ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_bg);
-  ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_motor);
+  ImGui::ProgressBar(io.tpb_fwd[i], ImVec2(wid_pb, hei_pb), buf_motor);
   ImGui::PopStyleColor(2);
 
   // Brake bar 
@@ -57,7 +62,7 @@ void plot_tv(tv_io &io, int i){
   sprintf(buf_brake, "");
   ImGui::PushStyleColor(ImGuiCol_PlotHistogram, io.col_bg);
   ImGui::PushStyleColor(ImGuiCol_FrameBg, io.col_brake);
-  ImGui::ProgressBar(placeholder, ImVec2(wid_pb, hei_pb), buf_brake);
+  ImGui::ProgressBar(io.bpb[i], ImVec2(wid_pb, hei_pb), buf_brake);
   ImGui::PopStyleColor(2);
 
   ImGui::SameLine();
