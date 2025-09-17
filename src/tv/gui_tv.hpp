@@ -60,8 +60,8 @@ void gui_tv(tv_io &io){
   ImGui::SameLine();
   ImGui::Text("Steer / Sideslip");
   ImGui::PushItemWidth(wd_input);
-  ImGui::SliderAngle("##Steer", &io.steer, -110, 110); ImGui::SameLine();
-  ImGui::SliderAngle("##Sideslip", &io.sideslip, -15, 15);
+  ImGui::SliderFloat("##Steer", &io.steer, -110, 110, "%.0f deg"); ImGui::SameLine();
+  ImGui::SliderFloat("##Sideslip", &io.sideslip, -15, 15, "%.0f deg");
   ImGui::PopItemWidth();
   
   ImGui::Dummy(ImVec2(0, 10));
