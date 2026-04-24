@@ -17,6 +17,8 @@ public:
   // Powertrain
 	double ft; // front torque [-]
   double dc_r; // diff constant for preload [N]
+  double k_tv_aa;      // yaw accel tv gain [-]
+  double tv_aa_thresh; // apex threshold [°/s²]
 
   // Tires
 	double dia; // full tire diameter [m]
@@ -57,6 +59,8 @@ public:
   // Constructor
 	vehicle(){
     dc_r = 0;
+    k_tv_aa = 0.0;
+    tv_aa_thresh = 50.0; // °/s²
 	}
 
   // Recalculate parameters before running ymd
@@ -122,8 +126,9 @@ vec get_dz_longitudinal(const vec &x, const double &h) const {
 }
 
 // Get corner torques from a combination of factors (torque vectoring-capable)
-vec get_torque_drive(const double &t_req, const double &r, const double &sip, const double &str_in, const double &v) const {
+vec get_torque_drive(const double &t_req, const double &r, const double &sip, const double &str_in, const double &v, const double &aa) const {
   const double dx_yr = dc_r * sign(r);
+  const double dx_aa_r = k_tv_aa * aa * exp(-aa * aa / (tv_aa_thresh + 1e-12));
 	const double dx_sip_f = 0 * sip;
 	const double dx_str_f = 0 * str_in;
 	const double dx_v_f = 0 * v;
@@ -131,7 +136,7 @@ vec get_torque_drive(const double &t_req, const double &r, const double &sip, co
 	const double dx_str_r = 0 * str_in;
 	const double dx_v_r = 0 * v;
 	const double dx_f = dx_sip_f + dx_str_f + dx_v_f;
-	const double dx_r = dx_yr + dx_sip_r + dx_str_r + dx_v_r;
+	const double dx_r = dx_yr + dx_aa_r + dx_sip_r + dx_str_r + dx_v_r;
 	const double x_req = t_req / (0.49 * dia);
 	const vec x = {ft/100 * x_req / 2 - dx_f, ft/100 * x_req / 2 + dx_f, (1 - ft/100) * x_req / 2 - dx_r, (1 - ft/100) * x_req / 2 + dx_r};
 	vec trq = x * (0.49 * dia);
@@ -501,7 +506,7 @@ void get_instance_const_v(ymd_v_io &io, const int &i, const int &j, const int &k
     }
 
 		if (trq_req > 0)
-			trq = get_torque_drive(trq_req, r_old, io.yaw(i, j, k), io.steer(i, j, k), io.v(i, j, k));
+			trq = get_torque_drive(trq_req, r_old, io.yaw(i, j, k), io.steer(i, j, k), io.v(i, j, k), aa_old);
 		else
 			trq = get_torque_brake(trq_req);
 

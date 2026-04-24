@@ -18,7 +18,7 @@ void gui_tv(tv_io &io){
   io.col_bg.w = 1.0f;
 
   int median_w = 380;
-  int median_h[] = {65, 145, 250 + window_h - 720 - pad, 200, 35};
+  int median_h[] = {65, 195, window_h - 525 - 4*pad, 230, 35};
 
   int wheel_child_w = 0.5 * (window_w - median_w - 2*pad);
   int wheel_child_h[4] = {0.5*window_h - pad/2, 0.5*window_h - pad/2, 0.5*window_h - pad/2, 0.5*window_h - pad/2};
@@ -73,22 +73,65 @@ void gui_tv(tv_io &io){
   ImGui::SliderFloat("##Brake", &io.brake, 0, 100, "%.0f%%"); ImGui::SameLine();
   ImGui::SliderFloat("##Throttle", &io.throttle, 0, 100, "%.0f%%");
   ImGui::PopItemWidth();
+
+  ImGui::Dummy(ImVec2(0, 10));
+
+  ImGui::Dummy(ImVec2(0.5f * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Velocity").x), 0));
+  ImGui::SameLine();
+  ImGui::Text("Velocity");
+  ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+  ImGui::SliderFloat("##Velocity", &io.velocity, 0, 50, "%.1f m/s");
+  ImGui::PopItemWidth();
   ImGui::EndChild();
 
   // Dynamic outputs (stretchy section)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##dynout", ImVec2(median_w, median_h[2]), true);
-  ImGui::Dummy(ImVec2(0.5 * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Dynamic Outputs").x), 0));
+  ImGui::Dummy(ImVec2(0.5f * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Dynamic Outputs").x), 0));
   ImGui::SameLine();
   ImGui::Text("Dynamic Outputs");
+
+  // Yaw state readouts
+  ImGui::SeparatorText("Yaw State");
+  ImGui::Text("Yaw Rate:        %+7.2f  deg/s", io.yaw_rate);
+  ImGui::Text("Yaw Rate Target: %+7.2f  deg/s", io.yaw_rate_target);
+  ImGui::Text("Yaw Accel:       %+7.2f  deg/s\xc2\xb2", io.yaw_accel);
+
+  // Individual wheel RPM sliders
+  ImGui::Dummy(ImVec2(0, 6));
+  ImGui::SeparatorText("Wheel RPMs  [motor-side]");
+  static const char* rpm_label[4] = {"FL##rpm", "FR##rpm", "RL##rpm", "RR##rpm"};
+  float half_w = 0.5f * ImGui::GetContentRegionAvail().x - 4.0f;
+  for (int i = 0; i < 4; ++i) {
+    ImGui::PushItemWidth(half_w);
+    ImGui::SliderFloat(rpm_label[i], &io.rpm[i], -6000.0f, 6000.0f, "%.0f");
+    ImGui::PopItemWidth();
+    if (i % 2 == 0) ImGui::SameLine();
+  }
   ImGui::EndChild();
 
   // Tuning parameters (constants)
   ImGui::SetCursorPos(ImVec2(wheel_child_x[0] + wheel_child_w + pad, ImGui::GetCursorPosY() + pad/2));
   ImGui::BeginChild("##tooning", ImVec2(median_w, median_h[3]), true);
-  ImGui::Dummy(ImVec2(0.5 * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Tuning Parameters").x), 0));
+  ImGui::Dummy(ImVec2(0.5f * (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Tuning Parameters").x), 0));
   ImGui::SameLine();
   ImGui::Text("Tuning Parameters");
+
+  // Yaw TV gains
+  ImGui::SeparatorText("Yaw TV Gains");
+  float full_w = ImGui::GetContentRegionAvail().x;
+  ImGui::PushItemWidth(full_w);
+  ImGui::SliderFloat("k_steer##tv",        &io.k_steer,        0.0f,  5.0f,   "k_steer  %.3f");
+  ImGui::SliderFloat("k_yaw_err##tv",      &io.k_yaw_err,      0.0f, 10.0f,   "k_yaw_err %.3f");
+  ImGui::SliderFloat("k_apex##tv",         &io.k_apex,         0.0f,  1.0f,   "k_apex   %.3f");
+  ImGui::SliderFloat("apex_threshold##tv", &io.apex_threshold, 1.0f, 500.0f,  "thresh  %.1f deg\xc2\xb2/s\xe2\x81\xb4");
+  ImGui::PopItemWidth();
+
+  // RPM slip correction gain
+  ImGui::SeparatorText("RPM Slip Correction");
+  ImGui::PushItemWidth(full_w);
+  ImGui::SliderFloat("k_rpm##tv", &io.k_rpm, 0.0f, 20.0f, "k_rpm  %.2f Nm.s/m");
+  ImGui::PopItemWidth();
   ImGui::EndChild();
 
   // Modes (colored text)

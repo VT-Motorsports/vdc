@@ -118,15 +118,21 @@ void gui_ymd_vehicle(gui_io &io){
   tree_label(2, 0) = {
     "front torque [%]",
     "preload [N]",
+    "TV yaw accel gain [-]",
+    "TV apex threshold [°/s²]",
   };
-  tree_var_next = { 
+  tree_var_next = {
     &io.car.ft,
     &io.car.dc_r,
+    &io.car.k_tv_aa,
+    &io.car.tv_aa_thresh,
   };
   tree_vars(2, 0) = tree_var_next;
   tree_precis(2, 0) = {
     +1,
     -0,
+    +3,
+    +1,
   };
 
   tree_label(3, 0) = {

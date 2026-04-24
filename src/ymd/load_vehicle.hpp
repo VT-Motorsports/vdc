@@ -18,7 +18,10 @@ bool load_vehicle(vehicle &car, const string file_path) {
     // cout << "Loaded aerodynamics!" << endl;
 
     // Powertrain
-		car.ft = car_json["Front Torque [%]"].get<double>();
+		car.ft          = car_json["Front Torque [%]"].get<double>();
+    car.dc_r        = car_json.value("Diff Preload [N]",              0.0);
+    car.k_tv_aa     = car_json.value("TV Yaw Accel Gain [-]",         0.0);
+    car.tv_aa_thresh = car_json.value("TV Apex Threshold [deg/s2]",  50.0);
     // cout << "Loaded powertrain!" << endl;
 
     // Tires
