@@ -23,15 +23,47 @@ void plot_tv(tv_io &io, int i){
   static float x_range = 1600;
   // static float y_range = x_range;
 
-  ImPlot::BeginPlot(("##tire_" + to_string(i)).c_str(), sz_plot, fl_plot); 
-  ImPlot::SetupAxisLimits(ImAxis_X1, -x_range, x_range);
-  // ImPlot::SetupAxisLimits(ImAxis_Y1, -y_range, y_range);
+  ImPlot::BeginPlot(("##tire_" + to_string(i)).c_str(), sz_plot, fl_plot);
+  ImPlot::SetupAxisLimits(ImAxis_X1, -x_range, x_range, ImPlotCond_Always);
+  ImPlot::SetupAxisLimits(ImAxis_Y1, -x_range, x_range, ImPlotCond_Always);
   ImPlot::SetupAxes("fx [N]", "fy [N]", fl_xaxis, fl_yaxis);
   ImPlot::SetupFinish();
-  // y_range = x_range*(ImPlot::GetPlotSize().y / ImPlot::GetPlotSize().x);
-  
-  
 
+  // Friction circle
+  static const int N = 61;
+  float cx[N], cy[N], ox[N], oy[N];
+  for (int k = 0; k < N; k++) {
+    float a = k * 2.0f * M_PI / (N - 1);
+    cx[k] = io.fx_max * cosf(a);
+    cy[k] = io.fx_max * sinf(a);
+  }
+
+  float net_trq = io.trq_fwd[i] - io.trq_reg[i];
+  float util = fabsf(net_trq) / (io.trq_max * io.gear);
+  if (util > 1.0f) util = 1.0f;
+
+  ImVec4 col_inner = (io.brk[i] > 0.0f) ? io.col_brake :
+                     (net_trq >= 0.0f)   ? io.col_motor : io.col_regen;
+
+  for (int k = 0; k < N; k++) {
+    float a = k * 2.0f * M_PI / (N - 1);
+    ox[k] = util * io.fx_max * cosf(a);
+    oy[k] = util * io.fx_max * sinf(a);
+  }
+
+  // Outer traction limit
+  ImPlot::SetNextLineStyle(ImVec4(0.4f, 0.5f, 0.7f, 0.6f), 1.5f);
+  ImPlot::PlotLine(("##tc_" + to_string(i)).c_str(), cx, cy, N);
+
+  // Operating envelope
+  ImPlot::SetNextLineStyle(col_inner, 2.0f);
+  ImPlot::PlotLine(("##oe_" + to_string(i)).c_str(), ox, oy, N);
+
+  // Operating point
+  float px = (net_trq - io.brk[i]) / io.rad_wheel;
+  float py = 0.0f;
+  ImPlot::SetNextMarkerStyle(ImPlotMarker_Diamond, 6.0f, col_inner, 1.0f, col_inner);
+  ImPlot::PlotScatter(("##op_" + to_string(i)).c_str(), &px, &py, 1);
 
   ImPlot::EndPlot();
 
