@@ -1,0 +1,50 @@
+; ChassisSim Engine component definition for the tv_io torque vectoring DLL.
+;
+; INI format per the ChassisSim Engine component documentation. The component is
+; bound by symbol name: InputVarName / OutputVarName are the exported global
+; struct instances, FunctionName is the exported step function (all extern "C"
+; in tv_engine.cpp). InitFnFlg=0 means no initialize call is made.
+;
+; The InputVar lines below are positional: the Nth InputVar maps the Nth field of
+; the tv_engine_in_t struct to the ChassisSim Engine signal index given as its
+; value. The struct field order in tv_engine.h matches this list exactly.
+; Likewise the OutputVar lines map tv_engine_out_t fields to Engine signal indices.
+
+[ENGINE]
+InitFnFlg=0
+InputVarName=tv_in
+OutputVarName=tv_out
+FunctionName=tv_step
+
+; --- inputs: struct field (in order)  ->  Engine signal index ---
+InputVar=0    ; throttle           [0..1]
+InputVar=2    ; wheel speed FL     [rad/s]
+InputVar=3    ; wheel speed FR     [rad/s]
+InputVar=4    ; wheel speed RL     [rad/s]
+InputVar=5    ; wheel speed RR     [rad/s]
+InputVar=6    ; wheel load FL      [N]
+InputVar=7    ; wheel load FR      [N]
+InputVar=8    ; wheel load RL      [N]
+InputVar=9    ; wheel load RR      [N]
+InputVar=10   ; wheel torque demand FL  [Nm]
+InputVar=11   ; wheel torque demand FR  [Nm]
+InputVar=12   ; wheel torque demand RL  [Nm]
+InputVar=13   ; wheel torque demand RR  [Nm]
+InputVar=14   ; wheel torque max FL     [Nm]
+InputVar=15   ; wheel torque max FR     [Nm]
+InputVar=16   ; wheel torque max RL     [Nm]
+InputVar=17   ; wheel torque max RR     [Nm]
+InputVar=18   ; wheel torque min FL     [Nm]
+InputVar=19   ; wheel torque min FR     [Nm]
+InputVar=20   ; wheel torque min RL     [Nm]
+InputVar=21   ; wheel torque min RR     [Nm]
+InputVar=22   ; ax                 [m/s^2]
+InputVar=23   ; brake              [0..1]
+; reserved struct fields steer / yaw_rate / lat_accel have no InputVar line yet
+; (Engine indices to be confirmed).
+
+; --- outputs: struct field (in order)  ->  Engine signal index ---
+OutputVar=3   ; wheel torque FL    [Nm]
+OutputVar=4   ; wheel torque FR    [Nm]
+OutputVar=5   ; wheel torque RL    [Nm]
+OutputVar=6   ; wheel torque RR    [Nm]

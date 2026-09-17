@@ -52,3 +52,35 @@ add_executable(vdc main.cpp
 )
 
 target_link_libraries(vdc ${GLFW_LIBRARY})
+
+
+# --- ChassisSim Engine component (standalone Win64 DLL) ---------------------
+# Builds ONLY the torque vectoring wrapper as a 64-bit DLL. It pulls in nothing
+# from the GUI app (the wrapper ships its own ImVec4 shim), so the vdc target
+# above is left completely untouched. Build with a 64-bit MinGW toolchain so the
+# resulting tv_engine.dll uses the stable Win64 C ABI the MSVC-built host loads.
+add_library(tv_engine SHARED
+        src/engine/tv_engine.cpp
+)
+target_include_directories(tv_engine PRIVATE ${CMAKE_SOURCE_DIR}/src/engine)
+set_target_properties(tv_engine PROPERTIES
+        PREFIX ""              # emit tv_engine.dll, not libtv_engine.dll
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+)
+
+
+# --- ChassisSim engine map component (standalone Win64 DLL) -----------------
+# Minimal debug component: throttle + engine rpm -> four wheel torques via a
+# hardcoded torque map. Completely independent of the tv_engine target above and
+# of the GUI app; build it with the same 64-bit MinGW toolchain so engine_map.dll
+# uses the stable Win64 C ABI the MSVC-built host loads.
+add_library(engine_map SHARED
+        src/engine/engine_map.cpp
+)
+target_include_directories(engine_map PRIVATE ${CMAKE_SOURCE_DIR}/src/engine)
+set_target_properties(engine_map PROPERTIES
+        PREFIX ""              # emit engine_map.dll, not libengine_map.dll
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+)

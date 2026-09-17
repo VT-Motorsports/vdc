@@ -1,0 +1,29 @@
+; ChassisSim Engine component definition for the minimal engine_map debug DLL.
+;
+; Bound by symbol name: InputVarName / OutputVarName are the exported global
+; struct instances and FunctionName is the exported step function (all extern "C"
+; in engine_map.cpp). InitFnFlg=0 means no initialize call is made, so
+; InitFuncName is left blank.
+;
+; InputVarN / OutputVarN are positional: InputVar0 maps the first field of
+; engine_map_in_t to the Engine signal index given as its value, InputVar1 the
+; second, and so on. The struct field order in engine_map.h matches this list.
+;
+; Filename is intentionally blank -- fill it in with the real path to
+; engine_map.dll.
+
+[DLL Component Details]
+Filename=C:\Users\shira\vdc\build64\engine_map.dll
+InputVarName=map_in
+OutputVarName=map_out
+FunctionName=map_step
+InitFnFlg=0
+InitFuncName=
+NoInputVar=2
+InputVar0=0
+InputVar1=1
+NoOutputVar=4
+OutputVar0=3
+OutputVar1=4
+OutputVar2=5
+OutputVar3=6

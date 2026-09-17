@@ -18,7 +18,7 @@ void gui_tv(tv_io &io){
   io.col_bg.w = 1.0f;
 
   int median_w = 380;
-  int median_h[] = {65, 195, window_h - 525 - 4*pad, 230, 35};
+  int median_h[] = {65, 195, window_h - 655 - 4*pad, 360, 35};
 
   int wheel_child_w = 0.5 * (window_w - median_w - 2*pad);
   int wheel_child_h[4] = {0.5*window_h - pad/2, 0.5*window_h - pad/2, 0.5*window_h - pad/2, 0.5*window_h - pad/2};
@@ -131,6 +131,17 @@ void gui_tv(tv_io &io){
   ImGui::SeparatorText("RPM Slip Correction");
   ImGui::PushItemWidth(full_w);
   ImGui::SliderFloat("k_rpm##tv", &io.k_rpm, 0.0f, 20.0f, "k_rpm  %.2f Nm.s/m");
+  ImGui::PopItemWidth();
+
+  // Load transfer and grip constants
+  ImGui::SeparatorText("Load Transfer / Grip");
+  ImGui::PushItemWidth(full_w);
+  ImGui::SliderFloat("mass##tv",        &io.mass,           100.0f,   400.0f, "mass  %.0f kg");
+  ImGui::SliderFloat("h_cg##tv",        &io.h_cg,             0.10f,    0.60f, "h_cg  %.3f m");
+  ImGui::SliderFloat("weight_dist##tv", &io.weight_dist,      0.30f,    0.70f, "wt_f  %.3f");
+  ImGui::SliderFloat("mu##tv",          &io.mu,               0.50f,    2.00f, "mu    %.2f");
+  ImGui::SliderFloat("c_f##tv",         &io.c_f,          10000.0f, 100000.0f, "c_f   %.0f N/rad");
+  ImGui::SliderFloat("c_r##tv",         &io.c_r,          10000.0f, 100000.0f, "c_r   %.0f N/rad");
   ImGui::PopItemWidth();
   ImGui::EndChild();
 

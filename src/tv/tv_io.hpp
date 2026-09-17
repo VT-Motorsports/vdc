@@ -58,6 +58,26 @@ public:
   float k_apex; // [-]
   float apex_threshold; // [°²/s⁴]
 
+  // per-corner vertical load and grip-limited corner torque
+  float fz[4]; // N, vertical load per corner (down-positive)
+  float trq_cap[4]; // Nm, grip- or actuator-limited corner torque
+
+  // external override hooks (set only by the embedded/ChassisSim wrapper; left
+  // off for the desktop GUI and standalone use so behaviour is bit-for-bit unchanged)
+  bool use_ext_loads; // when true, fz[] is taken from ext_fz[] not the internal transfer
+  float ext_fz[4]; // N, per-corner vertical load supplied externally (FL FR RL RR)
+  bool use_ext_ax; // when true, ax_est is taken from ext_ax not the internal estimate
+  float ext_ax; // m/s², longitudinal acceleration supplied externally
+
+  // load transfer and grip constants
+  float mass; // [kg]
+  float h_cg; // CG height [m]
+  float weight_dist; // front weight fraction [-]
+  float c_f; // front axle cornering stiffness [N/rad]
+  float c_r; // rear axle cornering stiffness [N/rad]
+  float mu; // tire-road friction coefficient [-]
+  float grav; // [m/s²]
+
 
   // Initialize all values, meant for C++ GUI implementation and not embedded C
   tv_io(){
@@ -90,6 +110,19 @@ public:
     k_apex = 0.5f;
     apex_threshold = 100.0f; // °²/s⁴
 
+    for (int i = 0; i < 4; ++i) { fz[i] = 0.0f; trq_cap[i] = 0.0f; }
+    use_ext_loads = false;
+    for (int i = 0; i < 4; ++i) ext_fz[i] = 0.0f;
+    use_ext_ax = false;
+    ext_ax = 0.0f;
+    mass = 305.0f; // kg
+    h_cg = 0.315f; // m
+    weight_dist = 0.467f; // front fraction
+    c_f = 40000.0f; // N/rad, front axle
+    c_r = 50000.0f; // N/rad, rear axle
+    mu = 1.5f; // [-]
+    grav = 9.81f; // m/s²
+
     col_bg = ImVec4(0.1f, 0.1f, 0.5f, 1.0f);
     col_regen = ImVec4(0.9f, 0.8f, 0.0f, 1.0f);
     col_motor = ImVec4(0.3f, 0.8f, 0.4f, 1.0f);
@@ -114,13 +147,47 @@ public:
       }
     }
 
-    // Bicycle model yaw rate estimate
     const float EPS = 1.0e-4f;
+
+    // Per-corner vertical load from static split, lateral and longitudinal transfer
+    static const float lat_sign_z[4]  = { -1.0f, +1.0f, -1.0f, +1.0f };
+    static const float long_sign_z[4] = { -1.0f, -1.0f, +1.0f, +1.0f };
+    float fx_net = 0.0f;
+    for (int i = 0; i < 4; ++i) fx_net += (trq[i] - brk[i]) / rad_wheel;
+    const float ax_est = use_ext_ax ? ext_ax : (fx_net / mass); // long. accel: external when supplied, else from net drive/brake demand
+    const float ay_est = velocity * (yaw_rate * (M_PI / 180.0f)); // lat. accel from velocity & yaw rate
+    const float dz_lat_f = weight_dist          * mass * ay_est * h_cg / track;
+    const float dz_lat_r = (1.0f - weight_dist) * mass * ay_est * h_cg / track;
+    const float dz_long  = mass * ax_est * h_cg / wheelbase * 0.5f;
+    for (int i = 0; i < 4; ++i) {
+      if (use_ext_loads) {
+        fz[i] = ext_fz[i]; // real per-corner load supplied externally
+      } else {
+        float fz_st  = ((i < 2) ? weight_dist : (1.0f - weight_dist)) * mass * grav * 0.5f;
+        float fz_lat = lat_sign_z[i]  * ((i < 2) ? dz_lat_f : dz_lat_r);
+        float fz_lng = long_sign_z[i] * dz_long;
+        fz[i] = fz_st + fz_lat + fz_lng;
+      }
+      if (fz[i] < 0.0f) fz[i] = 0.0f; // a lifted wheel carries no load
+      // Grip-limited corner torque, never above the actuator ceiling
+      trq_cap[i] = mu * fz[i] * rad_wheel;
+      const float act_lim = trq_max * gear;
+      if (trq_cap[i] > act_lim) trq_cap[i] = act_lim;
+    }
+
+    // Single-track yaw rate target with understeer gradient and friction cap
     const float steer_road_rad = steer * (M_PI / 180.0f) / steering_ratio;
-    float omega_est = 0.0f;
+    float omega_est = 0.0f; // kinematic estimate, reused for wheel-speed expectations
     if (fabsf(velocity) > EPS && fabsf(wheelbase) > EPS) {
-      omega_est       = velocity * tanf(steer_road_rad) / wheelbase;
-      yaw_rate_target = omega_est * (180.0f / M_PI);
+      omega_est = velocity * tanf(steer_road_rad) / wheelbase;
+      // Understeer gradient from axle cornering stiffness [rad·s²/m]
+      const float k_us = mass * (weight_dist / c_f - (1.0f - weight_dist) / c_r);
+      float omega_ss = velocity * steer_road_rad / (wheelbase + k_us * velocity * velocity);
+      // Friction-limited yaw rate ceiling [rad/s]
+      const float omega_max = mu * grav / fabsf(velocity);
+      if (omega_ss >  omega_max) omega_ss =  omega_max;
+      if (omega_ss < -omega_max) omega_ss = -omega_max;
+      yaw_rate_target = omega_ss * (180.0f / M_PI);
     } else {
       yaw_rate_target = 0.0f;
     }
@@ -131,8 +198,10 @@ public:
     mz_des = k_steer * steer + k_yaw_err * yaw_rate_err * apex_mod;
 
     int mz_dir = (mz_des > 0.0f) ? 1 : 0;
-    float dif_f = (trq_max * gear) - trq[0 + mz_dir];
-    float dif_r = (trq_max * gear) - trq[2 + mz_dir];
+    float dif_f = trq_cap[0 + mz_dir] - trq[0 + mz_dir];
+    float dif_r = trq_cap[2 + mz_dir] - trq[2 + mz_dir];
+    if (dif_f < 0.0f) dif_f = 0.0f; // unloaded corner offers no headroom
+    if (dif_r < 0.0f) dif_r = 0.0f;
     float denom = dif_f + dif_r;
     float mz_rat = (fabsf(denom) > EPS) ? dif_f / denom : 0.5f;
     float trq_dlt = mz_des * track * rad_wheel;
@@ -159,12 +228,11 @@ public:
     }
 
     float total_before = trq[0] + trq[1] + trq[2] + trq[3];
-    const float trq_limit = trq_max * gear;
     for (int i = 0; i < 4; ++i) {
       float slip_delta = wheel_speed[i] - expected_speed[i];
       trq[i] -= k_rpm * slip_delta;
-      if (trq[i] >  trq_limit) trq[i] =  trq_limit;
-      if (trq[i] < -trq_limit) trq[i] = -trq_limit;
+      if (trq[i] >  trq_cap[i]) trq[i] =  trq_cap[i];
+      if (trq[i] < -trq_cap[i]) trq[i] = -trq_cap[i];
     }
 
     // Re-distribute clamping loss to preserve total torque request
@@ -172,8 +240,8 @@ public:
     float correction = (total_before - total_after) * 0.25f;
     for (int i = 0; i < 4; ++i) {
       trq[i] += correction;
-      if (trq[i] >  trq_limit) trq[i] =  trq_limit;
-      if (trq[i] < -trq_limit) trq[i] = -trq_limit;
+      if (trq[i] >  trq_cap[i]) trq[i] =  trq_cap[i];
+      if (trq[i] < -trq_cap[i]) trq[i] = -trq_cap[i];
     }
 
     // Assign numerical values for GUI outputs
