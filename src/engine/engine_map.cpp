@@ -13,11 +13,12 @@
 
 #include "engine_map.h"
 
-// Wide-open-throttle total wheel torque against engine rpm. Monotonically
+// Wide-open-throttle total wheel torque against motor rpm. Monotonically
 // increasing breakpoints; values between points are linearly interpolated and
 // values outside the ends are clamped to the first / last entry.
-static const real_T kRpmBp[]  = {    0.0, 1000.0, 2000.0, 3000.0, 4000.0, 5000.0, 6000.0, 7000.0 };
-static const real_T kTrqWot[] = {  200.0,  600.0,  900.0, 1050.0, 1100.0, 1050.0,  900.0,  600.0 }; // [Nm] total at the wheels
+// Assumes 4 motors, gear 12.875, and engine_rpm input = motor rpm: total = per-motor torque x 12.875 x 4.
+static const real_T kRpmBp[]  = {    0.0, 11000.0, 12000.0, 14000.0, 16000.0, 18000.0, 20000.0 };
+static const real_T kTrqWot[] = { 1627.4,  1627.4,  1596.5,  1493.5,  1287.5,  1081.5,   927.0 }; // [Nm] total at the wheels
 static const int kNumBp = (int)(sizeof(kRpmBp) / sizeof(kRpmBp[0]));
 
 // Linear interpolation of the table above at the given rpm, clamped at both ends.

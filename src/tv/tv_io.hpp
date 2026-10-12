@@ -19,7 +19,8 @@ public:
   float rad_wheel; // [m]
   float front_torque; // 0-100
   float front_brake; // 0-100
-  float brk_max; // Nm
+  float brk_max; // Nm, front, per wheel
+  float brk_max_r; // Nm, rear, per wheel
   float fx_max; // N
 
   // motor limits
@@ -82,7 +83,7 @@ public:
   // Initialize all values, meant for C++ GUI implementation and not embedded C
   tv_io(){
     trq_max = 31.6; // Nm, per motor
-    gear = 7; // reduction
+    gear = 12.875; // reduction
     track = 1.194; // Track width [m]
     steer = 0; // deg at steering wheel
     sideslip = 0; // deg
@@ -92,21 +93,22 @@ public:
     front_torque = 30; // %
     front_brake = 70; // %
     rad_wheel = 0.200; // m
-    brk_max = 600; // Nm, max braking torque at 100% front pressure
+    brk_max = 599.3f; // Nm, front, per wheel
+    brk_max_r = 213.5f; // Nm, rear, per wheel
     fx_max = 2000; // N, range of progress bars
 
     mz_des = 0;
 
     for (int i = 0; i < 4; ++i) rpm[i] = 0.0f;
-    wheelbase = 1.525f; // m
-    steering_ratio = 3.5f; // [-]
+    wheelbase = 1.537f; // m
+    steering_ratio = 5.312f; // [-]
     k_rpm = 5.0f; // Nm·s/m
 
     yaw_rate = 0.0f;
     yaw_accel = 0.0f;
     yaw_rate_target = 0.0f;
-    k_steer = 1.19f;
-    k_yaw_err = 2.0f;
+    k_steer = 1.6965f;
+    k_yaw_err = 2.8513f;
     k_apex = 0.5f;
     apex_threshold = 100.0f; // °²/s⁴
 
@@ -115,12 +117,12 @@ public:
     for (int i = 0; i < 4; ++i) ext_fz[i] = 0.0f;
     use_ext_ax = false;
     ext_ax = 0.0f;
-    mass = 305.0f; // kg
-    h_cg = 0.315f; // m
-    weight_dist = 0.467f; // front fraction
+    mass = 294.8f; // kg
+    h_cg = 0.234f; // m
+    weight_dist = 0.492f; // front fraction
     c_f = 40000.0f; // N/rad, front axle
     c_r = 50000.0f; // N/rad, rear axle
-    mu = 1.5f; // [-]
+    mu = 1.7f; // [-]
     grav = 9.81f; // m/s²
 
     col_bg = ImVec4(0.1f, 0.1f, 0.5f, 1.0f);
@@ -134,20 +136,20 @@ public:
   // Calculate torques, this algorithm should be capable to embed on a microcontroller
   void calculate_torques(){
 
+    const float EPS = 1.0e-4f;
+
     // Determine even torque/brake distribution per wheel
     for (int i = 0; i < 4; ++i) {
       if (i < 2) {
-        trq[i]  = throttle / 100.0f * (front_torque / (100.0f - front_torque)) * trq_max * gear;
+        trq[i]  = throttle / 100.0f * (front_torque / fmaxf(100.0f - front_torque, EPS)) * trq_max * gear;
         trq[i] += brake    / 100.0f * (-1.0f) * trq_max * gear;
         brk[i]  = brake    / 100.0f * brk_max;
       } else {
         trq[i]  = throttle / 100.0f * trq_max * gear;
-        trq[i] += brake    / 100.0f * ((100.0f - front_brake) / front_brake) * (-trq_max * gear);
-        brk[i]  = brake    / 100.0f * ((100.0f - front_brake) / front_brake) * brk_max;
+        trq[i] += brake    / 100.0f * ((100.0f - front_brake) / fmaxf(front_brake, EPS)) * (-trq_max * gear);
+        brk[i]  = brake    / 100.0f * brk_max_r;
       }
     }
-
-    const float EPS = 1.0e-4f;
 
     // Per-corner vertical load from static split, lateral and longitudinal transfer
     static const float lat_sign_z[4]  = { -1.0f, +1.0f, -1.0f, +1.0f };
@@ -182,7 +184,8 @@ public:
       omega_est = velocity * tanf(steer_road_rad) / wheelbase;
       // Understeer gradient from axle cornering stiffness [rad·s²/m]
       const float k_us = mass * (weight_dist / c_f - (1.0f - weight_dist) / c_r);
-      float omega_ss = velocity * steer_road_rad / (wheelbase + k_us * velocity * velocity);
+      const float den_us = fmaxf(wheelbase + k_us * velocity * velocity, EPS); // K_us < 0 guard
+      float omega_ss = velocity * steer_road_rad / den_us;
       // Friction-limited yaw rate ceiling [rad/s]
       const float omega_max = mu * grav / fabsf(velocity);
       if (omega_ss >  omega_max) omega_ss =  omega_max;
@@ -196,6 +199,7 @@ public:
     const float yaw_rate_err = yaw_rate_target - yaw_rate;
     const float apex_mod = 1.0f - k_apex * expf(-yaw_accel * yaw_accel / (apex_threshold + EPS));
     mz_des = k_steer * steer + k_yaw_err * yaw_rate_err * apex_mod;
+    if (fabsf(velocity) < EPS) mz_des = 0.0f; // no torque split at standstill
 
     int mz_dir = (mz_des > 0.0f) ? 1 : 0;
     float dif_f = trq_cap[0 + mz_dir] - trq[0 + mz_dir];
@@ -204,14 +208,28 @@ public:
     if (dif_r < 0.0f) dif_r = 0.0f;
     float denom = dif_f + dif_r;
     float mz_rat = (fabsf(denom) > EPS) ? dif_f / denom : 0.5f;
-    float trq_dlt = mz_des * track * rad_wheel;
-    float trq_dlt_f = trq_dlt * mz_rat;
-    float trq_dlt_r = trq_dlt * (1.0f - mz_rat);
+    float trq_dlt = (track > EPS) ? mz_des * rad_wheel / track : 0.0f;
 
-    trq[0] -= trq_dlt_f;
-    trq[1] += trq_dlt_f;
-    trq[2] -= trq_dlt_r;
-    trq[3] += trq_dlt_r;
+    // Per-axle limit: gaining wheel's room up to +cap, losing wheel's room down to -cap
+    float lim_f = fminf(dif_f, trq[1 - mz_dir] + trq_cap[1 - mz_dir]);
+    float lim_r = fminf(dif_r, trq[3 - mz_dir] + trq_cap[3 - mz_dir]);
+    if (lim_f < 0.0f) lim_f = 0.0f;
+    if (lim_r < 0.0f) lim_r = 0.0f;
+    const float mz_sgn = (trq_dlt < 0.0f) ? -1.0f : 1.0f;
+    float trq_dlt_f = fabsf(trq_dlt) * mz_rat;
+    float trq_dlt_r = fabsf(trq_dlt) - trq_dlt_f;
+    float spill = 0.0f;
+    if (trq_dlt_f > lim_f) { spill += trq_dlt_f - lim_f; trq_dlt_f = lim_f; }
+    if (trq_dlt_r > lim_r) { spill += trq_dlt_r - lim_r; trq_dlt_r = lim_r; }
+    float give = fminf(spill, lim_f - trq_dlt_f);
+    trq_dlt_f += give;
+    spill -= give;
+    trq_dlt_r += fminf(spill, lim_r - trq_dlt_r); // remainder beyond both limits is dropped
+
+    trq[0] -= mz_sgn * trq_dlt_f;
+    trq[1] += mz_sgn * trq_dlt_f;
+    trq[2] -= mz_sgn * trq_dlt_r;
+    trq[3] += mz_sgn * trq_dlt_r;
 
     // RPM-adaptive slip correction per corner
     float wheel_speed[4];
@@ -227,21 +245,37 @@ public:
           : 0.0f;
     }
 
-    float total_before = trq[0] + trq[1] + trq[2] + trq[3];
+    // Slip backoff reduces the total and is not refunded; only clamp loss is redistributed
+    bool slipping[4];
+    float lost = 0.0f;
     for (int i = 0; i < 4; ++i) {
       float slip_delta = wheel_speed[i] - expected_speed[i];
-      trq[i] -= k_rpm * slip_delta;
+      slipping[i] = (trq[i] > 0.0f && slip_delta > 0.0f) || (trq[i] < 0.0f && slip_delta < 0.0f);
+      float clamped = trq[i];
+      if (clamped >  trq_cap[i]) clamped =  trq_cap[i];
+      if (clamped < -trq_cap[i]) clamped = -trq_cap[i];
+      lost += trq[i] - clamped;
+      trq[i] = clamped - k_rpm * slip_delta; // backoff from the clamped torque
       if (trq[i] >  trq_cap[i]) trq[i] =  trq_cap[i];
       if (trq[i] < -trq_cap[i]) trq[i] = -trq_cap[i];
     }
 
-    // Re-distribute clamping loss to preserve total torque request
-    float total_after = trq[0] + trq[1] + trq[2] + trq[3];
-    float correction = (total_before - total_after) * 0.25f;
-    for (int i = 0; i < 4; ++i) {
-      trq[i] += correction;
-      if (trq[i] >  trq_cap[i]) trq[i] =  trq_cap[i];
-      if (trq[i] < -trq_cap[i]) trq[i] = -trq_cap[i];
+    // Give clamp loss to non-slipping wheels in proportion to their room in that direction
+    for (int pass = 0; pass < 4 && fabsf(lost) > EPS; ++pass) {
+      const float sgn = (lost > 0.0f) ? 1.0f : -1.0f;
+      float room[4];
+      float room_sum = 0.0f;
+      for (int i = 0; i < 4; ++i) {
+        room[i] = slipping[i] ? 0.0f : trq_cap[i] - sgn * trq[i];
+        if (room[i] < 0.0f) room[i] = 0.0f;
+        room_sum += room[i];
+      }
+      if (room_sum <= EPS) break;
+      const float frac = fminf(fabsf(lost) / room_sum, 1.0f);
+      for (int i = 0; i < 4; ++i) {
+        trq[i] += sgn * room[i] * frac;
+        lost   -= sgn * room[i] * frac;
+      }
     }
 
     // Assign numerical values for GUI outputs
@@ -250,7 +284,7 @@ public:
       trq_reg[i] = (trq[i] < 0.0f) ? -trq[i] : 0.0f;
       tpb_fwd[i] = trq_fwd[i] / (trq_max * gear);
       tpb_reg[i] = 1.0f - trq_reg[i] / (trq_max * gear);
-      bpb[i] = 1.0f - (trq_reg[i] + brk[i]) / (brk_max + trq_max * gear);
+      bpb[i] = 1.0f - (trq_reg[i] + brk[i]) / (((i < 2) ? brk_max : brk_max_r) + trq_max * gear);
     }
   }
 };
