@@ -12,7 +12,7 @@
 ; Filename is the absolute path to the built engine_map.dll.
 
 [DLL Component Details]
-Filename=C:\Users\shira\vdc\build64\engine_map.dll
+Filename=C:\Users\shira\Documents\vdc\build64\engine_map.dll
 InputVarName=map_in
 OutputVarName=map_out
 FunctionName=map_step

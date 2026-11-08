@@ -13,7 +13,7 @@
 ; Filename is the absolute path to the built tv_engine.dll.
 
 [DLL Component Details]
-Filename=C:\Users\shira\vdc\build64\tv_engine.dll
+Filename=C:\Users\shira\Documents\vdc\build64\tv_engine.dll
 InputVarName=tv_in
 OutputVarName=tv_out
 FunctionName=tv_step

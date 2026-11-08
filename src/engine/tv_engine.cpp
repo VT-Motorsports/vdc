@@ -33,7 +33,7 @@ struct ImVec4 {
 
 extern "C" {
 
-// Exported signal-exchange instances (flat doubles), bound by name in tv_engine.cmp.
+// Exported signal-exchange instances (flat doubles), bound by name in tv_engine.txt.
 TV_ENGINE_API tv_engine_in_t  tv_in  = {};
 TV_ENGINE_API tv_engine_out_t tv_out = {};
 

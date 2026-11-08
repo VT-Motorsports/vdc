@@ -4,7 +4,7 @@
 // ChassisSim Engine component interface for the standalone tv_io torque
 // vectoring controller. Structured like the reference example's header
 // (Double_Trial.h): flat input/output structs of real_T, plus an initialize
-// and a step function. Bound by symbol name from tv_engine.cmp, so everything
+// and a step function. Bound by symbol name from tv_engine.txt, so everything
 // is exported with C linkage (stable Win64 C ABI across MinGW and the MSVC host).
 //
 #ifndef TV_ENGINE_H
@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 // External inputs (ChassisSim Engine signals we consume).
-// Field order MUST match the order of the InputVar lines in tv_engine.cmp.
+// Field order MUST match the order of the InputVar lines in tv_engine.txt.
 // The trailing comment on each field is the ChassisSim Engine signal index it
 // is wired to in that component file.
 typedef struct {
@@ -67,7 +67,7 @@ typedef struct {
   real_T trq_rr; // idx 6  [Nm]
 } tv_engine_out_t;
 
-// Signal-exchange instances bound by name in tv_engine.cmp.
+// Signal-exchange instances bound by name in tv_engine.txt.
 extern TV_ENGINE_API tv_engine_in_t  tv_in;
 extern TV_ENGINE_API tv_engine_out_t tv_out;
 

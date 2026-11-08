@@ -5,7 +5,7 @@
 // throttle and engine rpm in, four wheel torques out, nothing else. It shares
 // the export pattern of tv_engine (flat input/output structs of real_T plus a
 // step and an initialize function, all extern "C" and dllexported so the
-// component is bound by unmangled symbol name from engine_map.cmp), but is a
+// component is bound by unmangled symbol name from engine_map.txt), but is a
 // completely separate component -- it does not include or affect tv_engine or
 // tv_io in any way.
 //
@@ -25,7 +25,7 @@ extern "C" {
 #endif
 
 // External inputs. Field order MUST match the order of the InputVarN lines in
-// engine_map.cmp; the trailing comment is the Engine signal index each field is
+// engine_map.txt; the trailing comment is the Engine signal index each field is
 // wired to in that component file.
 typedef struct {
   real_T throttle;   // idx 0  [0..1]
@@ -40,7 +40,7 @@ typedef struct {
   real_T trq_rr; // idx 6  [Nm]
 } engine_map_out_t;
 
-// Signal-exchange instances bound by name in engine_map.cmp.
+// Signal-exchange instances bound by name in engine_map.txt.
 extern ENGINE_MAP_API engine_map_in_t  map_in;
 extern ENGINE_MAP_API engine_map_out_t map_out;
 

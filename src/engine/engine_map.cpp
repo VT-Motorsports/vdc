@@ -53,7 +53,7 @@ static real_T lookup_motor_torque(real_T rpm)
 
 extern "C" {
 
-// Exported signal-exchange instances (flat doubles), bound by name in engine_map.cmp.
+// Exported signal-exchange instances (flat doubles), bound by name in engine_map.txt.
 ENGINE_MAP_API engine_map_in_t  map_in  = {};
 ENGINE_MAP_API engine_map_out_t map_out = {};
 
