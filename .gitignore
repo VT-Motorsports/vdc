@@ -2,3 +2,5 @@ lib/*
 build/*
 examples/*.dat
 tires/*
+build64/
+imgui.ini

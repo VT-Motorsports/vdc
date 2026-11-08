@@ -9,8 +9,7 @@
 ; engine_map_in_t to the Engine signal index given as its value, InputVar1 the
 ; second, and so on. The struct field order in engine_map.h matches this list.
 ;
-; Filename is intentionally blank -- fill it in with the real path to
-; engine_map.dll.
+; Filename is the absolute path to the built engine_map.dll.
 
 [DLL Component Details]
 Filename=C:\Users\shira\vdc\build64\engine_map.dll

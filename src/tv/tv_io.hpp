@@ -69,6 +69,13 @@ public:
   float ext_fz[4]; // N, per-corner vertical load supplied externally (FL FR RL RR)
   bool use_ext_ax; // when true, ax_est is taken from ext_ax not the internal estimate
   float ext_ax; // m/s², longitudinal acceleration supplied externally
+  bool mz_off; // when true, no yaw moment is requested
+
+  // power limits and yaw accel state
+  bool endurance; // true: 15 kW per motor / 60 kW total, false: 25 kW / 80 kW
+  float dt; // [s], time between calculate_torques calls
+  float yaw_rate_prev; // [°/s]
+  bool have_yaw_prev;
 
   // load transfer and grip constants
   float mass; // [kg]
@@ -92,7 +99,7 @@ public:
     throttle = 0; // %
     front_torque = 30; // %
     front_brake = 70; // %
-    rad_wheel = 0.200; // m
+    rad_wheel = 0.2032f; // m
     brk_max = 599.3f; // Nm, front, per wheel
     brk_max_r = 213.5f; // Nm, rear, per wheel
     fx_max = 2000; // N, range of progress bars
@@ -117,11 +124,16 @@ public:
     for (int i = 0; i < 4; ++i) ext_fz[i] = 0.0f;
     use_ext_ax = false;
     ext_ax = 0.0f;
+    mz_off = false;
+    endurance = true;
+    dt = 0.001f; // s
+    yaw_rate_prev = 0.0f;
+    have_yaw_prev = false;
     mass = 294.8f; // kg
     h_cg = 0.234f; // m
     weight_dist = 0.492f; // front fraction
-    c_f = 40000.0f; // N/rad, front axle
-    c_r = 50000.0f; // N/rad, rear axle
+    c_f = 32000.0f; // N/rad, front axle
+    c_r = 38000.0f; // N/rad, rear axle
     mu = 1.7f; // [-]
     grav = 9.81f; // m/s²
 
@@ -133,10 +145,29 @@ public:
     col_corn = ImVec4(0.7f, 0.1f, 0.7f, 1.0f);
   }
 
+  // Motor shaft torque [Nm] per motor against motor rpm, zero above the rev limit
+  float motor_trq(float rpm_m) const {
+    static const float bp[]  = { 0.0f, 11000.0f, 12000.0f, 14000.0f, 16000.0f, 18000.0f, 20000.0f };
+    static const float trq_bp[] = { 31.6f, 31.6f, 31.0f, 29.0f, 25.0f, 21.0f, 18.0f };
+    const float r = fabsf(rpm_m);
+    if (r > bp[6]) return 0.0f;
+    for (int k = 0; k < 6; ++k) {
+      if (r <= bp[k + 1]) return trq_bp[k] + (r - bp[k]) / (bp[k + 1] - bp[k]) * (trq_bp[k + 1] - trq_bp[k]);
+    }
+    return trq_bp[6];
+  }
+
   // Calculate torques, this algorithm should be capable to embed on a microcontroller
   void calculate_torques(){
 
     const float EPS = 1.0e-4f;
+    const float RPM_TO_RADPS = 2.0f * M_PI / 60.0f;
+    const float p_motor = endurance ? 15000.0f : 25000.0f; // W
+    const float p_total = endurance ? 60000.0f : 80000.0f; // W
+
+    if (have_yaw_prev && dt > EPS) yaw_accel = (yaw_rate - yaw_rate_prev) / dt;
+    yaw_rate_prev = yaw_rate;
+    have_yaw_prev = true;
 
     // Determine even torque/brake distribution per wheel
     for (int i = 0; i < 4; ++i) {
@@ -173,7 +204,10 @@ public:
       if (fz[i] < 0.0f) fz[i] = 0.0f; // a lifted wheel carries no load
       // Grip-limited corner torque, never above the actuator ceiling
       trq_cap[i] = mu * fz[i] * rad_wheel;
-      const float act_lim = trq_max * gear;
+      const float w_motor = fabsf(rpm[i]) * RPM_TO_RADPS;
+      float trq_motor = motor_trq(rpm[i]);
+      if (w_motor > EPS && trq_motor > p_motor / w_motor) trq_motor = p_motor / w_motor;
+      const float act_lim = trq_motor * gear;
       if (trq_cap[i] > act_lim) trq_cap[i] = act_lim;
     }
 
@@ -199,7 +233,7 @@ public:
     const float yaw_rate_err = yaw_rate_target - yaw_rate;
     const float apex_mod = 1.0f - k_apex * expf(-yaw_accel * yaw_accel / (apex_threshold + EPS));
     mz_des = k_steer * steer + k_yaw_err * yaw_rate_err * apex_mod;
-    if (fabsf(velocity) < EPS) mz_des = 0.0f; // no torque split at standstill
+    if (fabsf(velocity) < EPS || mz_off) mz_des = 0.0f; // no torque split at standstill or when disabled
 
     int mz_dir = (mz_des > 0.0f) ? 1 : 0;
     float dif_f = trq_cap[0 + mz_dir] - trq[0 + mz_dir];
@@ -275,6 +309,18 @@ public:
       for (int i = 0; i < 4; ++i) {
         trq[i] += sgn * room[i] * frac;
         lost   -= sgn * room[i] * frac;
+      }
+    }
+
+    // Total drive power limit, sum of T_wheel * w_wheel over the driving corners
+    float p_drive = 0.0f;
+    for (int i = 0; i < 4; ++i) {
+      if (trq[i] > 0.0f) p_drive += trq[i] * fabsf(rpm[i]) * RPM_TO_RADPS / gear;
+    }
+    if (p_drive > p_total) {
+      const float scale = p_total / p_drive;
+      for (int i = 0; i < 4; ++i) {
+        if (trq[i] > 0.0f) trq[i] *= scale;
       }
     }
 

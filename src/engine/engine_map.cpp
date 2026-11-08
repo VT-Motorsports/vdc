@@ -1,46 +1,54 @@
 //
 // File: engine_map.cpp
 //
-// Minimal ChassisSim Engine component for debugging the DLL pipeline: the step
-// function is nothing but throttle x a torque looked up against engine rpm,
-// split evenly over the four wheels. No torque vectoring, no load transfer, no
-// yaw logic, and no dependency on tv_io or tv_engine.
+// Minimal ChassisSim Engine component for debugging the DLL pipeline: throttle
+// x the power-limited motor torque at the given rpm, split evenly over the four
+// wheels. No torque vectoring, no load transfer, no yaw logic, and no
+// dependency on tv_io or tv_engine.
 //
 // ChassisSim binds the component by symbol name
 // (InputVarName/OutputVarName/FunctionName), which requires flat exported
 // symbols, so the structs and functions are global with C linkage.
 //
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "engine_map.h"
 
-// Wide-open-throttle total wheel torque against motor rpm. Monotonically
-// increasing breakpoints; values between points are linearly interpolated and
-// values outside the ends are clamped to the first / last entry.
-// Assumes 4 motors, gear 12.875, and engine_rpm input = motor rpm: total = per-motor torque x 12.875 x 4.
-static const real_T kRpmBp[]  = {    0.0, 11000.0, 12000.0, 14000.0, 16000.0, 18000.0, 20000.0 };
-static const real_T kTrqWot[] = { 1627.4,  1627.4,  1596.5,  1493.5,  1287.5,  1081.5,   927.0 }; // [Nm] total at the wheels
+static const real_T kGear      = 12.875;
+static const real_T kNumMotors = 4.0;
+static const real_T kRevLimit  = 20000.0; // [rpm]
+
+// true: 15 kW per motor / 60 kW total. false: 25 kW / 80 kW.
+static const bool kEndurance = true;
+static const real_T kPowerMotor = kEndurance ? 15000.0 : 25000.0; // [W]
+static const real_T kPowerTotal = kEndurance ? 60000.0 : 80000.0; // [W]
+
+// Per-motor torque at the motor shaft against motor rpm (engine_rpm input =
+// motor rpm). Linearly interpolated, clamped below 0 rpm, zero above kRevLimit.
+static const real_T kRpmBp[]    = { 0.0, 11000.0, 12000.0, 14000.0, 16000.0, 18000.0, 20000.0 };
+static const real_T kTrqMotor[] = { 31.6,   31.6,    31.0,    29.0,    25.0,    21.0,    18.0 }; // [Nm]
 static const int kNumBp = (int)(sizeof(kRpmBp) / sizeof(kRpmBp[0]));
 
-// Linear interpolation of the table above at the given rpm, clamped at both ends.
-static real_T lookup_wot_torque(real_T rpm)
+static real_T lookup_motor_torque(real_T rpm)
 {
-  if (rpm <= kRpmBp[0]) {
-    return kTrqWot[0];
+  if (rpm > kRevLimit) {
+    return 0.0;
   }
-  if (rpm >= kRpmBp[kNumBp - 1]) {
-    return kTrqWot[kNumBp - 1];
+  if (rpm <= kRpmBp[0]) {
+    return kTrqMotor[0];
   }
 
   for (int i = 0; i < kNumBp - 1; ++i) {
     if (rpm <= kRpmBp[i + 1]) {
       const real_T span = kRpmBp[i + 1] - kRpmBp[i];
       const real_T frac = (span > 0.0) ? (rpm - kRpmBp[i]) / span : 0.0;
-      return kTrqWot[i] + frac * (kTrqWot[i + 1] - kTrqWot[i]);
+      return kTrqMotor[i] + frac * (kTrqMotor[i + 1] - kTrqMotor[i]);
     }
   }
 
-  // Unreachable given the clamps above; keep the last value for safety.
-  return kTrqWot[kNumBp - 1];
+  return kTrqMotor[kNumBp - 1];
 }
 
 extern "C" {
@@ -53,21 +61,31 @@ ENGINE_MAP_API engine_map_out_t map_out = {};
 // not call this; the table is static and needs no setup.
 ENGINE_MAP_API void map_initialize(void)
 {
-  // (no initialization code required)
 }
 
 // Step function: read map_in, evaluate the map, write map_out.
 ENGINE_MAP_API void map_step(void)
 {
-  // Throttle arrives as 0..1; guard against out-of-range demands.
   real_T throttle = map_in.throttle;
   if (throttle < 0.0) throttle = 0.0;
   if (throttle > 1.0) throttle = 1.0;
 
-  const real_T trq_total   = throttle * lookup_wot_torque(map_in.engine_rpm);
-  const real_T trq_corner  = 0.25 * trq_total;
+  const real_T rpm   = map_in.engine_rpm;
+  const real_T omega = std::fabs(rpm) * (2.0 * M_PI / 60.0); // [rad/s] motor
 
-  // Even split across the four wheels, order FL FR RL RR.
+  real_T trq_motor = lookup_motor_torque(rpm);
+  if (omega > 1.0e-6 && trq_motor > kPowerMotor / omega) {
+    trq_motor = kPowerMotor / omega;
+  }
+
+  real_T trq_total = kNumMotors * trq_motor;
+  if (omega > 1.0e-6 && trq_total > kPowerTotal / omega) {
+    trq_total = kPowerTotal / omega;
+  }
+
+  // Even split across the four wheels, order FL FR RL RR, at the wheel.
+  const real_T trq_corner = throttle * trq_total * kGear / kNumMotors;
+
   map_out.trq_fl = trq_corner;
   map_out.trq_fr = trq_corner;
   map_out.trq_rl = trq_corner;

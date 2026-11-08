@@ -133,6 +133,9 @@ void gui_tv(tv_io &io){
   ImGui::SliderFloat("k_rpm##tv", &io.k_rpm, 0.0f, 20.0f, "k_rpm  %.2f Nm.s/m");
   ImGui::PopItemWidth();
 
+  ImGui::SeparatorText("Power Limit");
+  ImGui::Checkbox("Endurance (15 kW / 60 kW)##tv", &io.endurance);
+
   // Load transfer and grip constants
   ImGui::SeparatorText("Load Transfer / Grip");
   ImGui::PushItemWidth(full_w);

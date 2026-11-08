@@ -85,8 +85,10 @@ TV_ENGINE_API void tv_step(void)
   tv.rpm[3] = w_rr * rpm_per_radps;
 
   // --- real per-corner vertical loads [N] feed the grip caps directly, in place
-  // of tv_io's internal load-transfer model (order FL FR RL RR) ---
-  tv.use_ext_loads = true;
+  // of tv_io's internal load-transfer model (order FL FR RL RR). All four at 0
+  // means the signal is missing, so the internal model is used instead ---
+  tv.use_ext_loads = !(tv_in.wheel_load_fl == 0.0 && tv_in.wheel_load_fr == 0.0 &&
+                       tv_in.wheel_load_rl == 0.0 && tv_in.wheel_load_rr == 0.0);
   tv.ext_fz[0] = (float)tv_in.wheel_load_fl;
   tv.ext_fz[1] = (float)tv_in.wheel_load_fr;
   tv.ext_fz[2] = (float)tv_in.wheel_load_rl;
@@ -103,16 +105,20 @@ TV_ENGINE_API void tv_step(void)
   // (its zero-initialised value) until that index is confirmed.
   tv.steer = (float)tv_in.steer * (180.0f / (float)M_PI) * tv.steering_ratio;
 
+  // With no steer or yaw rate signal the target is 0, which would only damp rotation.
+  tv.mz_off = (tv_in.steer == 0.0 && tv_in.yaw_rate == 0.0);
+
   // NOTE: tv_in.lat_accel is reserved for an unresolved Engine index and is not
   // yet consumed (tv_io has no external lateral-accel hook); defaulted to 0.
 
   tv.calculate_torques();
 
   // --- publish wheel torques [Nm], order FL FR RL RR ---
-  tv_out.trq_fl = tv.trq[0];
-  tv_out.trq_fr = tv.trq[1];
-  tv_out.trq_rl = tv.trq[2];
-  tv_out.trq_rr = tv.trq[3];
+  // No regen; ChassisSim applies the friction brakes itself.
+  tv_out.trq_fl = (tv.trq[0] > 0.0f) ? tv.trq[0] : 0.0;
+  tv_out.trq_fr = (tv.trq[1] > 0.0f) ? tv.trq[1] : 0.0;
+  tv_out.trq_rl = (tv.trq[2] > 0.0f) ? tv.trq[2] : 0.0;
+  tv_out.trq_rr = (tv.trq[3] > 0.0f) ? tv.trq[3] : 0.0;
 }
 
 } // extern "C"

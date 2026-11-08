@@ -58,6 +58,7 @@ using json = nlohmann::json;
 int main(){
 	gui_io io;
   tv_io ioo;
+  ioo.endurance = false;
   // io.ymdio.update = true;
   io.ymdio.ax_plot = 1;
 	

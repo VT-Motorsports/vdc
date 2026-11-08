@@ -2,6 +2,10 @@
 cmake_minimum_required(VERSION 3.28)
 project(vdc)
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
+
 add_compile_options(-Wno-all) # disable warnings
 
 set(CMAKE_CXX_STANDARD 17)
@@ -68,6 +72,7 @@ set_target_properties(tv_engine PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
 )
+target_link_options(tv_engine PRIVATE -static -static-libgcc -static-libstdc++)
 
 
 # --- ChassisSim engine map component (standalone Win64 DLL) -----------------
@@ -84,3 +89,4 @@ set_target_properties(engine_map PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
 )
+target_link_options(engine_map PRIVATE -static -static-libgcc -static-libstdc++)
