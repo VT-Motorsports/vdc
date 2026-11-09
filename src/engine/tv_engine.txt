@@ -8,7 +8,7 @@
 ; InputVarN / OutputVarN are positional: InputVar0 maps the first field of
 ; tv_engine_in_t to the Engine signal index given as its value, InputVar1 the
 ; second, and so on. The struct field order in tv_engine.h matches this list.
-; steer, yaw_rate and lat_accel sit after the mapped fields and have no entry.
+; OutputVar left/right swap is intentional: ChassisSim mirrors DLL wheel torques.
 ;
 ; Filename is the absolute path to the built tv_engine.dll.
 
@@ -19,32 +19,17 @@ OutputVarName=tv_out
 FunctionName=tv_step
 InitFnFlg=0
 InitFuncName=
-NoInputVar=23
+NoInputVar=8
 InputVar0=0
 InputVar1=2
 InputVar2=3
 InputVar3=4
 InputVar4=5
-InputVar5=6
-InputVar6=7
-InputVar7=8
-InputVar8=9
-InputVar9=10
-InputVar10=11
-InputVar11=12
-InputVar12=13
-InputVar13=14
-InputVar14=15
-InputVar15=16
-InputVar16=17
-InputVar17=18
-InputVar18=19
-InputVar19=20
-InputVar20=21
-InputVar21=22
-InputVar22=23
+InputVar5=22
+InputVar6=25
+InputVar7=23
 NoOutputVar=4
-OutputVar0=3
-OutputVar1=4
-OutputVar2=5
-OutputVar3=6
+OutputVar0=4
+OutputVar1=3
+OutputVar2=6
+OutputVar3=5

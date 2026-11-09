@@ -1,6 +1,8 @@
 #ifndef TV_IO_HPP
 #define TV_IO_HPP
 
+enum yaw_target_t { YAW_TGT_STEER, YAW_TGT_LAT_ACCEL };
+
 class tv_io {
 public:
   // shared color data
@@ -65,11 +67,15 @@ public:
 
   // external override hooks (set only by the embedded/ChassisSim wrapper; left
   // off for the desktop GUI and standalone use so behaviour is bit-for-bit unchanged)
-  bool use_ext_loads; // when true, fz[] is taken from ext_fz[] not the internal transfer
-  float ext_fz[4]; // N, per-corner vertical load supplied externally (FL FR RL RR)
   bool use_ext_ax; // when true, ax_est is taken from ext_ax not the internal estimate
   float ext_ax; // m/s², longitudinal acceleration supplied externally
-  bool mz_off; // when true, no yaw moment is requested
+  bool use_ext_ay; // when true, ay_est is taken from ext_ay not velocity * yaw_rate
+  float ext_ay; // m/s², lateral acceleration supplied externally
+
+  // yaw target source: steer (GUI) or measured lateral accel (DLL)
+  yaw_target_t yaw_target_mode;
+  float k_yaw_dll; // [-], yaw moment multiplier in lat_accel mode
+  float v_yaw_min; // [m/s], no yaw moment below this speed in lat_accel mode
 
   // power limits and yaw accel state
   bool endurance; // true: 15 kW per motor / 60 kW total, false: 25 kW / 80 kW
@@ -120,11 +126,13 @@ public:
     apex_threshold = 100.0f; // °²/s⁴
 
     for (int i = 0; i < 4; ++i) { fz[i] = 0.0f; trq_cap[i] = 0.0f; }
-    use_ext_loads = false;
-    for (int i = 0; i < 4; ++i) ext_fz[i] = 0.0f;
     use_ext_ax = false;
     ext_ax = 0.0f;
-    mz_off = false;
+    use_ext_ay = false;
+    ext_ay = 0.0f;
+    yaw_target_mode = YAW_TGT_STEER;
+    k_yaw_dll = 0.5f;
+    v_yaw_min = 3.0f; // m/s
     endurance = true;
     dt = 0.001f; // s
     yaw_rate_prev = 0.0f;
@@ -188,19 +196,15 @@ public:
     float fx_net = 0.0f;
     for (int i = 0; i < 4; ++i) fx_net += (trq[i] - brk[i]) / rad_wheel;
     const float ax_est = use_ext_ax ? ext_ax : (fx_net / mass); // long. accel: external when supplied, else from net drive/brake demand
-    const float ay_est = velocity * (yaw_rate * (M_PI / 180.0f)); // lat. accel from velocity & yaw rate
+    const float ay_est = use_ext_ay ? ext_ay : velocity * (yaw_rate * (M_PI / 180.0f)); // lat. accel: external when supplied, else from velocity & yaw rate
     const float dz_lat_f = weight_dist          * mass * ay_est * h_cg / track;
     const float dz_lat_r = (1.0f - weight_dist) * mass * ay_est * h_cg / track;
     const float dz_long  = mass * ax_est * h_cg / wheelbase * 0.5f;
     for (int i = 0; i < 4; ++i) {
-      if (use_ext_loads) {
-        fz[i] = ext_fz[i]; // real per-corner load supplied externally
-      } else {
-        float fz_st  = ((i < 2) ? weight_dist : (1.0f - weight_dist)) * mass * grav * 0.5f;
-        float fz_lat = lat_sign_z[i]  * ((i < 2) ? dz_lat_f : dz_lat_r);
-        float fz_lng = long_sign_z[i] * dz_long;
-        fz[i] = fz_st + fz_lat + fz_lng;
-      }
+      float fz_st  = ((i < 2) ? weight_dist : (1.0f - weight_dist)) * mass * grav * 0.5f;
+      float fz_lat = lat_sign_z[i]  * ((i < 2) ? dz_lat_f : dz_lat_r);
+      float fz_lng = long_sign_z[i] * dz_long;
+      fz[i] = fz_st + fz_lat + fz_lng;
       if (fz[i] < 0.0f) fz[i] = 0.0f; // a lifted wheel carries no load
       // Grip-limited corner torque, never above the actuator ceiling
       trq_cap[i] = mu * fz[i] * rad_wheel;
@@ -214,7 +218,10 @@ public:
     // Single-track yaw rate target with understeer gradient and friction cap
     const float steer_road_rad = steer * (M_PI / 180.0f) / steering_ratio;
     float omega_est = 0.0f; // kinematic estimate, reused for wheel-speed expectations
-    if (fabsf(velocity) > EPS && fabsf(wheelbase) > EPS) {
+    if (yaw_target_mode == YAW_TGT_LAT_ACCEL) {
+      omega_est = (fabsf(velocity) > EPS) ? ext_ay / velocity : 0.0f;
+      yaw_rate_target = omega_est * (180.0f / M_PI);
+    } else if (fabsf(velocity) > EPS && fabsf(wheelbase) > EPS) {
       omega_est = velocity * tanf(steer_road_rad) / wheelbase;
       // Understeer gradient from axle cornering stiffness [rad·s²/m]
       const float k_us = mass * (weight_dist / c_f - (1.0f - weight_dist) / c_r);
@@ -233,7 +240,11 @@ public:
     const float yaw_rate_err = yaw_rate_target - yaw_rate;
     const float apex_mod = 1.0f - k_apex * expf(-yaw_accel * yaw_accel / (apex_threshold + EPS));
     mz_des = k_steer * steer + k_yaw_err * yaw_rate_err * apex_mod;
-    if (fabsf(velocity) < EPS || mz_off) mz_des = 0.0f; // no torque split at standstill or when disabled
+    if (yaw_target_mode == YAW_TGT_LAT_ACCEL) {
+      mz_des *= k_yaw_dll;
+      if (fabsf(velocity) < v_yaw_min) mz_des = 0.0f;
+    }
+    if (fabsf(velocity) < EPS) mz_des = 0.0f; // no torque split at standstill
 
     int mz_dir = (mz_des > 0.0f) ? 1 : 0;
     float dif_f = trq_cap[0 + mz_dir] - trq[0 + mz_dir];
