@@ -74,7 +74,7 @@ public:
 
   // yaw target source: steer (GUI) or measured lateral accel (DLL)
   yaw_target_t yaw_target_mode;
-  float k_yaw_dll; // [-], yaw moment multiplier in lat_accel mode
+  float k_mz_ay; // [Nm/(m/s²)], yaw moment per lateral accel in lat_accel mode
   float v_yaw_min; // [m/s], no yaw moment below this speed in lat_accel mode
 
   // power limits and yaw accel state
@@ -131,7 +131,7 @@ public:
     use_ext_ay = false;
     ext_ay = 0.0f;
     yaw_target_mode = YAW_TGT_STEER;
-    k_yaw_dll = 0.5f;
+    k_mz_ay = 0.0f;
     v_yaw_min = 3.0f; // m/s
     endurance = true;
     dt = 0.001f; // s
@@ -238,11 +238,13 @@ public:
 
     // Approximate desired yaw moment based on inputs
     const float yaw_rate_err = yaw_rate_target - yaw_rate;
-    const float apex_mod = 1.0f - k_apex * expf(-yaw_accel * yaw_accel / (apex_threshold + EPS));
-    mz_des = k_steer * steer + k_yaw_err * yaw_rate_err * apex_mod;
-    if (yaw_target_mode == YAW_TGT_LAT_ACCEL) {
-      mz_des *= k_yaw_dll;
+    const bool lat_mode = (yaw_target_mode == YAW_TGT_LAT_ACCEL);
+    const float apex_mod = lat_mode ? 1.0f : 1.0f - k_apex * expf(-yaw_accel * yaw_accel / (apex_threshold + EPS));
+    if (lat_mode) {
+      mz_des = k_mz_ay * ext_ay;
       if (fabsf(velocity) < v_yaw_min) mz_des = 0.0f;
+    } else {
+      mz_des = k_steer * steer + k_yaw_err * yaw_rate_err * apex_mod;
     }
     if (fabsf(velocity) < EPS) mz_des = 0.0f; // no torque split at standstill
 

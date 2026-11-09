@@ -32,7 +32,7 @@ static const double kGravity           = 9.81; // ay_g input -> m/s^2
 
 static const int kLogFlushRows = 100;
 
-static double g_k_yaw_dll = 0.5;
+static double g_k_mz_ay   = 0.0;
 static bool   g_debug_log = false;
 static int    g_log_every = 1000;
 static double g_ay_sign   = 1.0;
@@ -86,7 +86,7 @@ static void config_load(void)
     char *end;
     double x = strtod(val, &end);
     if (end == val) continue;
-    if (strcmp(key, "k_yaw_dll") == 0) g_k_yaw_dll = x;
+    if (strcmp(key, "k_mz_ay") == 0) g_k_mz_ay = x;
     else if (strcmp(key, "debug_log") == 0) g_debug_log = (x != 0.0);
     else if (strcmp(key, "log_every") == 0 && x >= 1.0) g_log_every = (int)x;
     else if (strcmp(key, "ay_sign") == 0) g_ay_sign = x;
@@ -127,7 +127,7 @@ BOOL WINAPI DllMain(HINSTANCE inst, DWORD reason, LPVOID)
 static void init_once(void)
 {
   config_load();
-  tv.k_yaw_dll = (float)g_k_yaw_dll;
+  tv.k_mz_ay = (float)g_k_mz_ay;
 }
 
 TV_ENGINE_API void tv_initialize(void)
