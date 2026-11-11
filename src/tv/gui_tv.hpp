@@ -141,6 +141,7 @@ void gui_tv(tv_io &io){
   ImGui::PushItemWidth(full_w);
   ImGui::SliderFloat("mass##tv",        &io.mass,           100.0f,   400.0f, "mass  %.0f kg");
   ImGui::SliderFloat("h_cg##tv",        &io.h_cg,             0.10f,    0.60f, "h_cg  %.3f m");
+  ImGui::SliderFloat("lltd_f##tv", &io.lltd_f, 0.30f, 0.70f, "lltd_f  %.3f");
   ImGui::SliderFloat("weight_dist##tv", &io.weight_dist,      0.30f,    0.70f, "wt_f  %.3f");
   ImGui::SliderFloat("mu##tv",          &io.mu,               0.50f,    2.00f, "mu    %.2f");
   ImGui::SliderFloat("c_f##tv",         &io.c_f,          10000.0f, 100000.0f, "c_f   %.0f N/rad");

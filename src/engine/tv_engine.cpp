@@ -37,6 +37,8 @@ static bool   g_debug_log = false;
 static int    g_log_every = 1000;
 static double g_ay_sign   = 1.0;
 static double g_ax_scale  = 1.0;
+static bool   g_have_lltd = false; // lltd_f stays at the tv_io default unless set
+static double g_lltd_f    = 0.0;
 
 static HMODULE   g_module     = NULL;
 static bool      g_cfg_loaded = false;
@@ -91,6 +93,7 @@ static void config_load(void)
     else if (strcmp(key, "log_every") == 0 && x >= 1.0) g_log_every = (int)x;
     else if (strcmp(key, "ay_sign") == 0) g_ay_sign = x;
     else if (strcmp(key, "ax_scale") == 0) g_ax_scale = x;
+    else if (strcmp(key, "lltd_f") == 0 && x >= 0.0 && x <= 1.0) { g_lltd_f = x; g_have_lltd = true; }
   }
   fclose(f);
 }
@@ -128,6 +131,7 @@ static void init_once(void)
 {
   config_load();
   tv.k_mz_ay = (float)g_k_mz_ay;
+  if (g_have_lltd) tv.lltd_f = (float)g_lltd_f;
 }
 
 TV_ENGINE_API void tv_initialize(void)

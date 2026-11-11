@@ -86,6 +86,7 @@ public:
   // load transfer and grip constants
   float mass; // [kg]
   float h_cg; // CG height [m]
+  float lltd_f; // front share of total lateral load transfer [-], 0 to 1
   float weight_dist; // front weight fraction [-]
   float c_f; // front axle cornering stiffness [N/rad]
   float c_r; // rear axle cornering stiffness [N/rad]
@@ -140,6 +141,7 @@ public:
     mass = 294.8f; // kg
     h_cg = 0.234f; // m
     weight_dist = 0.492f; // front fraction
+    lltd_f = 0.492f; // front LLTD, defaults to weight_dist
     c_f = 32000.0f; // N/rad, front axle
     c_r = 38000.0f; // N/rad, rear axle
     mu = 1.7f; // [-]
@@ -197,8 +199,8 @@ public:
     for (int i = 0; i < 4; ++i) fx_net += (trq[i] - brk[i]) / rad_wheel;
     const float ax_est = use_ext_ax ? ext_ax : (fx_net / mass); // long. accel: external when supplied, else from net drive/brake demand
     const float ay_est = use_ext_ay ? ext_ay : velocity * (yaw_rate * (M_PI / 180.0f)); // lat. accel: external when supplied, else from velocity & yaw rate
-    const float dz_lat_f = weight_dist          * mass * ay_est * h_cg / track;
-    const float dz_lat_r = (1.0f - weight_dist) * mass * ay_est * h_cg / track;
+    const float dz_lat_f = lltd_f          * mass * ay_est * h_cg / track;
+    const float dz_lat_r = (1.0f - lltd_f) * mass * ay_est * h_cg / track;
     const float dz_long  = mass * ax_est * h_cg / wheelbase * 0.5f;
     for (int i = 0; i < 4; ++i) {
       float fz_st  = ((i < 2) ? weight_dist : (1.0f - weight_dist)) * mass * grav * 0.5f;
