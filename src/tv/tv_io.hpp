@@ -255,7 +255,7 @@ public:
     if (dif_r < 0.0f) dif_r = 0.0f;
     float denom = dif_f + dif_r;
     float mz_rat = (fabsf(denom) > EPS) ? dif_f / denom : 0.5f;
-    float trq_dlt = (track > EPS) ? mz_des * rad_wheel / track : 0.0f;
+    float trq_dlt = (track > EPS && !lat_mode) ? mz_des * rad_wheel / track : 0.0f; // lat_accel shifts after allocation
 
     // Per-axle limit: gaining wheel's room up to +cap, losing wheel's room down to -cap
     float lim_f = fminf(dif_f, trq[1 - mz_dir] + trq_cap[1 - mz_dir]);
@@ -322,6 +322,27 @@ public:
       for (int i = 0; i < 4; ++i) {
         trq[i] += sgn * room[i] * frac;
         lost   -= sgn * room[i] * frac;
+      }
+    }
+
+    // lat_accel: zero-sum left/right shift per axle, outside wheel up to its cap
+    // (none if slipping), inside wheel not below zero; whatever does not fit is dropped
+    if (lat_mode && mz_des != 0.0f && track > EPS) {
+      const int out = (mz_des > 0.0f) ? 1 : 0;
+      float lim[2];
+      for (int a = 0; a < 2; ++a) {
+        lim[a] = slipping[2 * a + out] ? 0.0f
+               : fminf(trq_cap[2 * a + out] - trq[2 * a + out], trq[2 * a + 1 - out]);
+        if (lim[a] < 0.0f) lim[a] = 0.0f;
+      }
+      const float lim_sum = lim[0] + lim[1];
+      if (lim_sum > EPS) {
+        const float frac = fminf(fabsf(mz_des) * rad_wheel / track / lim_sum, 1.0f);
+        for (int a = 0; a < 2; ++a) {
+          const float d = lim[a] * frac;
+          trq[2 * a + out]     = fminf(trq[2 * a + out] + d, trq_cap[2 * a + out]);
+          trq[2 * a + 1 - out] = fmaxf(trq[2 * a + 1 - out] - d, 0.0f);
+        }
       }
     }
 
